@@ -1,5 +1,6 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -15,9 +16,10 @@ public class Team {
     private String teamLeader;
     private boolean enable;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonBackReference(value = "team")
     private List<Student> students;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+//    @JsonBackReference(value = "team")
     @JsonIgnore
     private List<Project> projects;
 

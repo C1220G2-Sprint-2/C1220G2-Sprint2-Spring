@@ -1,5 +1,6 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -16,10 +17,12 @@ public class Project {
     private String content;
     private String description;
     private String image;
-    private Date deadline;
+    @Column(columnDefinition = "Date")
+    private String deadline;
     private boolean status;
     private boolean enable;
-    private Date registerDate;
+    @Column(columnDefinition = "Date")
+    private String registerDate;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -32,7 +35,7 @@ public class Project {
     private Team team;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonBackReference(value = "project")
     private List<ReportProgress> reportProgresses;
 
     public Long getId() {
@@ -75,11 +78,11 @@ public class Project {
         this.image = image;
     }
 
-    public Date getDeadline() {
+    public String getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(Date deadline) {
+    public void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 
@@ -99,11 +102,11 @@ public class Project {
         this.enable = enable;
     }
 
-    public Date getRegisterDate() {
+    public String getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(Date registerDate) {
+    public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
     }
 
