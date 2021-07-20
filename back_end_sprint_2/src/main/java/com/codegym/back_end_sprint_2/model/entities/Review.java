@@ -1,6 +1,7 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Review {
@@ -13,6 +14,9 @@ public class Review {
     private String attachFile;
     private boolean enable;
     private Integer progressReview;
+    //code from sang
+    private LocalDateTime dateCreate;
+    //end code from sang
     @ManyToOne
     @JoinColumn(name = "teacher_code")
     private Teacher teacher;
@@ -21,6 +25,17 @@ public class Review {
     private Notification notification;
 
     public Review() {
+    }
+
+    public Review(String title, String content, String attachFile, boolean enable, Integer progressReview, Teacher teacher, Notification notification, LocalDateTime dateCreate) {
+        this.title = title;
+        this.content = content;
+        this.attachFile = attachFile;
+        this.enable = enable;
+        this.progressReview = progressReview;
+        this.teacher = teacher;
+        this.notification = notification;
+        this.dateCreate = dateCreate;
     }
 
     public Long getId() {
@@ -85,5 +100,13 @@ public class Review {
 
     public void setNotification(Notification notification) {
         this.notification = notification;
+    }
+
+    public LocalDateTime getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(LocalDateTime dateCreate) {
+        this.dateCreate = dateCreate;
     }
 }
