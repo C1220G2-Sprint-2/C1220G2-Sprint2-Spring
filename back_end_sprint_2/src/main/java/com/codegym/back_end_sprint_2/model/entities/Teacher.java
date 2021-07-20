@@ -9,8 +9,8 @@ import java.util.List;
 public class Teacher {
 
     @Id
-    private String code;
-    private String name;
+    private String teacher_code;
+    private String teacher_name;
     private String dateOfBirth;
     private String gender;
     private String phone;
@@ -47,19 +47,19 @@ public class Teacher {
     }
 
     public String getCode() {
-        return code;
+        return teacher_code;
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.teacher_code = code;
     }
 
     public String getName() {
-        return name;
+        return teacher_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.teacher_name = name;
     }
 
     public String getDateOfBirth() {
