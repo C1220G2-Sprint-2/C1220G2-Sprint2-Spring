@@ -7,12 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.Comparator;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200/")
-@RequestMapping("/api/team")
+@RequestMapping("/api/project")
 public class ProjectController {
 
     @Autowired
@@ -25,6 +26,8 @@ public class ProjectController {
     private IProjectService projectService;
     @Autowired
     private ITeamService teamService;
+    @Autowired
+    private IMailService mailService;
 
     @GetMapping("/listStudent")
     public ResponseEntity<List<Student>> listMeetingRoom() {
@@ -50,15 +53,25 @@ public class ProjectController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @PostMapping("/postTeam")
-    public ResponseEntity<Team> save(@RequestBody TeamDto teamDto) {
-        Team team = teamService.teamMapping(teamDto);
-        teamService.save(team);
-        for (int i=0; i< teamDto.getListTeam().size();i++) {
-            teamDto.getListTeam().get(i).setTeam(team);
-            studentService.save(teamDto.getListTeam().get(i));
+    @GetMapping("/student")
+    public ResponseEntity<Student> getStudent(
+            @RequestParam(value = "codeStudent") String codeStudent
+    ) {
+        Student student = studentService.findByCode(codeStudent);
+        if (student == null) {
+            return   new ResponseEntity<>( HttpStatus.FOUND);
         }
-
-        return new ResponseEntity<>(team, HttpStatus.CREATED);
+        return new ResponseEntity<>(student, HttpStatus.OK);
     }
+
+//    @GetMapping("/studentOnTeam")
+//    public ResponseEntity<Student> getStudent(
+//            @RequestParam(value = "codeStudent") String codeStudent
+//    ) {
+//        Student student = studentService.findByCode(codeStudent);
+//        if (student == null) {
+//            return   new ResponseEntity<>( HttpStatus.FOUND);
+//        }
+//        return new ResponseEntity<>(student, HttpStatus.OK);
+//    }
 }

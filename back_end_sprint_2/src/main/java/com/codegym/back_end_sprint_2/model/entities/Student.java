@@ -16,7 +16,8 @@ public class Student {
     private String address;
     private String twitter;
     private String facebook;
-    private String groupStatus;
+    @Column(columnDefinition = "Double default 0.5")
+    private Double groupStatus;
     private boolean enable;
     private boolean status;
     @ManyToOne
@@ -106,11 +107,11 @@ public class Student {
         this.facebook = facebook;
     }
 
-    public String getGroupStatus() {
+    public Double getGroupStatus() {
         return groupStatus;
     }
 
-    public void setGroupStatus(String groupStatus) {
+    public void setGroupStatus(Double groupStatus) {
         this.groupStatus = groupStatus;
     }
 
