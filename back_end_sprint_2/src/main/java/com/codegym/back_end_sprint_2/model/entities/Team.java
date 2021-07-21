@@ -16,11 +16,11 @@ public class Team {
     private String teamLeader;
     private boolean enable;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    @JsonBackReference(value = "team")
+    @JsonBackReference(value = "students")
     private List<Student> students;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-//    @JsonBackReference(value = "team")
-    @JsonIgnore
+    @JsonBackReference(value = "projects")
+//    @JsonIgnore
     private List<Project> projects;
 
     public Team() {
