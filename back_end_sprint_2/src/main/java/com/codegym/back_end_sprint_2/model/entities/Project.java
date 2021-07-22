@@ -12,6 +12,7 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "project_id")
     private Long id;
     private String name;
     private String content;
@@ -30,7 +31,7 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "teacher_code")
     private Teacher teacher;
-    @ManyToOne
+        @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
 

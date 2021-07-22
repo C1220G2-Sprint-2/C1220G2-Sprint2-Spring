@@ -23,6 +23,7 @@ public class Team {
 //    @JsonIgnore
     private List<Project> projects;
 
+
     public Team() {
     }
 
@@ -73,4 +74,13 @@ public class Team {
     public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
+
+//    public Project getProjects() {
+//        return projects;
+//    }
+//
+//    public void setProjects(Project projects) {
+//        this.projects = projects;
+//    }
+
 }
