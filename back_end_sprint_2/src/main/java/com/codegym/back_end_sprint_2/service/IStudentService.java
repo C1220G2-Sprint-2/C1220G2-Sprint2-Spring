@@ -8,7 +8,6 @@ import java.util.Optional;
 public interface IStudentService {
     List<Student> findAll();
 
-
     public Student findByCode(String code);
 
     Student save(Student student);
