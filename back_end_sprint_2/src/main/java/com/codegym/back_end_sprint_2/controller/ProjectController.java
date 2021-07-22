@@ -18,7 +18,7 @@ import java.util.List;
 public class ProjectController {
 
     @Autowired
-    private IStudentService studentService;
+    private StudentService studentService;
     @Autowired
     private ICategoryService categoryService;
     @Autowired
@@ -32,7 +32,7 @@ public class ProjectController {
 
     @GetMapping("/listStudent")
     public ResponseEntity<List<Student>> listMeetingRoom() {
-        List<Student> list = studentService.findAll();
+        List<Student> list = studentService.findAllJpa();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 

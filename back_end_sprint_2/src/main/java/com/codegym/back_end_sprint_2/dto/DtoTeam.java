@@ -1,4 +1,4 @@
-package com.codegym.back_end_sprint_2.Dto;
+package com.codegym.back_end_sprint_2.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

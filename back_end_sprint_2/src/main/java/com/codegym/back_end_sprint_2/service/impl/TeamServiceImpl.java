@@ -8,7 +8,7 @@ import com.codegym.back_end_sprint_2.model.entities.TeamDto;
 import com.codegym.back_end_sprint_2.repositories.StudentRepository;
 
 
-import com.codegym.back_end_sprint_2.Dto.DtoTeam;
+import com.codegym.back_end_sprint_2.dto.DtoTeam;
 
 import com.codegym.back_end_sprint_2.repositories.DtoTeamRepository;
 import com.codegym.back_end_sprint_2.repositories.TeamRepository;
