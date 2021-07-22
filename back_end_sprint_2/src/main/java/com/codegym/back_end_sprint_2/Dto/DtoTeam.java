@@ -1,16 +1,29 @@
 package com.codegym.back_end_sprint_2.Dto;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+@Entity
 public class DtoTeam {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
     String name;
     String teamLeader;
     String deadline;
-    String status;
+    Boolean status;
+    Boolean enable;
 
-    public DtoTeam(String name, String teamLeader, String deadline, String status) {
-        this.name = name;
-        this.teamLeader = teamLeader;
-        this.deadline = deadline;
-        this.status = status;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public DtoTeam() {
     }
 
     public String getName() {
@@ -25,6 +38,14 @@ public class DtoTeam {
         return teamLeader;
     }
 
+    public Boolean getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Boolean enable) {
+        this.enable = enable;
+    }
+
     public void setTeamLeader(String teamLeader) {
         this.teamLeader = teamLeader;
     }
@@ -37,11 +58,14 @@ public class DtoTeam {
         this.deadline = deadline;
     }
 
-    public String getStatus() {
+
+
+
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 }
