@@ -5,13 +5,13 @@ package com.codegym.back_end_sprint_2.service.impl;
 import com.codegym.back_end_sprint_2.model.entities.Student;
 import com.codegym.back_end_sprint_2.model.entities.Team;
 import com.codegym.back_end_sprint_2.model.entities.TeamDto;
-import com.codegym.back_end_sprint_2.repositories.StudentRepository;
+import com.codegym.back_end_sprint_2.repositories.IStudentRepository;
 
 
 import com.codegym.back_end_sprint_2.dto.DtoTeam;
 
 import com.codegym.back_end_sprint_2.repositories.DtoTeamRepository;
-import com.codegym.back_end_sprint_2.repositories.TeamRepository;
+import com.codegym.back_end_sprint_2.repositories.ITeamRepository;
 
 import com.codegym.back_end_sprint_2.service.ITeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TeamServiceImpl implements ITeamService {
+public class ITeamServiceImpl implements ITeamService {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private IStudentRepository studentRepository;
     @Autowired
 
-    private TeamRepository teamRepository;
+    private ITeamRepository teamRepository;
     @Autowired
     private DtoTeamRepository dtoTeamRepository;
 
