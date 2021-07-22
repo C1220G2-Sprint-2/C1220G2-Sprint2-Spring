@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student,String> {
+public interface IStudentRepository extends JpaRepository<Student,String> {
     public Student findByCode(String code);
 
     @Query(value = " select *\n" +

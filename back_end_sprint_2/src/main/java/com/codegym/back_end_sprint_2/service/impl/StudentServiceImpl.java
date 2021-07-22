@@ -3,7 +3,7 @@ package com.codegym.back_end_sprint_2.service.impl;
 
 
 import com.codegym.back_end_sprint_2.model.entities.Student;
-import com.codegym.back_end_sprint_2.repositories.StudentRepository;
+import com.codegym.back_end_sprint_2.repositories.IStudentRepository;
 import com.codegym.back_end_sprint_2.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class StudentServiceImpl implements  StudentService {
 
     @Autowired
-    StudentRepository studentRepository;
+    IStudentRepository IStudentRepository;
 
     @Autowired
     StudentDtoRepository studentDtoRepository;
@@ -34,12 +34,12 @@ public class StudentServiceImpl implements  StudentService {
 
     @Override
     public List<Student> findAllJpa() {
-        return studentRepository.findAll(); }
+        return IStudentRepository.findAll(); }
 
     @Override
     public List<StudentDto> findAll() {
         List<StudentDto> studentDtoList = new ArrayList<>();
-        List<Student> studentList = studentRepository.findAll();
+        List<Student> studentList = IStudentRepository.findAll();
         for (Student student : studentList) {
             studentDtoList.add(new StudentDto(
                     student.getCode(),
@@ -58,12 +58,12 @@ public class StudentServiceImpl implements  StudentService {
 
     @Override
     public Student findByCode(String code) {
-        return studentRepository.findByCode(code);
+        return IStudentRepository.findByCode(code);
     }
 
     @Override
     public Student save(Student student) {
-        return studentRepository.save(student);
+        return IStudentRepository.save(student);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class StudentServiceImpl implements  StudentService {
         student.setFaculty(facultyRepository.findById(Long.valueOf(studentDto.getFaculty())).orElse(null));
         student.setTeam(teamRepository.findById(1L).orElse(null));
 
-        studentRepository.save(student);
+        IStudentRepository.save(student);
     }
 
     @Override

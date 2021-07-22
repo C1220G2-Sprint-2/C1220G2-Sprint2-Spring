@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
-public interface TeamRepository extends JpaRepository<Team, Long> {
+public interface ITeamRepository extends JpaRepository<Team, Long> {
 
     @Query(value = "select *from team",nativeQuery = true)
     Page<Team> findAllTeam(Pageable pageable);

@@ -43,7 +43,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TeamController {
 
     @Autowired
-    private IStudentService studentService;
+    private StudentService studentService;
     @Autowired
     private ICategoryService categoryService;
     @Autowired

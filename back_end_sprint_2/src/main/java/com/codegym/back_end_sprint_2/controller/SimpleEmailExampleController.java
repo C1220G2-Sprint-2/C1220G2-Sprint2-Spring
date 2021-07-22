@@ -48,6 +48,7 @@ public class SimpleEmailExampleController {
 //        Phần này là nơi mình muốn gửi đến nha, có thể dùng mảng String nếu muốn gửi nhiều người.
 //        -------------------------------------
 //        Cái này là cc nha, cũng có thể cc mảng String
+
         helper.addCc(MailConfig.FRIEND_EMAIL);
         helper.setSubject("Đây là tiêu đề Mail nha anh em");
         this.emailSender.send(message);
