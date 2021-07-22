@@ -19,7 +19,19 @@ public class Faculty {
     @JsonIgnore
     private List<Teacher> teachers;
 
+    @OneToMany(mappedBy = "faculty", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Student> students;
+
     public Faculty() {
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     public Long getId() {
