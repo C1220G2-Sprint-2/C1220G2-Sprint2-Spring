@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
@@ -62,6 +63,29 @@ public class ProjectController {
             return   new ResponseEntity<>( HttpStatus.FOUND);
         }
         return new ResponseEntity<>(student, HttpStatus.OK);
+    }
+
+    @PostMapping("/postProject")
+    public ResponseEntity<Project> save(@RequestBody ProjectDtoHuy project) throws MessagingException {
+
+        Project newProject = new Project();
+        newProject.setCategory(categoryService.findByName(project.getCategory()));
+        newProject.setTeacher(teacherService.findByName(project.getTeacher()));
+        newProject.setContent(project.getContent());
+        newProject.setName(project.getName());
+        newProject.setDescription(project.getDescription());
+        newProject.setImage(project.getImage());
+        newProject.setEnable(true);
+        newProject.setTeam(project.getTeam());
+        newProject.setRegisterDate(LocalDate.now().toString());
+        projectService.save(newProject);
+        return new ResponseEntity<>(newProject, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/findByTeam")
+    public ResponseEntity<Project> findByTeam(@RequestParam(value = "teamId") Long id) {
+        Project project = projectService.findByTeam(id);
+        return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
 //    @GetMapping("/studentOnTeam")

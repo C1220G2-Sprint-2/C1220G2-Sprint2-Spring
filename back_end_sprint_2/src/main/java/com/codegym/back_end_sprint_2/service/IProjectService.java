@@ -14,4 +14,6 @@ public interface IProjectService {
     Project save(Project project);
 
     void deleteById(Long idDelete);
+
+    Project findByTeam(Long id);
 }

@@ -72,4 +72,14 @@ public class TeamController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
+    @GetMapping("/searchTeamRegistration")
+    public ResponseEntity<List<Student>> searchTeamRegistration(
+            @RequestParam(value = "search", defaultValue = "") String search
+    ) {
+
+        List<Student> list = teamService.searchTeamRegistration(search);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 }

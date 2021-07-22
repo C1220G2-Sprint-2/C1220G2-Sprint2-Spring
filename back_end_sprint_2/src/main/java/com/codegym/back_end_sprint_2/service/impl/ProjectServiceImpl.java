@@ -34,4 +34,11 @@ public class ProjectServiceImpl implements IProjectService {
     public void deleteById(Long idDelete) {
         projectReponsitory.deleteById(idDelete);
     }
+
+    @Override
+    public Project findByTeam(Long id) {
+        return projectReponsitory.findByTeam_Id(id);
+    }
+
+
 }

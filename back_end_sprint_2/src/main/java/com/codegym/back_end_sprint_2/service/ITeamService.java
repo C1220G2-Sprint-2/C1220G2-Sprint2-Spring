@@ -1,6 +1,7 @@
 package com.codegym.back_end_sprint_2.service;
 
 import com.codegym.back_end_sprint_2.model.entities.Project;
+import com.codegym.back_end_sprint_2.model.entities.Student;
 import com.codegym.back_end_sprint_2.model.entities.Team;
 import com.codegym.back_end_sprint_2.model.entities.TeamDto;
 
@@ -15,7 +16,8 @@ public interface ITeamService {
 
     Team save(Team team);
 
-    void deleteById(Long idDelete);
 
     public Team teamMapping(TeamDto teamDto);
+
+    public List<Student> searchTeamRegistration(String search);
 }

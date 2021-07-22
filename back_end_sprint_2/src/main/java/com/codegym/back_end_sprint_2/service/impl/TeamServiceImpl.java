@@ -1,8 +1,10 @@
 package com.codegym.back_end_sprint_2.service.impl;
 
 import com.codegym.back_end_sprint_2.model.entities.Project;
+import com.codegym.back_end_sprint_2.model.entities.Student;
 import com.codegym.back_end_sprint_2.model.entities.Team;
 import com.codegym.back_end_sprint_2.model.entities.TeamDto;
+import com.codegym.back_end_sprint_2.repositories.StudentRepository;
 import com.codegym.back_end_sprint_2.repositories.TeamRipository;
 import com.codegym.back_end_sprint_2.service.ITeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,10 @@ public class TeamServiceImpl implements ITeamService {
 
     @Autowired
     private TeamRipository teamRipository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
     @Override
     public List<Team> findAll() {
         return teamRipository.findAll();
@@ -31,10 +37,7 @@ public class TeamServiceImpl implements ITeamService {
         return teamRipository.save(team);
     }
 
-    @Override
-    public void deleteById(Long idDelete) {
-    teamRipository.deleteById(idDelete);
-    }
+
 
     public Team teamMapping(TeamDto teamDto) {
         Team team= new Team();
@@ -43,4 +46,11 @@ public class TeamServiceImpl implements ITeamService {
         team.setTeamLeader(teamDto.getTeamLeader());
         return team;
     }
+
+    @Override
+    public List<Student> searchTeamRegistration(String search) {
+        return studentRepository.searchTeamRegistration(search);
+    }
+
+
 }
