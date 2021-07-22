@@ -15,4 +15,5 @@ public interface StudentRepository extends JpaRepository<Student,String> {
             "from student\n" +
             "where code like %?1% or class_code like %?1% or `name` like %?1% ", nativeQuery = true)
      List<Student> searchTeamRegistration(String search);
+
 }
