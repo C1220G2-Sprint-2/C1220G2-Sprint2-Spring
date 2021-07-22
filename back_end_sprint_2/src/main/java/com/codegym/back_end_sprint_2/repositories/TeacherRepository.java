@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TeacherRepository extends JpaRepository<Teacher, String> {
      Teacher findByCode(String code);
-
+     Teacher findByName(String code);
 }

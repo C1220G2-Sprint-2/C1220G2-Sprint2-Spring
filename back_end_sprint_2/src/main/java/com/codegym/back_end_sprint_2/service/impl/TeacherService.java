@@ -28,7 +28,8 @@ public class TeacherService implements ITeacherService {
         return teacherRepository.save(teacher);
     }
 
-    @Override
-    public void deleteByCode(String code) {
+
+    public Teacher findByName(String name) {
+        return teacherRepository.findByName(name);
     }
 }

@@ -13,5 +13,6 @@ public interface ITeacherService {
 
     Teacher save(Teacher student);
 
-    void deleteByCode(String code);
+
+    Teacher findByName(String name);
 }

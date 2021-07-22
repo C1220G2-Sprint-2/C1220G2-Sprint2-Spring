@@ -12,4 +12,6 @@ public interface ProjectReponsitory extends JpaRepository<Project,Long> {
     @Query(value = " select * from project " +
             "        order by register_date desc ; ", nativeQuery = true)
     List<Project> findAll();
+
+    Project findByTeam_Id(Long id);
 }

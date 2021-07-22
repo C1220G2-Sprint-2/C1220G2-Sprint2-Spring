@@ -16,4 +16,5 @@ public interface ICategoryService {
     Category save(Category project);
 
     void deleteById(Long idDelete);
+    Category findByName(String name);
 }

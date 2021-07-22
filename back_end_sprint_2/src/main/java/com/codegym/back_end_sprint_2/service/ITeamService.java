@@ -27,10 +27,13 @@ public interface ITeamService {
 
     Team save(Team team);
 
-    void deleteById(Long idDelete);
+
 
     public Team teamMapping(TeamDto teamDto);
 
+    public List<Student> searchTeamRegistration(String search);
+
     String[] findStudentGroupById(Long id);
+
 
 }

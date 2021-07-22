@@ -1,7 +1,6 @@
 package com.codegym.back_end_sprint_2.repositories;
 
-import com.codegym.back_end_sprint_2.Dto.DtoTeam;
-import com.codegym.back_end_sprint_2.model.entities.Student;
+
 import com.codegym.back_end_sprint_2.model.entities.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+
 
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
