@@ -32,4 +32,19 @@ public class ProjectServiceImpl implements IProjectService {
     public Page<Project> findAll(Pageable pageable) {
         return projectRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Project> findAllApprove(Pageable pageable) {
+        return projectRepository.findAllApprove(pageable);
+    }
+
+    @Override
+    public void approveProject(Integer status, Long id) {
+        projectRepository.approveProject(status,id);
+    }
+
+    @Override
+    public void notApproveProject(Integer status, Long id) {
+        projectRepository.notApproveProject(status,id);
+    }
 }

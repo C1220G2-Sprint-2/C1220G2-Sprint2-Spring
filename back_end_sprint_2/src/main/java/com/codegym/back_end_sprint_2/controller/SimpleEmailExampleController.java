@@ -2,6 +2,7 @@ package com.codegym.back_end_sprint_2.controller;
 
 
 import com.codegym.back_end_sprint_2.config.MailConfig;
+import com.codegym.back_end_sprint_2.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,9 +17,10 @@ import javax.mail.internet.MimeMessage;
 public class SimpleEmailExampleController {
     @Autowired
     public JavaMailSender emailSender;
+    @Autowired
+    private IStudentService studentService;
 //    @Autowired
 //    private IUserService userService;
-
     @ResponseBody
     @RequestMapping("/sendSimpleEmail")
     public String sendSimpleEmail() {
@@ -45,6 +47,7 @@ public class SimpleEmailExampleController {
         message.setContent(htmlMsg, "text/html; charset=UTF-8");
 //        -------------------------------------------
 //        Phần này là nơi mình muốn gửi đến nha, có thể dùng mảng String nếu muốn gửi nhiều người.
+//        System.out.println(studentService.getMailStudent());
         helper.setTo(MailConfig.FRIEND_EMAIL);
 //        -------------------------------------
 //        Cái này là cc nha, cũng có thể cc mảng String

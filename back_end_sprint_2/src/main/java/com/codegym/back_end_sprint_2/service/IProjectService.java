@@ -14,4 +14,10 @@ public interface IProjectService {
     Project findById(Long id);
 
     void delete(Boolean enable, Long id);
+
+    Page<Project> findAllApprove(Pageable pageable);
+
+    void approveProject(Integer status, Long id);
+
+    void notApproveProject(Integer status, Long id);
 }

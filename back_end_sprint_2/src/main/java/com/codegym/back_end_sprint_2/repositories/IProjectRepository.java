@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IProjectRepository extends JpaRepository<Project,Long> {
-    @Query(value = "SELECT * FROM project WHERE (status = 1 or status = 2) and enable = true", nativeQuery = true)
+    @Query(value = "SELECT * FROM project WHERE (status = 1 ) and enable = true ", nativeQuery = true)
     Page<Project> findAll(Pageable pageable);
 
     @Query(value = "SELECT * from project where id = ?1 ", nativeQuery = true)
@@ -22,4 +22,17 @@ public interface IProjectRepository extends JpaRepository<Project,Long> {
     @Modifying
     @Query(value = " UPDATE project SET enable = ?1 WHERE id = ?2 ", nativeQuery = true)
     void delete(Boolean enable, Long id);
+
+    @Query(value = "SELECT * FROM project WHERE status = 0 ", nativeQuery = true)
+    Page<Project> findAllApprove(Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query(value = " UPDATE project SET status = ?1 WHERE id = ?2 ", nativeQuery = true)
+    void approveProject(Integer status, Long id);
+
+    @Transactional
+    @Modifying
+    @Query(value = " UPDATE project SET status = ?1 WHERE id = ?2 ", nativeQuery = true)
+    void notApproveProject(Integer status, Long id);
 }

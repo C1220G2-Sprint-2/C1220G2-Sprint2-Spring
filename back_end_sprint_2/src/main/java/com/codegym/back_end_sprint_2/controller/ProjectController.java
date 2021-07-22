@@ -26,6 +26,7 @@ public class ProjectController {
         }
         return new ResponseEntity<>(projectPage, HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
     public Project findById(@PathVariable Long id){
         return projectService.findById(id);
@@ -33,5 +34,24 @@ public class ProjectController {
     @PutMapping("/{id}")
     public void delete(@PathVariable Long id, @RequestBody Project project) {
         projectService.delete(false, id);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<Project>> getListProjectApprove(Pageable pageable) {
+        Page<Project> projectPage1 = projectService.findAllApprove(pageable);
+        if (projectPage1.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(projectPage1, HttpStatus.OK);
+    }
+
+    @PutMapping("approve/{id}")
+    public void approveProject(@PathVariable Long id, @RequestBody Project project) {
+        projectService.approveProject(1, id);
+    }
+
+    @PutMapping("notApprove/{id}")
+    public void notApproveProject(@PathVariable Long id, @RequestBody Project project) {
+        projectService.notApproveProject(2, id);
     }
 }
