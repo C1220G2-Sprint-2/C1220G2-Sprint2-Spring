@@ -20,6 +20,7 @@ public class Team {
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Project> projects;
+    private Integer noOfMember;
 
     public Team() {
     }
@@ -70,5 +71,13 @@ public class Team {
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    public Integer getNoOfMember() {
+        return noOfMember;
+    }
+
+    public void setNoOfMember(Integer noOfMember) {
+        this.noOfMember = noOfMember;
     }
 }

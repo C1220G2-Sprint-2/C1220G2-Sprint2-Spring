@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface IReviewService {
     void save(ReviewDto reviewDto);
+
     Notification findNotificationById(Long id);
+
     List<Review> findAllReview();
 }
