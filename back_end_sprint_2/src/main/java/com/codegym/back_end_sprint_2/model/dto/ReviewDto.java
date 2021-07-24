@@ -1,7 +1,5 @@
 package com.codegym.back_end_sprint_2.model.dto;
 
-import java.time.LocalDateTime;
-
 public class ReviewDto {
     private Long id;
     private String title;

@@ -17,6 +17,9 @@ public class Student {
     private String twitter;
     private String facebook;
     private String groupStatus;
+    //code by sang
+    private String avatar;
+    //end code by sang
     private boolean enable;
     private boolean status;
     @ManyToOne
@@ -137,4 +140,14 @@ public class Student {
     public void setTeam(Team team) {
         this.team = team;
     }
+
+    //code by sang
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    //end code by sang
 }
