@@ -10,11 +10,11 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
     // Replace with your email here:
-    public static final String MY_EMAIL = "huyvm.dn@gmail.com";
+    public static final String MY_EMAIL = "meetingroomc1220g2@gmail.com";
     // Replace password!!
-    public static final String MY_PASSWORD = "Rong2dau";
+    public static final String MY_PASSWORD = "rong2dau";
     // And receiver!
-    public  static final String FRIEND_EMAIL = "daikalead@gmail.com";
+    public  static final String FRIEND_EMAIL = "tuannguyenquoc15dt2@gmail.com";
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();

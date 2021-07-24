@@ -1,14 +1,12 @@
 package com.codegym.back_end_sprint_2.controller;
 
 import com.codegym.back_end_sprint_2.dto.StudentDto;
-import com.codegym.back_end_sprint_2.model.entities.Student;
-import com.codegym.back_end_sprint_2.repository.StudentRepository;
 import com.codegym.back_end_sprint_2.service.StudentDtoService;
 import com.codegym.back_end_sprint_2.service.StudentService;
+import com.codegym.back_end_sprint_2.ulti.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -20,6 +18,8 @@ public class StudentController {
     StudentService studentService;
     @Autowired
     StudentDtoService studentDtoService;
+    @Autowired
+    MailService mailService;
 
     @GetMapping("/search")
     public List<StudentDto> findAll(@RequestParam(name = "keyword", required = false) String keyword){
@@ -35,12 +35,20 @@ public class StudentController {
         return studentDtoService.findQueryById(code);
     }
     @PutMapping("/{code}")
-    public void edit(@PathVariable String code, @RequestBody StudentDto studentDto){
+    public void edit(@PathVariable String code, @RequestBody StudentDto studentDto) throws MessagingException {
         studentService.save(studentDto);
+
+        mailService.sendEmailAccountStudent(studentDto.getCode());
     }
 
     @DeleteMapping("/{code}")
     public void delete(@PathVariable String code){
         studentService.delete(code);
     }
+
+    @RequestMapping("/test")
+    public void test() throws MessagingException {
+        mailService.sendEmailAccountStudent("tuanpro");
+    }
+
 }
