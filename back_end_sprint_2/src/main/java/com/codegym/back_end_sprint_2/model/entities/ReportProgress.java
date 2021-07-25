@@ -8,6 +8,7 @@ public class ReportProgress {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     private Integer stages;
     private String fileReport;
     private String content;
@@ -20,6 +21,14 @@ public class ReportProgress {
     private Notification notification;
 
     public ReportProgress() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
