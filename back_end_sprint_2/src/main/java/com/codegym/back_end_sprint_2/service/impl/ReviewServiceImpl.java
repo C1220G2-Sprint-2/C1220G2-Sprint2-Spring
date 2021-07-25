@@ -24,7 +24,7 @@ public class ReviewServiceImpl implements IReviewService {
 
     @Override
     public void save(ReviewDto reviewDto) {
-        Review review = new Review(reviewDto.getTitle(), reviewDto.getContent(), reviewDto.getAttachFile(), reviewDto.isEnable(), reviewDto.getProgressReview(), teacherRepository.findByCode(reviewDto.getTeacherCode()), findNotificationById(reviewDto.getNotification()), LocalDateTime.now());
+        Review review = new Review(reviewDto.getTitle(), reviewDto.getContent(), true, reviewDto.getProgressReview(), teacherRepository.findByCode(reviewDto.getTeacherCode()), LocalDateTime.now());
         reviewRepository.save(review);
     }
 

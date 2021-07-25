@@ -27,14 +27,12 @@ public class Review {
     public Review() {
     }
 
-    public Review(String title, String content, String attachFile, boolean enable, Integer progressReview, Teacher teacher, Notification notification, LocalDateTime dateCreate) {
+    public Review(String title, String content, boolean enable, Integer progressReview, Teacher teacher, LocalDateTime dateCreate) {
         this.title = title;
         this.content = content;
-        this.attachFile = attachFile;
         this.enable = enable;
         this.progressReview = progressReview;
         this.teacher = teacher;
-        this.notification = notification;
         this.dateCreate = dateCreate;
     }
 

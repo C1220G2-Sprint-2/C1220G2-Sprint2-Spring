@@ -1,32 +1,56 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
 public class Student {
 
     @Id
+    @GenericGenerator(name = "sequence_cus_id", strategy = "com.codegym.back_end_sprint_2.ulti.StudentIdGenerator")
+    @GeneratedValue(generator = "sequence_cus_id")
     private String code;
     private String name;
     private String phone;
     private String gender;
     private String dateOfBirth;
-    private String classCode;
     private String email;
     private String address;
-    private String twitter;
+    private String image;
     private String facebook;
-    private String groupStatus;
-    //code by sang
-    private String avatar;
-    //end code by sang
+    private double groupStatus;
     private boolean enable;
     private boolean status;
     @ManyToOne
     @JoinColumn(name = "group_id")
     private Team team;
 
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
+
+    @ManyToOne
+    @JoinColumn(name = "class_id")
+    private Class aClass;
+
     public Student() {
+    }
+
+    public Class getaClass() {
+        return aClass;
+    }
+
+    public void setaClass(Class aClass) {
+        this.aClass = aClass;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     public String getCode() {
@@ -69,14 +93,6 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getClassCode() {
-        return classCode;
-    }
-
-    public void setClassCode(String classCode) {
-        this.classCode = classCode;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -93,12 +109,12 @@ public class Student {
         this.address = address;
     }
 
-    public String getTwitter() {
-        return twitter;
+    public String getImage() {
+        return image;
     }
 
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getFacebook() {
@@ -109,11 +125,11 @@ public class Student {
         this.facebook = facebook;
     }
 
-    public String getGroupStatus() {
+    public double getGroupStatus() {
         return groupStatus;
     }
 
-    public void setGroupStatus(String groupStatus) {
+    public void setGroupStatus(double groupStatus) {
         this.groupStatus = groupStatus;
     }
 
@@ -140,14 +156,4 @@ public class Student {
     public void setTeam(Team team) {
         this.team = team;
     }
-
-    //code by sang
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-    //end code by sang
 }
