@@ -92,7 +92,6 @@ public class Student {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
     public String getEmail() {
         return email;
     }
