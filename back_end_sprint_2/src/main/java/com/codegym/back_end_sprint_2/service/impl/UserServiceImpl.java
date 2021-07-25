@@ -1,5 +1,4 @@
 package com.codegym.back_end_sprint_2.service.impl;
-
 import com.codegym.back_end_sprint_2.model.entities.User;
 import com.codegym.back_end_sprint_2.repository.IUserRepository;
 import com.codegym.back_end_sprint_2.service.IUserService;
@@ -28,16 +27,6 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Boolean existsByUsername(String username) {
         return iUserRepository.existsByUsername(username);
-    }
-
-    @Override
-    public User findByStudentId(Long student_id) {
-        return iUserRepository.findByStudentId(student_id);
-    }
-
-    @Override
-    public User findByTeacherId(Long teacherId) {
-        return iUserRepository.findByTeacherId(teacherId);
     }
 
     @Override

@@ -8,10 +8,9 @@ import javax.persistence.*;
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @GenericGenerator(name = "sequence_cus_id", strategy = "com.codegym.back_end_sprint_2.ulti.StudentIdGenerator")
     @GeneratedValue(generator = "sequence_cus_id")
+    @Column(name = "student_code")
     private String code;
 
 
@@ -42,14 +41,6 @@ public class Student {
     public Student() {
     }
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
     public Class getaClass() {
         return aClass;
     }
