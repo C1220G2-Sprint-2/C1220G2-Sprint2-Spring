@@ -54,7 +54,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void save(StudentDto studentDto) {
+    public Student save(StudentDto studentDto) {
         Student student = new Student();
         if (null != studentDto.getCode()){
             student.setCode(studentDto.getCode());
@@ -74,12 +74,18 @@ public class StudentServiceImpl implements StudentService {
         student.setFaculty(facultyRepository.findById(Long.valueOf(studentDto.getFaculty())).orElse(null));
         student.setTeam(teamRepository.findById(1L).orElse(null));
 
-        studentRepository.save(student);
+       return studentRepository.save(student);
+
     }
 
     @Override
     public void delete(String code) {
         studentRepository.deleteByCodeS(code);
+    }
+
+    @Override
+    public Student findByStudentCode(String code) {
+        return studentRepository.findById(code).orElse(null);
     }
 
 }

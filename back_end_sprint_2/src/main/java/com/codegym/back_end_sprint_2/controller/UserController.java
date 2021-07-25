@@ -21,22 +21,6 @@ public class UserController {
     IUserService userService;
     @Autowired
     private PasswordEncoder encoder;
-    @PatchMapping("/user-reset-password")
-    @ResponseBody
-    public ResponseEntity<MessageResponse> resetUserPassword(@RequestParam("username") String username,
-                                                             @RequestParam("email") String email) {
-
-        User user = userService.findByStudentEmail(email);
-        if (user == null) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Email không tồn tại."));
-        } else {
-            if (!user.getUsername().equals(username)) {
-                return ResponseEntity.badRequest().body(new MessageResponse("Tên đăng nhập không đúng."));
-            }
-        }
-        userService.updateUserPassword(encoder.encode("Abcd1234!"), user.getUsername());
-        return ResponseEntity.ok(new MessageResponse("Reset password thành công"));
-    }
 
 //    change password
     @PatchMapping("/user-change-password/{userCode}")
@@ -58,11 +42,5 @@ public class UserController {
         return passEncoder.matches(password, encodedPassword);
     }
 
-//    user's information
-    @GetMapping("/user-change-password/{userCode}")
-    @ResponseBody
-    public ResponseEntity<JwtResponse> getUserInformation(@PathVariable("userCode") String userCode){
-        return null;
-    }
 
 }
