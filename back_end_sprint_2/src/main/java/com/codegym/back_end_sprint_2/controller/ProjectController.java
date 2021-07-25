@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -25,10 +24,7 @@ public class ProjectController {
     private ITeacherService teacherService;
     @Autowired
     private IProjectService projectService;
-    @Autowired
-    private ITeamService teamService;
-    @Autowired
-    private IMailService mailService;
+
 
     @GetMapping("/listStudent")
     public ResponseEntity<List<Student>> listMeetingRoom() {
@@ -89,7 +85,7 @@ public class ProjectController {
     }
 
 //    @GetMapping("/studentOnTeam")
-//    public ResponseEntity<Student> getStudent(
+//    public ResponseEntity<Student> teamStudent(
 //            @RequestParam(value = "codeStudent") String codeStudent
 //    ) {
 //        Student student = studentService.findByCode(codeStudent);

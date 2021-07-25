@@ -1,7 +1,7 @@
 package com.codegym.back_end_sprint_2.service;
 
 import com.codegym.back_end_sprint_2.model.entities.Student;
-import com.codegym.back_end_sprint_2.model.entities.Team;
+
 import com.codegym.back_end_sprint_2.model.entities.TeamDto;
 
 import javax.mail.MessagingException;

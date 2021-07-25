@@ -1,7 +1,7 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,7 +20,6 @@ public class Team {
     private List<Student> students;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     @JsonBackReference(value = "projects")
-//    @JsonIgnore
     private List<Project> projects;
 
 
@@ -75,12 +74,6 @@ public class Team {
         this.projects = projects;
     }
 
-//    public Project getProjects() {
-//        return projects;
-//    }
-//
-//    public void setProjects(Project projects) {
-//        this.projects = projects;
-//    }
+
 
 }

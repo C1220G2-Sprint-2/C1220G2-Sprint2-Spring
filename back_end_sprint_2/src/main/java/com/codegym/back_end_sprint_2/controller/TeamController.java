@@ -176,7 +176,6 @@ public class TeamController {
     @GetMapping("/student/{id}")
     public void findGroupById(@PathVariable Long id) throws MessagingException {
         String[] students = teamService.findStudentGroupById(id);
-        System.out.println("mealalalalalal" + students);
         //---Tạo email đơn giản ---------//
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         boolean multipart = true;

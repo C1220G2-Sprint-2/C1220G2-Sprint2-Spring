@@ -1,6 +1,5 @@
 package com.codegym.back_end_sprint_2.service.impl;
 
-import com.codegym.back_end_sprint_2.config.MailConfig;
 import com.codegym.back_end_sprint_2.model.entities.Student;
 import com.codegym.back_end_sprint_2.model.entities.TeamDto;
 import com.codegym.back_end_sprint_2.service.IMailService;
@@ -36,11 +35,11 @@ public class MailServiceImpl implements IMailService {
         "      <table style=\"display: inline-block;text-align: left\">\n" +
         "          <tr>\n" +
         "              <td >Tên Nhóm</td>\n" +
-        "              <td>:</td>\n" +
+        "              <td>: "+teamDto.getName() +"</td>\n" +
         "          </tr>\n" +
         "          <tr>\n" +
         "              <td>Trưởng nhóm</td>\n" +
-        "              <td>:</td>\n" +
+        "              <td>: "+teamDto.getTeamLeader()+"</td>\n" +
         "          </tr>\n" +
         "      </table>\n" +
         "      <br>\n" +

@@ -39,9 +39,5 @@ public class StudentController {
         studentService.save(studentDto);
     }
 
-    @DeleteMapping("/{code}")
-    public void delete(@PathVariable String code){
-        studentService.delete(code);
-    }
 
 }
