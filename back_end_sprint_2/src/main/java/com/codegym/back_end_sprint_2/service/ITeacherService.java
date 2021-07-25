@@ -9,4 +9,8 @@ public interface ITeacherService {
     List<Teacher> findAll();
 
     Teacher save(Teacher teacher);
+
+    Optional<Teacher> findTeacherByCode(String code);
+
+    List<Teacher> searchTeacher(String keyWord);
 }
