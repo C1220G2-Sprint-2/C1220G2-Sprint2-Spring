@@ -13,6 +13,7 @@ public class Teacher {
     @GeneratedValue(generator = "teacher_generator")
     @GenericGenerator(name = "teacher_generator", strategy = "com.codegym.back_end_sprint_2.common.TeacherGenerator")
     private String code;
+    @Column(name = "teacher_name")
     private String name;
     private String dateOfBirth;
     private String gender;
