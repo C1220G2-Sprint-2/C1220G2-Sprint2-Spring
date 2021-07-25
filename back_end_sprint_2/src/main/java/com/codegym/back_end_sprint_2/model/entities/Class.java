@@ -1,26 +1,25 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
-public class Role {
-
+@Table
+public class Class {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "class_id")
     private Long id;
+    @Column(name = "class_name")
     private String name;
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonBackReference
-    private Set<User> users;
 
-    public Role() {
-    }
+    @OneToMany(mappedBy = "aClass", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Student> students;
 
-    public Role(String name) {
-        this.name = name;
+    public Class() {
     }
 
     public Long getId() {
@@ -39,11 +38,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 }

@@ -9,4 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface ITeacherRepository extends JpaRepository<Teacher, Long> {
     Teacher findByCode(String code);
 }
-//end code from sang
+
