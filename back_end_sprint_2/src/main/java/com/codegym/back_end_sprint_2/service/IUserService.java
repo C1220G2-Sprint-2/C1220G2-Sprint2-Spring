@@ -7,7 +7,5 @@ public interface IUserService {
     User findByStudentEmail(String email);
     User findByTeacherEmail(String email);
     Boolean existsByUsername(String username);
-    User findByStudentId(Long studentId);
-    User findByTeacherId(Long teacherId);
     User findByUsername(String name);
 }

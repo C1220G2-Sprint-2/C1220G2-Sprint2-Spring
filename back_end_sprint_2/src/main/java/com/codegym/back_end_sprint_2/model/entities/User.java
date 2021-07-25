@@ -20,7 +20,7 @@ public class User {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
     @OneToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_code")
     private Student student;
     @ManyToMany
     @JoinTable(

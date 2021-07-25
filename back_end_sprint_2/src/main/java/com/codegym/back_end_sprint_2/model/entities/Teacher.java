@@ -1,6 +1,7 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.List;
@@ -9,8 +10,8 @@ import java.util.List;
 public class Teacher {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "teacher_generator")
+    @GenericGenerator(name = "teacher_generator", strategy = "com.codegym.back_end_sprint_2.common.TeacherGenerator")
     private String code;
     private String name;
     private String dateOfBirth;
@@ -46,15 +47,9 @@ public class Teacher {
     private List<AnnounceComment> announceComments;
 
     public Teacher() {
+        this.enable = true;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
