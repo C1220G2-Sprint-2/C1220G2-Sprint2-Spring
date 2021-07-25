@@ -17,7 +17,6 @@ public class Student {
     private String phone;
     private String gender;
     private String dateOfBirth;
-    private String classCode;
     private String email;
     private String address;
     private String image;
@@ -96,13 +95,6 @@ public class Student {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getClassCode() {
-        return classCode;
-    }
-
-    public void setClassCode(String classCode) {
-        this.classCode = classCode;
-    }
 
     public String getEmail() {
         return email;
