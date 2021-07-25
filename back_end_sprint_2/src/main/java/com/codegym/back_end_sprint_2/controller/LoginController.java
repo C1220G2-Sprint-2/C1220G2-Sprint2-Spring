@@ -7,12 +7,10 @@ import com.codegym.back_end_sprint_2.model.dto.MessageResponse;
 import com.codegym.back_end_sprint_2.model.dto.UserDetailsImpl;
 import com.codegym.back_end_sprint_2.model.entities.Student;
 import com.codegym.back_end_sprint_2.model.entities.Teacher;
-import com.codegym.back_end_sprint_2.model.entities.User;
 import com.codegym.back_end_sprint_2.service.ITeacherService;
 import com.codegym.back_end_sprint_2.service.IUserService;
 import com.codegym.back_end_sprint_2.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -77,6 +75,13 @@ public class LoginController {
                 image = student.getImage();
                 address = student.getAddress();
                 phone = student.getPhone();
+            }
+            if (userDetails.getUsername().charAt(0) == 'G') {
+                Teacher teacher = teacherService.findByCode(userDetails.getUsername());
+                email = teacher.getEmail();
+                image = teacher.getImage();
+                address = teacher.getAddress();
+                phone = teacher.getPhone();
             }
             return ResponseEntity.ok(new JwtResponse(jwt,
                     userDetails.getId(),
