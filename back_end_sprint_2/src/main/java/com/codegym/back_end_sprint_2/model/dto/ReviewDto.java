@@ -4,11 +4,16 @@ public class ReviewDto {
     private Long id;
     private String title;
     private String content;
-    private String attachFile;
-    private boolean enable;
     private Integer progressReview;
     private String teacherCode;
-    private Long notification;
+
+    public ReviewDto(Long id, String title, String content,Integer progressReview, String teacherCode) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.progressReview = progressReview;
+        this.teacherCode = teacherCode;
+    }
 
     public Long getId() {
         return id;
@@ -34,22 +39,6 @@ public class ReviewDto {
         this.content = content;
     }
 
-    public String getAttachFile() {
-        return attachFile;
-    }
-
-    public void setAttachFile(String attachFile) {
-        this.attachFile = attachFile;
-    }
-
-    public boolean isEnable() {
-        return enable;
-    }
-
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
     public Integer getProgressReview() {
         return progressReview;
     }
@@ -64,13 +53,5 @@ public class ReviewDto {
 
     public void setTeacherCode(String teacherCode) {
         this.teacherCode = teacherCode;
-    }
-
-    public Long getNotification() {
-        return notification;
-    }
-
-    public void setNotification(Long notification) {
-        this.notification = notification;
     }
 }

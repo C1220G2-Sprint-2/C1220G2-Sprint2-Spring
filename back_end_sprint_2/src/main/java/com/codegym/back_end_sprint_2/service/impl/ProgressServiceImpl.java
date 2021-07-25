@@ -5,7 +5,7 @@ import com.codegym.back_end_sprint_2.model.dto.ProgressStudentDto;
 import com.codegym.back_end_sprint_2.model.entities.Project;
 import com.codegym.back_end_sprint_2.model.entities.Student;
 import com.codegym.back_end_sprint_2.repositories.ProjectRepository;
-import com.codegym.back_end_sprint_2.repositories.StudentRepository;
+import com.codegym.back_end_sprint_2.repository.StudentRepository;
 import com.codegym.back_end_sprint_2.service.IProgressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class ProgressServiceImpl implements IProgressService {
         List<ProgressStudentDto> progressStudentDtos = new ArrayList<>();
         List<Student> students = studentRepository.findAll();
         for (Student student : students) {
-            progressStudentDtos.add(new ProgressStudentDto(student.getName(), student.getPhone(), student.getEmail(), student.getAvatar()));
+            progressStudentDtos.add(new ProgressStudentDto(student.getName(), student.getPhone(), student.getEmail(), student.getImage()));
         }
         return progressStudentDtos;
     }
