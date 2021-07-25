@@ -14,6 +14,7 @@ public class Teacher {
     @GenericGenerator(name = "teacher_generator", strategy = "com.codegym.back_end_sprint_2.common.TeacherGenerator")
     @Column(name = "teacher_code")
     private String code;
+    @Column(name = "teacher_name")
     private String name;
     private String dateOfBirth;
     private String gender;
