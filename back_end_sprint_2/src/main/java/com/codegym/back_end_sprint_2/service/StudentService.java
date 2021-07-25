@@ -8,6 +8,6 @@ import java.util.List;
 public interface StudentService {
     List<StudentDto> findAll();
     List<StudentDto> listSearch(String keyword);
-    void save(StudentDto studentDto);
+    Student save(StudentDto studentDto);
     void delete(String code);
 }
