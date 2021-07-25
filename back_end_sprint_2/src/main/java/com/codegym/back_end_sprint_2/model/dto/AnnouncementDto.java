@@ -10,6 +10,9 @@ public class AnnouncementDto {
     private Long notificationId;
     private String teacherCode;
 
+    public AnnouncementDto() {
+    }
+
     public AnnouncementDto(String attachFile, String content, Byte enable, String title, Long notificationId, String teacherCode) {
         this.attachFile = attachFile;
         this.content = content;

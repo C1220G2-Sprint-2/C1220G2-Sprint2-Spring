@@ -11,6 +11,9 @@ public class ConcernDto {
     private String studentCode;
     private String teacherCode;
 
+    public ConcernDto() {
+    }
+
     public ConcernDto(Long id, String attachFile, String content, Byte enable, String title, Long notificationId, String studentCode, String teacherCode) {
         this.id = id;
         this.attachFile = attachFile;
