@@ -83,4 +83,9 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.deleteByCodeS(code);
     }
 
+    @Override
+    public Student findByStudentCode(String code) {
+        return studentRepository.findById(code).orElse(null);
+    }
+
 }

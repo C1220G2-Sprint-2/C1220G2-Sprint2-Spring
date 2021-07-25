@@ -5,7 +5,8 @@ import com.codegym.back_end_sprint_2.model.dto.JwtResponse;
 import com.codegym.back_end_sprint_2.model.dto.LoginRequest;
 import com.codegym.back_end_sprint_2.model.dto.MessageResponse;
 import com.codegym.back_end_sprint_2.model.dto.UserDetailsImpl;
-import com.codegym.back_end_sprint_2.service.IUserService;
+import com.codegym.back_end_sprint_2.model.entities.Student;
+import com.codegym.back_end_sprint_2.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,8 +14,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,7 +24,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
-
+    private static final String EMAIL = "tiennvt@codegym.com";
+    private static final String IMAGE_ADMIN = "https://5.imimg.com/data5/DB/JO/GLADMIN-70100492/admin-login-portal-500x500.png";
+    private static final String ADDRESS = "Đà Nẵng";
+    private static final String PHONE = "0909999999";
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -31,10 +35,8 @@ public class LoginController {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private IUserService userService;
+    private StudentService studentService;
 
-    @Autowired
-    private PasswordEncoder encoder;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -50,16 +52,25 @@ public class LoginController {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
         if (userDetails.isEnabled()) {
+            String email = EMAIL;
+            String image = IMAGE_ADMIN;
+            String address = ADDRESS;
+            String phone = PHONE;
+            if (userDetails.getUsername().charAt(0) == 'S') {
+                Student student = studentService.findByStudentCode(userDetails.getUsername());
+                email = student.getEmail();
+                image = student.getImage();
+                address = student.getAddress();
+                phone = student.getPhone();
+            }
             return ResponseEntity.ok(new JwtResponse(jwt,
                     userDetails.getId(),
-                    userDetails.getUsername(),
-                    roles));
+                    userDetails.getUsername(), email,
+                    roles, image, address, phone));
         } else {
             return ResponseEntity.badRequest().body(new MessageResponse("Lỗi đăng nhập."));
         }
     }
-
-
 
 
 
