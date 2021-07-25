@@ -88,4 +88,9 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findById(code).orElse(null);
     }
 
+    @Override
+    public Student findByEmail(String email) {
+        return studentRepository.findByEmail(email).orElse(null);
+    }
+
 }

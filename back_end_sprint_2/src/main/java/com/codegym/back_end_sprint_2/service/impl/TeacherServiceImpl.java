@@ -23,4 +23,14 @@ public class TeacherServiceImpl implements ITeacherService {
     public Teacher save(Teacher teacher) {
         return teacherRepository.save(teacher);
     }
+
+    @Override
+    public Teacher findByEmail(String email) {
+        return teacherRepository.findByEmail(email).orElse(null);
+    }
+
+    @Override
+    public Teacher findByStudentCode(String code) {
+        return teacherRepository.findById(code).orElse(null);
+    }
 }

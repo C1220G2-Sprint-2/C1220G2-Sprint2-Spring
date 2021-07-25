@@ -6,14 +6,20 @@ import com.codegym.back_end_sprint_2.model.dto.LoginRequest;
 import com.codegym.back_end_sprint_2.model.dto.MessageResponse;
 import com.codegym.back_end_sprint_2.model.dto.UserDetailsImpl;
 import com.codegym.back_end_sprint_2.model.entities.Student;
+import com.codegym.back_end_sprint_2.model.entities.Teacher;
+import com.codegym.back_end_sprint_2.model.entities.User;
+import com.codegym.back_end_sprint_2.service.ITeacherService;
+import com.codegym.back_end_sprint_2.service.IUserService;
 import com.codegym.back_end_sprint_2.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -28,6 +34,7 @@ public class LoginController {
     private static final String IMAGE_ADMIN = "https://5.imimg.com/data5/DB/JO/GLADMIN-70100492/admin-login-portal-500x500.png";
     private static final String ADDRESS = "Đà Nẵng";
     private static final String PHONE = "0909999999";
+    private static final String PASSWORD = "123456";
     @Autowired
     AuthenticationManager authenticationManager;
 
@@ -36,6 +43,14 @@ public class LoginController {
 
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private ITeacherService teacherService;
+
+    @Autowired
+    private IUserService userService;
+    @Autowired
+    private PasswordEncoder encoder;
 
 
     @PostMapping("/signin")
@@ -73,5 +88,22 @@ public class LoginController {
     }
 
 
-
+    @GetMapping("/user-reset-password/{email}")
+    public ResponseEntity<?> resetPassword(@PathVariable String email){
+        if(email.equals(EMAIL)){
+            userService.updateUserPassword(encoder.encode(PASSWORD),"AM000000");
+            return ResponseEntity.ok("");
+        }
+        Student student = studentService.findByEmail(email);
+        Teacher teacher = teacherService.findByEmail(email);
+        if(student != null){
+            userService.updateUserPassword(encoder.encode(PASSWORD), student.getCode());
+            return ResponseEntity.ok("");
+        }
+        if(teacher != null){
+            userService.updateUserPassword(encoder.encode(PASSWORD), teacher.getCode());
+            return ResponseEntity.ok("");
+        }
+        return ResponseEntity.badRequest().body("");
+    }
 }
