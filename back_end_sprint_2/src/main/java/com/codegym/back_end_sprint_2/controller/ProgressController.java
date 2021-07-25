@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/progress")
+@RequestMapping("/api/progress")
 public class ProgressController {
     @Autowired
     private IProgressService progressService;
