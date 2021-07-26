@@ -16,7 +16,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
-@RequestMapping("/teacher")
+@RequestMapping("/api/teacher")
 public class TeacherController {
 
     private static final String ROLE_TEACHER = "ROLE_TEACHER";

@@ -36,6 +36,5 @@ public interface ITeacherRepository extends JpaRepository<Teacher,String> {
     List<Teacher> searchTeacher(String keyWord);
 
     Teacher findByCode(String code);
-
 }
 
