@@ -11,8 +11,6 @@ public class Student {
     @GenericGenerator(name = "sequence_cus_id", strategy = "com.codegym.back_end_sprint_2.ulti.StudentIdGenerator")
     @GeneratedValue(generator = "sequence_cus_id")
     private String code;
-
-
     private String name;
     private String phone;
     private String gender;
@@ -94,8 +92,6 @@ public class Student {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
-
     public String getEmail() {
         return email;
     }

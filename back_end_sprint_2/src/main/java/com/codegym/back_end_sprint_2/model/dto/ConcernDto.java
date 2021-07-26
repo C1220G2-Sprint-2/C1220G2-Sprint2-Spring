@@ -3,26 +3,20 @@ package com.codegym.back_end_sprint_2.model.dto;
 public class ConcernDto {
 
     private Long id;
-    private String attachFile;
-    private String content;
-    private Byte enable;
     private String title;
-    private Long notificationId;
+    private String content;
     private String studentCode;
-    private String teacherCode;
+    private String attachFile;
 
     public ConcernDto() {
     }
 
-    public ConcernDto(Long id, String attachFile, String content, Byte enable, String title, Long notificationId, String studentCode, String teacherCode) {
+    public ConcernDto(Long id, String title, String content, String studentCode, String attachFile) {
         this.id = id;
-        this.attachFile = attachFile;
-        this.content = content;
-        this.enable = enable;
         this.title = title;
-        this.notificationId = notificationId;
+        this.content = content;
         this.studentCode = studentCode;
-        this.teacherCode = teacherCode;
+        this.attachFile = attachFile;
     }
 
     public Long getId() {
@@ -49,14 +43,6 @@ public class ConcernDto {
         this.content = content;
     }
 
-    public Byte getEnable() {
-        return enable;
-    }
-
-    public void setEnable(Byte enable) {
-        this.enable = enable;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -65,27 +51,11 @@ public class ConcernDto {
         this.title = title;
     }
 
-    public Long getNotificationId() {
-        return notificationId;
-    }
-
-    public void setNotificationId(Long notificationId) {
-        this.notificationId = notificationId;
-    }
-
     public String getStudentCode() {
         return studentCode;
     }
 
     public void setStudentCode(String studentCode) {
         this.studentCode = studentCode;
-    }
-
-    public String getTeacherCode() {
-        return teacherCode;
-    }
-
-    public void setTeacherCode(String teacherCode) {
-        this.teacherCode = teacherCode;
     }
 }

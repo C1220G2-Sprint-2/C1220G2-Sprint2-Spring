@@ -19,26 +19,25 @@ public class ConcernController {
     @Autowired
     private IConcernService concernService;
 
-    @GetMapping("/concern-list")
-    public ResponseEntity<List<Concern>> getListConcern() {
-        List<Concern> concernList = concernService.findAll();
+    @GetMapping("/student-concern-list")
+    public ResponseEntity<List<ConcernDto>> getListConcern() {
+        List<ConcernDto> concernList = concernService.findAll();
         if (concernList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(concernList, HttpStatus.OK);
     }
 
-    @PostMapping("/concern-create")
+    @PostMapping("/student-concern-save")
     public ResponseEntity<MessageResponse> saveConcern(@RequestBody ConcernDto concern) {
         Byte concernEnable = 1;
         ConcernDto concernDto = new ConcernDto();
         concernDto.setAttachFile(concern.getAttachFile());
         concernDto.setContent(concern.getContent());
         concernDto.setTitle(concern.getTitle());
-        concernDto.setNotificationId(concern.getNotificationId());
         concernDto.setStudentCode(concern.getStudentCode());
         concernService.save(concernDto.getAttachFile(), concernDto.getContent(),
-                concernDto.getTitle(), concernDto.getNotificationId(),
+                concernDto.getTitle(),
                 concernDto.getStudentCode(),concernEnable);
         return ResponseEntity.ok(new MessageResponse("Thêm mới thành công !"));
     }
