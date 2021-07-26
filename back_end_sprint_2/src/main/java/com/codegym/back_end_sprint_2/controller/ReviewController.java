@@ -28,9 +28,9 @@ public class ReviewController {
     }
 
     @GetMapping("/review-list")
-    public ResponseEntity<List<Review>> findAllReview() {
+    public ResponseEntity<List<ReviewDto>> findAllReview() {
         try {
-            return new ResponseEntity<>(reviewService.findAllReview(), HttpStatus.OK);
+            return new ResponseEntity<>(reviewService.findAllReviewDto(), HttpStatus.OK);
 
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
