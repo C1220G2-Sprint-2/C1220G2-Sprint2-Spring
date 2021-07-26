@@ -41,6 +41,10 @@ public class UserController {
         String encodedPassword = user.getPassword();
         return passEncoder.matches(password, encodedPassword);
     }
+    @GetMapping("/hello")
+    public  String hello (){
+        return "hello";
+    }
 
 
 }
