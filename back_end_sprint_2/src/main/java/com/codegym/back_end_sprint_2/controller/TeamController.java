@@ -61,13 +61,37 @@ public class TeamController {
     @PostMapping("/postTeam")
     public ResponseEntity<Team> save(@RequestBody TeamDto teamDto) throws MessagingException {
         Team team = teamService.teamMapping(teamDto);
-        teamService.save(team);
+        Team teamResponse= teamService.save(team);
         for (int i = 0; i < teamDto.getListTeam().size(); i++) {
             teamDto.getListTeam().get(i).setTeam(team);
-            studentService.save(teamDto.getListTeam().get(i));
-            mailService.emailTeam(teamDto.getListTeam().get(i), teamDto);
+            Student student = teamDto.getListTeam().get(i);
+         if (teamDto.getTeamLeader().equals(teamDto.getListTeam().get(i).getCode())){
+             student.setGroupStatus(1.0);
+         } else {
+             student.setGroupStatus(0.5);
+         }
+
+            studentService.save(student);
+            mailService.emailTeam(student, teamResponse);
         }
         return new ResponseEntity<>(team, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/deleteStudent")
+    public ResponseEntity<Team> saveStudent(@RequestBody Student student) throws MessagingException {
+        student.setTeam(teamService.findById(1L).orElse(null));
+            studentService.save(student);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/findTeam")
+    public ResponseEntity<Team> findTeam(@RequestParam(value = "teamId") Long id) {
+        Team team = teamService.findById(id).orElse(null);
+        if (team==null) {
+            return  new ResponseEntity<>( HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(team, HttpStatus.OK);
     }
 
     @GetMapping("/disagree")
@@ -92,7 +116,7 @@ public class TeamController {
         student.setGroupStatus(1.0);
         studentService.save(student);
         mailService.emailCcTeamLeader(student, "đồng ý");
-        response.sendRedirect("http://localhost:4200/nhom/dang-ky/");
+        response.sendRedirect("http://localhost:4200/nhom/quan-ly-nhom/");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

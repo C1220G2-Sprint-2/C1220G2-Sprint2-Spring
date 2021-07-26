@@ -1,6 +1,7 @@
 package com.codegym.back_end_sprint_2.repositories;
 
 import com.codegym.back_end_sprint_2.dto.DtoTeam;
+import com.codegym.back_end_sprint_2.model.entities.Team;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,6 @@ public interface DtoTeamRepository extends JpaRepository<DtoTeam,Long> {
     @Transactional
     @Modifying
     @Query(value = "update team set team.enable= 0 where team.id=?1",nativeQuery = true)
-    void saveTeam(Long id);
+    Team saveTeam(Long id);
 
 }

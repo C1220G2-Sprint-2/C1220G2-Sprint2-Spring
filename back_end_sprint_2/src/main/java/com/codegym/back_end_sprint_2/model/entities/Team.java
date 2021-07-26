@@ -26,6 +26,22 @@ public class Team {
     public Team() {
     }
 
+    public Team(Long id, String name, String teamLeader, boolean enable, List<Student> students, List<Project> projects) {
+        this.id = id;
+        this.name = name;
+        this.teamLeader = teamLeader;
+        this.enable = enable;
+        this.students = students;
+        this.projects = projects;
+    }
+
+    public Team(Long id, String name, String teamLeader, boolean enable) {
+        this.id = id;
+        this.name = name;
+        this.teamLeader = teamLeader;
+        this.enable = enable;
+    }
+
     public Long getId() {
         return id;
     }

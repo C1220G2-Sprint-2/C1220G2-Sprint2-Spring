@@ -4,17 +4,23 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
+    @Column(name = "username")
+    private String username;
+    @Column(name = "password")
     private String password;
+    private Boolean status;
     @OneToOne
-    @JoinColumn(name = "teacher_code")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
     @OneToOne
-    @JoinColumn(name = "student_code")
+    @JoinColumn(name = "student_id")
     private Student student;
     @ManyToMany
     @JoinTable(
@@ -25,6 +31,22 @@ public class User {
     private Set<Role> roles;
 
     public User() {
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public Long getId() {

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProjectReponsitory extends JpaRepository<Project,Long> {
+public interface ProjectRepository extends JpaRepository<Project,Long> {
     @Query(value = " select * from project " +
             "        order by register_date desc ; ", nativeQuery = true)
     List<Project> findAll();
