@@ -1,28 +1,32 @@
 package com.codegym.back_end_sprint_2.controller;
 
 import com.codegym.back_end_sprint_2.model.dto.TeacherDto;
-import com.codegym.back_end_sprint_2.model.entities.Education;
-import com.codegym.back_end_sprint_2.model.entities.Faculty;
-import com.codegym.back_end_sprint_2.model.entities.Teacher;
-import com.codegym.back_end_sprint_2.model.entities.User;
-import com.codegym.back_end_sprint_2.service.IEducationService;
-import com.codegym.back_end_sprint_2.service.IFacultyService;
-import com.codegym.back_end_sprint_2.service.ITeacherService;
+import com.codegym.back_end_sprint_2.model.entities.*;
+import com.codegym.back_end_sprint_2.repository.IRoleRepository;
+import com.codegym.back_end_sprint_2.repository.IUserRepository;
+import com.codegym.back_end_sprint_2.service.*;
+import com.codegym.back_end_sprint_2.until.EncryptPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
 @RequestMapping("/teacher")
 public class TeacherController {
+
+    private static final String ROLE_TEACHER = "ROLE_TEACHER";
+
     @Autowired
     private ITeacherService teacherService;
+
+    @Autowired
+    IUserRepository userRepository;
+    @Autowired
+    IRoleRepository roleRepository;
 
     @Autowired
     private IFacultyService facultyService;
@@ -70,8 +74,15 @@ public class TeacherController {
         transformFromDtoToTeacher(teacher,teacherDto);
         teacher = teacherService.save(teacher);
         User user = new User();
+        user.setUsername(teacher.getCode());
+        user.setPassword(EncryptPasswordUtils.EncodePassword("123456"));
+        user.setStatus(true);
+        user.setTeacher(null);
         user.setTeacher(teacher);
-        user.setPassword("123456");
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName(ROLE_TEACHER));
+        user.setRoles(roles);
+        userRepository.save(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
