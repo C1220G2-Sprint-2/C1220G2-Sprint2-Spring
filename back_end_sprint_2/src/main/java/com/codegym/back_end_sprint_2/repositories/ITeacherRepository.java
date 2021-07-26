@@ -5,17 +5,17 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ITeacherRepository extends JpaRepository<Teacher, String> {
+public interface ITeacherRepository extends JpaRepository<Teacher,String> {
     @Query(value = "SELECT * FROM teacher " +
             "WHERE enable = 1 ", nativeQuery = true)
     List<Teacher> findAll();
 
-    @Query(value = "SELECT * FROM teacher " +
+
+    @Query(value ="SELECT * FROM teacher " +
             "WHERE teacher_code = ?1 AND enable = 1 ", nativeQuery = true)
     Optional<Teacher> findTeacherByCode(String code);
 
@@ -30,6 +30,5 @@ public interface ITeacherRepository extends JpaRepository<Teacher, String> {
     List<Teacher> searchTeacher(String keyWord);
 
     Teacher findByCode(String code);
-
 }
 
