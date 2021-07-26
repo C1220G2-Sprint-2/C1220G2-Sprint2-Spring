@@ -21,6 +21,7 @@ public class Team {
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
     @JsonBackReference(value = "projects")
     private List<Project> projects;
+    private Integer noOfMember;
 
 
     public Team() {
@@ -90,6 +91,12 @@ public class Team {
         this.projects = projects;
     }
 
+    public Integer getNoOfMember() {
+        return noOfMember;
+    }
 
+    public void setNoOfMember(Integer noOfMember) {
+        this.noOfMember = noOfMember;
+    }
 
 }

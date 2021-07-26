@@ -3,15 +3,9 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id "org.sonarqube" version "3.0"
+
 }
-sonarqube {
-    properties {
-        property 'sonar.host.url', 'http://codegymdn.cf:9000/'
-        property 'sonar.login', 'f4570cffe1dd5bf39ecbeed0ef04eef921709b5a'
-        property 'sonar.projectKey', 'C1220G2_Sprint2_ReviewCode_HuyN'
-        property 'sonar.projectName', 'C1220G2_Sprint2_ReviewCode_HuyN'
-    }
-}
+
 group = 'com.codegym'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -19,6 +13,7 @@ sourceCompatibility = '1.8'
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'

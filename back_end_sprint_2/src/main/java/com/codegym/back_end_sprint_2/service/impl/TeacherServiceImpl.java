@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeacherServiceImpl implements ITeacherService {
@@ -28,7 +29,29 @@ public class TeacherServiceImpl implements ITeacherService {
         return teacherRepository.save(teacher);
     }
 
+
     public Teacher findByName(String name) {
         return teacherRepository.findByName(name);
     }
+
+
+    @Override
+    public Optional<Teacher> findTeacherByCode(String code) {
+        return teacherRepository.findTeacherByCode(code);
+    }
+
+
+    @Override
+    public List<Teacher> searchTeacher(String keyWord) {
+        return teacherRepository.searchTeacher(keyWord);
+    }
+
+//    CongNT code
+    @Override
+    public Teacher findByEmail(String email) {
+        return teacherRepository.findByEmail(email).orElse(null);
+    }
+
+
+
 }

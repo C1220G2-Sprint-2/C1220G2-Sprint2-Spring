@@ -17,10 +17,10 @@ public class User {
     private String password;
     private Boolean status;
     @OneToOne
-    @JoinColumn(name = "teacher_id")
+    @JoinColumn(name = "teacher_code")
     private Teacher teacher;
     @OneToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_code")
     private Student student;
     @ManyToMany
     @JoinTable(
