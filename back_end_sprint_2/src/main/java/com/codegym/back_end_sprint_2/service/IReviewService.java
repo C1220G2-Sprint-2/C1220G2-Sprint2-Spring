@@ -11,5 +11,5 @@ public interface IReviewService {
 
     Notification findNotificationById(Long id);
 
-    List<Review> findAllReview();
+    List<ReviewDto> findAllReviewDto();
 }
