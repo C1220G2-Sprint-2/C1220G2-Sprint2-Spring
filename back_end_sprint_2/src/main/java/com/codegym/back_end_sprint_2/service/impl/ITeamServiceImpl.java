@@ -45,8 +45,8 @@ public class ITeamServiceImpl implements ITeamService {
 
 
     @Override
-    public void saveTeam(Long id) {
-         dtoTeamRepository.saveTeam(id);
+    public Team saveTeam(Long id) {
+         return dtoTeamRepository.saveTeam(id);
     }
 
     @Override

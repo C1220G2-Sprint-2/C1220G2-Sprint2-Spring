@@ -22,6 +22,10 @@ public class Education {
     public Education() {
     }
 
+    public Education(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

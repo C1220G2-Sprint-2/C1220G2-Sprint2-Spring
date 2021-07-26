@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface ITeamService {
 
 
-    void saveTeam(Long id);
+    Team saveTeam(Long id);
 
     Page<DtoTeam> findAllTeam(Pageable pageable);
 

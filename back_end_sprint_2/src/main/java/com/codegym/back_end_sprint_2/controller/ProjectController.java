@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -25,8 +24,6 @@ public class ProjectController {
     private ITeacherService teacherService;
     @Autowired
     private IProjectService projectService;
-    @Autowired
-    private ITeamService teamService;
     @Autowired
     private IMailService mailService;
 
@@ -60,7 +57,7 @@ public class ProjectController {
     ) {
         Student student = studentService.findByCode(codeStudent);
         if (student == null) {
-            return   new ResponseEntity<>( HttpStatus.FOUND);
+            return new ResponseEntity<>(HttpStatus.FOUND);
         }
         return new ResponseEntity<>(student, HttpStatus.OK);
     }
@@ -79,6 +76,7 @@ public class ProjectController {
         newProject.setTeam(project.getTeam());
         newProject.setRegisterDate(LocalDate.now().toString());
         projectService.save(newProject);
+        mailService.emailToTeacher(newProject);
         return new ResponseEntity<>(newProject, HttpStatus.CREATED);
     }
 
@@ -88,14 +86,5 @@ public class ProjectController {
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
-//    @GetMapping("/studentOnTeam")
-//    public ResponseEntity<Student> getStudent(
-//            @RequestParam(value = "codeStudent") String codeStudent
-//    ) {
-//        Student student = studentService.findByCode(codeStudent);
-//        if (student == null) {
-//            return   new ResponseEntity<>( HttpStatus.FOUND);
-//        }
-//        return new ResponseEntity<>(student, HttpStatus.OK);
-//    }
+
 }

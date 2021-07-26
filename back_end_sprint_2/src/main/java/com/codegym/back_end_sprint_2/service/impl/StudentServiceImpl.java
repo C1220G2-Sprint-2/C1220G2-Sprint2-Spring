@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class StudentServiceImpl implements  StudentService {
 
     @Autowired
-    IStudentRepository IStudentRepository;
+    IStudentRepository studentRepository;
 
     @Autowired
     StudentDtoRepository studentDtoRepository;
@@ -34,12 +34,12 @@ public class StudentServiceImpl implements  StudentService {
 
     @Override
     public List<Student> findAllJpa() {
-        return IStudentRepository.findAll(); }
+        return studentRepository.findAll(); }
 
     @Override
     public List<StudentDto> findAll() {
         List<StudentDto> studentDtoList = new ArrayList<>();
-        List<Student> studentList = IStudentRepository.findAll();
+        List<Student> studentList = studentRepository.findAll();
         for (Student student : studentList) {
             studentDtoList.add(new StudentDto(
                     student.getCode(),
@@ -58,17 +58,15 @@ public class StudentServiceImpl implements  StudentService {
 
     @Override
     public Student findByCode(String code) {
-        return IStudentRepository.findByCode(code);
+        return studentRepository.findByCode(code);
     }
 
     @Override
     public Student save(Student student) {
-        return IStudentRepository.save(student);
+        return studentRepository.save(student);
     }
 
-    @Override
-    public void deleteByCode(String code) {
-    }
+
 
 
     public List<StudentDto> listSearch(String keyword) {
@@ -96,13 +94,10 @@ public class StudentServiceImpl implements  StudentService {
         student.setFaculty(facultyRepository.findById(Long.valueOf(studentDto.getFaculty())).orElse(null));
         student.setTeam(teamRepository.findById(1L).orElse(null));
 
-        IStudentRepository.save(student);
+        studentRepository.save(student);
     }
 
-    @Override
-    public void delete(String code) {
-//        studentRepository.deleteByCodeS(code);
-    }
+
 
 
 }

@@ -11,11 +11,10 @@ public interface StudentService {
     List<Student> findAllJpa();
     List<StudentDto> listSearch(String keyword);
     void save(StudentDto studentDto);
-    void delete(String code);
 
     public Student findByCode(String code);
 
     Student save(Student student);
 
-    void deleteByCode(String code);
+
 }
