@@ -42,7 +42,7 @@ public class ProgressServiceImpl implements IProgressService {
     }
 
     @Override
-    public Project findById(Long id) {
-        return projectRepository.findById(id).orElse(null);
+    public List<Project> searchByName() {
+        return null;
     }
 }

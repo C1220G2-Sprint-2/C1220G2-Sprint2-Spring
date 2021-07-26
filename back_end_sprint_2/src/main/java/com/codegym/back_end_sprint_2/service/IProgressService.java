@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IProgressService {
     List<ProgressDto> findAll();
+    List<Project> searchByName();
     List<ProgressStudentDto> findAllStudent();
-    ProgressDto findById(Long id);
 }
