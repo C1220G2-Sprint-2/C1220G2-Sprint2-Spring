@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IStudentRepository extends JpaRepository<Student,String> {
@@ -16,4 +17,5 @@ public interface IStudentRepository extends JpaRepository<Student,String> {
             "where code like %?1% or class_code like %?1% or `name` like %?1% ", nativeQuery = true)
      List<Student> searchTeamRegistration(String search);
 
+    Optional<Student> findByEmail(String email);
 }

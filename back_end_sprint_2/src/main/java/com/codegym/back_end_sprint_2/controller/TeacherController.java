@@ -1,26 +1,33 @@
 package com.codegym.back_end_sprint_2.controller;
 
 import com.codegym.back_end_sprint_2.model.dto.TeacherDto;
-import com.codegym.back_end_sprint_2.model.entities.Education;
-import com.codegym.back_end_sprint_2.model.entities.Faculty;
-import com.codegym.back_end_sprint_2.model.entities.Teacher;
-import com.codegym.back_end_sprint_2.service.IEducationService;
-import com.codegym.back_end_sprint_2.service.IFacultyService;
-import com.codegym.back_end_sprint_2.service.ITeacherService;
+import com.codegym.back_end_sprint_2.model.entities.*;
+import com.codegym.back_end_sprint_2.repository.IRoleRepository;
+import com.codegym.back_end_sprint_2.repository.IUserRepository;
+import com.codegym.back_end_sprint_2.service.*;
+import com.codegym.back_end_sprint_2.until.EncryptPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
-@RequestMapping("/teacher")
+@RequestMapping("/api/teacher")
 public class TeacherController {
+
+    private static final String ROLE_TEACHER = "ROLE_TEACHER";
+
     @Autowired
     private ITeacherService teacherService;
+
+    @Autowired
+    IUserRepository userRepository;
+    @Autowired
+    IRoleRepository roleRepository;
 
     @Autowired
     private IFacultyService facultyService;
@@ -66,8 +73,55 @@ public class TeacherController {
     public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDto teacherDto){
         Teacher teacher = new Teacher();
         transformFromDtoToTeacher(teacher,teacherDto);
+        teacher = teacherService.save(teacher);
+        User user = new User();
+        user.setUsername(teacher.getCode());
+        user.setPassword(EncryptPasswordUtils.EncodePassword("123456"));
+        user.setStatus(true);
+        user.setTeacher(null);
+        user.setTeacher(teacher);
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findByName(ROLE_TEACHER));
+        user.setRoles(roles);
+        userRepository.save(user);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/detail-teacher/{code}")
+    public ResponseEntity<TeacherDto> detailTeacher(@PathVariable String code){
+        Optional<Teacher> teacherOptional = teacherService.findTeacherByCode(code);
+        if (!teacherOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
+            Teacher teacher = teacherOptional.get();
+            TeacherDto teacherDto = new TeacherDto();
+            transformFromTeacherToDto(teacher,teacherDto);
+            return new ResponseEntity<>(teacherDto, HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/edit-teacher")
+    public ResponseEntity<Teacher> editTeacher(@RequestBody TeacherDto teacherDto){
+        Teacher teacher = new Teacher();
+        transformFromDtoToTeacher(teacher,teacherDto);
         teacherService.save(teacher);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<TeacherDto>> search(@RequestParam String keyWord){
+        List<Teacher> teacherList = teacherService.searchTeacher(keyWord);
+        if (teacherList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        List<TeacherDto> teacherDtoList = new ArrayList<>();
+
+        for (Teacher teacher : teacherList) {
+            TeacherDto teacherDto = new TeacherDto();
+            transformFromTeacherToDto(teacher,teacherDto);
+            teacherDtoList.add(teacherDto);
+        }
+        return new ResponseEntity<>(teacherDtoList,HttpStatus.OK);
     }
 
     private void transformFromTeacherToDto(Teacher teacher, TeacherDto teacherDto) {
@@ -86,6 +140,7 @@ public class TeacherController {
     }
 
     private void transformFromDtoToTeacher(Teacher teacher, TeacherDto teacherDto) {
+        teacher.setCode(teacherDto.getCode());
         teacher.setName(teacherDto.getName());
         teacher.setDateOfBirth(teacherDto.getDateOfBirth());
         teacher.setGender(teacherDto.getGender());

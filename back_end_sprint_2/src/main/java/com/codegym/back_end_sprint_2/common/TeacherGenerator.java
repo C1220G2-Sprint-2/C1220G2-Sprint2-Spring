@@ -8,10 +8,10 @@ import java.io.Serializable;
 import java.util.stream.Stream;
 
 public class TeacherGenerator implements IdentifierGenerator {
-    private String prefix = "GV-";
+    private String prefix = "GV";
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object obj) throws HibernateException {
-        String query = "SELECT code FROM teacher ";
+        String query = "SELECT teacher_code FROM teacher ";
         Stream<String> ids = session.createSQLQuery(query).stream();
         Long max = ids.map(o -> o.replace(prefix, "")).mapToLong(Long::parseLong).max().orElse(0L);
         return prefix + (String.format("%06d", max + 1));

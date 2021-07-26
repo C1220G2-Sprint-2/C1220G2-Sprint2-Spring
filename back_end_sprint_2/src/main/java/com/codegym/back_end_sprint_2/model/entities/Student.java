@@ -16,7 +16,6 @@ public class Student {
     private String phone;
     private String gender;
     private String dateOfBirth;
-    private String classCode;
     private String email;
     private String address;
     private String image;
@@ -41,13 +40,13 @@ public class Student {
     public Student() {
     }
 
-    public Student(String code, String name, String phone, String gender, String dateOfBirth, String classCode, String email, String address, String image, String facebook, Double groupStatus, boolean enable, boolean status, Team team, Faculty faculty, Class aClass) {
+
+    public Student(String code, String name, String phone, String gender, String dateOfBirth, String email, String address, String image, String facebook, Double groupStatus, boolean enable, boolean status, Team team, Faculty faculty, Class aClass) {
         this.code = code;
         this.name = name;
         this.phone = phone;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
-        this.classCode = classCode;
         this.email = email;
         this.address = address;
         this.image = image;
@@ -59,6 +58,7 @@ public class Student {
         this.faculty = faculty;
         this.aClass = aClass;
     }
+
 
     public Class getaClass() {
         return aClass;
@@ -115,15 +115,6 @@ public class Student {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-
-    public String getClassCode() {
-        return classCode;
-    }
-
-    public void setClassCode(String classCode) {
-        this.classCode = classCode;
-    }
-
     public String getEmail() {
         return email;
     }
