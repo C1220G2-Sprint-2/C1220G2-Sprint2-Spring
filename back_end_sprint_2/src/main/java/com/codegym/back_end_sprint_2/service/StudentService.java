@@ -4,6 +4,7 @@ import com.codegym.back_end_sprint_2.dto.StudentDto;
 import com.codegym.back_end_sprint_2.model.entities.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentService {
     List<StudentDto> findAll();
@@ -11,4 +12,5 @@ public interface StudentService {
     Student save(StudentDto studentDto);
     void delete(String code);
     Student findByStudentCode(String code);
+    Student findByEmail(String email);
 }
