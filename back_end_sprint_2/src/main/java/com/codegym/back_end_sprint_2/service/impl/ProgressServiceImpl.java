@@ -40,4 +40,10 @@ public class ProgressServiceImpl implements IProgressService {
         }
         return progressStudentDtos;
     }
+
+    @Override
+    public List<Project> searchByName() {
+        return null;
+    }
+
 }

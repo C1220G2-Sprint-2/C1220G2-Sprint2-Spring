@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.stream.Stream;
 
 public class TeacherGenerator implements IdentifierGenerator {
-    private String prefix = "GV-";
+    private String prefix = "GV";
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object obj) throws HibernateException {
         String query = "SELECT teacher_code FROM teacher ";
