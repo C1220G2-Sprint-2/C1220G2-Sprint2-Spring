@@ -14,6 +14,7 @@ public interface ITeacherRepository extends JpaRepository<Teacher,String> {
             "WHERE enable = 1 ", nativeQuery = true)
     List<Teacher> findAll();
 
+
     @Query(value ="SELECT * FROM teacher " +
             "WHERE teacher_code = ?1 AND enable = 1 ", nativeQuery = true)
     Optional<Teacher> findTeacherByCode(String code);
