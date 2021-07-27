@@ -1,22 +1,27 @@
-package com.codegym.back_end_sprint_2.model.entities;
+package com.codegym.back_end_sprint_2.model.dto;
 
-import javax.persistence.*;
+public class AnnouncementCommentDto {
 
-@Entity
-public class AnnounceComment {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
     private String attachFile;
-    private String avatar;
-    private String name;
     private String teacherCode;
     private String studentCode;
+    private String avatar;
+    private String name;
     private Long announcementId;
 
-    public AnnounceComment() {
+    public AnnouncementCommentDto() {
+    }
+
+    public AnnouncementCommentDto(String content, String attachFile, String teacherCode, String studentCode, String avatar, String name, Long announcementId) {
+        this.content = content;
+        this.attachFile = attachFile;
+        this.teacherCode = teacherCode;
+        this.studentCode = studentCode;
+        this.avatar = avatar;
+        this.name = name;
+        this.announcementId = announcementId;
     }
 
     public Long getId() {
@@ -43,22 +48,6 @@ public class AnnounceComment {
         this.attachFile = attachFile;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getTeacherCode() {
         return teacherCode;
     }
@@ -73,6 +62,22 @@ public class AnnounceComment {
 
     public void setStudentCode(String studentCode) {
         this.studentCode = studentCode;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getAnnouncementId() {

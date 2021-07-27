@@ -35,8 +35,10 @@ public class AnnouncementController {
         announcementDto.setContent(announcement.getContent());
         announcementDto.setTitle(announcement.getTitle());
         announcementDto.setTeacherCode(announcement.getTeacherCode());
+        announcementDto.setAvatar(announcement.getAvatar());
+        announcementDto.setName(announcement.getName());
         announcementService.save(announcementDto.getAttachFile(),announcementDto.getContent(),announcementDto.getTitle(),
-                announcementDto.getTeacherCode(),announcementEnable);
+                announcementDto.getTeacherCode(),announcementDto.getAvatar() ,announcementDto.getName() ,announcementEnable);
         return ResponseEntity.ok(new MessageResponse("Thêm mới thành công !"));
     }
 }

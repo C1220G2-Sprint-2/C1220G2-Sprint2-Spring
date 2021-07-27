@@ -25,13 +25,15 @@ public class AnnouncementServiceImpl implements IAnnouncementService {
         List<AnnouncementDto> announcementDtoList = new ArrayList<>();
         List<Announcement> announcementList = announcementRepository.findAll();
         for (Announcement announcement : announcementList) {
-            announcementDtoList.add(new AnnouncementDto(announcement.getId(),announcement.getTitle(),announcement.getContent(),announcement.getTeacher().getCode(),announcement.getAttachFile()));
+            announcementDtoList.add(new AnnouncementDto(announcement.getId(),announcement.getTitle(),
+                    announcement.getContent(),announcement.getTeacher().getCode(),announcement.getAvatar(),
+                    announcement.getName(),announcement.getAttachFile()));
         }
         return announcementDtoList;
     }
 
     @Override
-    public void save(String attachFile, String content, String title, String teacherCode, Byte enable) {
-        announcementRepository.saveAnnouncement(attachFile,content,title,teacherCode,enable);
+    public void save(String attachFile, String content, String title, String teacherCode, String avatar, String name, Byte enable) {
+        announcementRepository.saveAnnouncement(attachFile,content,title,teacherCode,avatar,name,enable);
     }
 }
