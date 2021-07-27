@@ -6,6 +6,8 @@ import com.codegym.back_end_sprint_2.service.StudentDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class StudentDtoServiceImpl implements StudentDtoService {
 
@@ -15,5 +17,10 @@ public class StudentDtoServiceImpl implements StudentDtoService {
     @Override
     public StudentDto findQueryById(String code) {
         return studentDtoRepository.findQueryById(code);
+    }
+
+    @Override
+    public List<StudentDto> findStudentsByTeam(String team) {
+        return studentDtoRepository.findStudentsByTeam(team);
     }
 }
