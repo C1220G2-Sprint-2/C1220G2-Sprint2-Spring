@@ -6,13 +6,24 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
 import java.util.Optional;
 
 @Repository
+
+
 public interface ITeacherRepository extends JpaRepository<Teacher,String> {
+
+
+    Teacher findByCode(String code);
+    Teacher findByName(String code);
+
+    Optional<Teacher> findByEmail(String email);
+
     @Query(value = "SELECT * FROM teacher " +
             "WHERE enable = 1 ", nativeQuery = true)
     List<Teacher> findAll();
+
 
     @Query(value ="SELECT * FROM teacher " +
             "WHERE teacher_code = ?1 AND enable = 1 ", nativeQuery = true)
@@ -27,4 +38,7 @@ public interface ITeacherRepository extends JpaRepository<Teacher,String> {
             "OR teacher.phone like %?1% " +
             "OR faculties.faculty_name like %?1%) ", nativeQuery = true)
     List<Teacher> searchTeacher(String keyWord);
+
+
 }
+

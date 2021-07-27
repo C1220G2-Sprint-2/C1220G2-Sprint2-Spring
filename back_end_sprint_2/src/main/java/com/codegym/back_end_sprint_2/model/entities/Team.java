@@ -1,6 +1,7 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,13 +16,31 @@ public class Team {
     private String teamLeader;
     private boolean enable;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonBackReference(value = "students")
     private List<Student> students;
     @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
-    @JsonIgnore
+    @JsonBackReference(value = "projects")
     private List<Project> projects;
+    private Integer noOfMember;
+
 
     public Team() {
+    }
+
+    public Team(Long id, String name, String teamLeader, boolean enable, List<Student> students, List<Project> projects) {
+        this.id = id;
+        this.name = name;
+        this.teamLeader = teamLeader;
+        this.enable = enable;
+        this.students = students;
+        this.projects = projects;
+    }
+
+    public Team(Long id, String name, String teamLeader, boolean enable) {
+        this.id = id;
+        this.name = name;
+        this.teamLeader = teamLeader;
+        this.enable = enable;
     }
 
     public Long getId() {
@@ -71,4 +90,13 @@ public class Team {
     public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
+
+    public Integer getNoOfMember() {
+        return noOfMember;
+    }
+
+    public void setNoOfMember(Integer noOfMember) {
+        this.noOfMember = noOfMember;
+    }
+
 }

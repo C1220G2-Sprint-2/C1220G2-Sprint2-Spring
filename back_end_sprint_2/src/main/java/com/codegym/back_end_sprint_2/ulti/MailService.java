@@ -39,4 +39,14 @@ public class MailService {
 //        return "Email Sent http!";
     }
 
+    public void sendEmailToResetPassword(String password, String email) throws  MessagingException {
+        MimeMessage message = emailSender.createMimeMessage();
+        String htmlMsg = "<p>Xin chào, đầy là mật khẩu mới của bạn. Vui lòng đổi mật khẩu để đảm bảo an toàn cho tài khoản:</p>" +
+                "<p>mật khẩu: "+password+"</p>";
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+        message.setContent(htmlMsg, "text/html; charset=UTF-8");
+        helper.setTo(email);
+        helper.setSubject("Reset mật khẩu");
+        this.emailSender.send(message);
+    }
 }
