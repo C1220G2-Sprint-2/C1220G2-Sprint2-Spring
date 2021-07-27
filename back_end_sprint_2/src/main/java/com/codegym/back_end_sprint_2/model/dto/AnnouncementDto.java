@@ -7,18 +7,22 @@ public class AnnouncementDto {
     private String content;
     private String teacherCode;
     private String attachFile;
+    private String avatar;
+    private String name;
     private Byte enable;
 
 
     public AnnouncementDto() {
     }
 
-    public AnnouncementDto(Long id, String title, String content, String teacherCode, String attachFile) {
+    public AnnouncementDto(Long id, String title, String content, String teacherCode, String avatar, String name, String attachFile) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.teacherCode = teacherCode;
         this.attachFile = attachFile;
+        this.avatar = avatar;
+        this.name = name;
     }
 
     public Long getId() {
@@ -59,6 +63,22 @@ public class AnnouncementDto {
 
     public void setAttachFile(String attachFile) {
         this.attachFile = attachFile;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Byte getEnable() {

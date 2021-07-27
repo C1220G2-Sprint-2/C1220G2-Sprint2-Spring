@@ -15,15 +15,15 @@ public class Announcement {
     private String content;
     private String attachFile;
     private boolean enable;
+    private String avatar;
+    private String name;
     @ManyToOne
     @JoinColumn(name = "teacher_code")
     private Teacher teacher;
     @ManyToOne
     @JoinColumn(name = "notification_id")
     private Notification notification;
-    @OneToMany(mappedBy = "announcement", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<AnnounceComment> announceComments;
+
 
     public Announcement() {
     }
@@ -84,11 +84,19 @@ public class Announcement {
         this.notification = notification;
     }
 
-    public List<AnnounceComment> getAnnounceComments() {
-        return announceComments;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setAnnounceComments(List<AnnounceComment> announceComments) {
-        this.announceComments = announceComments;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

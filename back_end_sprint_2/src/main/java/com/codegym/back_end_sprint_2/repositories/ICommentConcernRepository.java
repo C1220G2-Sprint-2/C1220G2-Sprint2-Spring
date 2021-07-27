@@ -1,6 +1,6 @@
 package com.codegym.back_end_sprint_2.repositories;
 
-import com.codegym.back_end_sprint_2.model.entities.Announcement;
+import com.codegym.back_end_sprint_2.model.entities.ConcernComment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -8,13 +8,12 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface IAnnouncementRepository extends JpaRepository<Announcement, Long> {
+public interface ICommentConcernRepository extends JpaRepository<ConcernComment, Long> {
 
-    //Create announcement
     @Modifying
     @Transactional
-    @Query(value = " INSERT INTO announcement (attach_file,content,title,teacher_code,avatar,`name`, enable) " +
+    @Query(value = " INSERT INTO concern_comment (content, concern_id, student_code, teacher_code, attach_file, avatar, `name`) " +
             "VALUE " +
             "(?1,?2,?3,?4,?5,?6,?7 ) ", nativeQuery = true)
-    void saveAnnouncement(String attachFile, String content, String title, String teacherCode,String avatar, String name, Byte enable);
+    void saveCommentConcern(String content, Long concernId, String studentCode, String teacherCode,String attachFile,String avatar, String name);
 }
