@@ -22,7 +22,7 @@ public class MailService {
 //        Phần này là nội dung Email nha anh em
         String htmlMsg = "<p>Xin chào bạn, đầy là tài khoản của bạn:</p>" +
                 "<p>tài khoản: " + account + "</p>"+
-                "<p>mật khẩu: 123123</p>";
+                "<p>mật khẩu: 123456</p>";
 
         MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "utf-8");
         message.setContent(htmlMsg, "text/html; charset=UTF-8");

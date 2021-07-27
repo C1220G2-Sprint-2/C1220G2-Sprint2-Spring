@@ -5,17 +5,19 @@ import com.codegym.back_end_sprint_2.model.entities.*;
 import com.codegym.back_end_sprint_2.repository.IRoleRepository;
 import com.codegym.back_end_sprint_2.repository.IUserRepository;
 import com.codegym.back_end_sprint_2.service.*;
+import com.codegym.back_end_sprint_2.ulti.MailService;
 import com.codegym.back_end_sprint_2.until.EncryptPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:4200/")
 @RestController
-@RequestMapping("/teacher")
+@RequestMapping("/api/teacher")
 public class TeacherController {
 
     private static final String ROLE_TEACHER = "ROLE_TEACHER";
@@ -25,6 +27,7 @@ public class TeacherController {
 
     @Autowired
     IUserRepository userRepository;
+
     @Autowired
     IRoleRepository roleRepository;
 
@@ -33,6 +36,9 @@ public class TeacherController {
 
     @Autowired
     private IEducationService educationService;
+
+    @Autowired
+    private MailService mailService;
 
     @GetMapping("/list-faculty")
     public ResponseEntity<List<Faculty>> getAllListFaculty(){
@@ -69,7 +75,7 @@ public class TeacherController {
     }
 
     @PostMapping("/create-teacher")
-    public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDto teacherDto){
+    public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDto teacherDto) throws MessagingException {
         Teacher teacher = new Teacher();
         transformFromDtoToTeacher(teacher,teacherDto);
         teacher = teacherService.save(teacher);
@@ -83,6 +89,7 @@ public class TeacherController {
         roles.add(roleRepository.findByName(ROLE_TEACHER));
         user.setRoles(roles);
         userRepository.save(user);
+        mailService.sendEmailAccountStudent(user.getUsername());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
