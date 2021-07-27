@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IProjectService {
+
+//    Code Huy--------------------------------------
     List<Project> findAll();
-
-
     Optional<Project> findById(Long id);
 
     Project save(Project project);
@@ -16,4 +16,6 @@ public interface IProjectService {
     void deleteById(Long idDelete);
 
     Project findByTeam(Long id);
+//-------------------------------------------------
+
 }

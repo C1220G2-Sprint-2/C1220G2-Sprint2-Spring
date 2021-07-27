@@ -16,7 +16,8 @@ public interface IStudentRepository extends JpaRepository<Student,String> {
 
     @Query(value = " select *\n" +
             "from student\n" +
-            "where code like %?1% or class_code like %?1% or `name` like %?1% ", nativeQuery = true)
+            " inner join class on student.class_id = class.class_id " +
+            "where code like %?1% or class.class_name like %?1% or `name` like %?1% ", nativeQuery = true)
      List<Student> searchTeamRegistration(String search);
 
     Optional<Student> findByEmail(String email);
