@@ -26,7 +26,7 @@ public class ProgressServiceImpl implements IProgressService {
         List<ProgressDto> progressDtoList = new ArrayList<>();
         List<Project> projectList = projectRepository.findAll();
         for (Project project : projectList) {
-            progressDtoList.add(new ProgressDto(project.getTeam().getName(), project.getContent(), project.getTeam().getNoOfMember()));
+            progressDtoList.add(new ProgressDto(project.getId(), project.getTeam().getName(), project.getContent(), project.getTeam().getNoOfMember()));
         }
         return progressDtoList;
     }
@@ -40,4 +40,10 @@ public class ProgressServiceImpl implements IProgressService {
         }
         return progressStudentDtos;
     }
+
+    @Override
+    public List<Project> searchByName() {
+        return null;
+    }
+
 }
