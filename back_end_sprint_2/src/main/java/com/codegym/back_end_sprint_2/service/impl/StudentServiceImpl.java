@@ -107,7 +107,7 @@ public class StudentServiceImpl implements  StudentService {
 
     @Override
     public void delete(String code) {
-//         studentDtoRepository.delete(code);
+         studentRepository.deleteByCodeS(code);
     }
 
 

@@ -2,9 +2,11 @@ package com.codegym.back_end_sprint_2.repositories;
 
 import com.codegym.back_end_sprint_2.model.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,4 +20,14 @@ public interface IStudentRepository extends JpaRepository<Student,String> {
      List<Student> searchTeamRegistration(String search);
 
     Optional<Student> findByEmail(String email);
+
+    @Modifying
+    @Transactional
+    @Query(value ="update student set `enable` = 0 where `code` = ?1 ;", nativeQuery = true)
+    void deleteByCodeS(String code);
+
+    @Modifying
+    @Transactional
+    @Query(value ="update student set status = 0 where `code` = ?1 ;", nativeQuery = true)
+    void block(String code);
 }
