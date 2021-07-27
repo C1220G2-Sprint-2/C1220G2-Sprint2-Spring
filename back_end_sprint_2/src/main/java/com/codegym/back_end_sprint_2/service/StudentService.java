@@ -10,4 +10,5 @@ public interface StudentService {
     List<StudentDto> listSearch(String keyword);
     Student save(StudentDto studentDto);
     void delete(String code);
+    void block(String code);
 }

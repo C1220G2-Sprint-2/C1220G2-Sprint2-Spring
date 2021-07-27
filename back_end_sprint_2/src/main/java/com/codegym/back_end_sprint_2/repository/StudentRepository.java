@@ -16,4 +16,8 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     @Query(value ="update student set `enable` = 0 where `code` = ?1 ;", nativeQuery = true)
     void deleteByCodeS(String code);
 
+    @Modifying
+    @Transactional
+    @Query(value ="update student set status = 0 where `code` = ?1 ;", nativeQuery = true)
+    void block(String code);
 }

@@ -20,7 +20,7 @@ public class StudentDto {
     private String address;
     private String dateOfBirth;
     private String gender;
-    private int team;
+    private String team;
     private boolean status;
     private boolean enable;
 
@@ -44,11 +44,11 @@ public class StudentDto {
         return dateOfBirth;
     }
 
-    public int getTeam() {
+    public String getTeam() {
         return team;
     }
 
-    public void setTeam(int team) {
+    public void setTeam(String team) {
         this.team = team;
     }
 
