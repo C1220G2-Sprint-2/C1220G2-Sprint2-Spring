@@ -78,21 +78,28 @@ public class StudentServiceImpl implements  StudentService {
         Student student = new Student();
         if (null != studentDto.getCode()){
             student.setCode(studentDto.getCode());
+            student.setGroupStatus(0.5);
+            student.setStatus(studentDto.isStatus());
+            student.setTeam(teamRepository.findTeamByName(studentDto.getTeam()));
+        } else{
+            student.setGroupStatus(0.5);
+            student.setEnable(true);
+            student.setStatus(true);
+            student.setTeam(teamRepository.findById(1L).orElse(null));
         }
+        student.setEnable(true);
         student.setName(studentDto.getName());
         student.setAddress(studentDto.getAddress());
         student.setDateOfBirth(studentDto.getDateOfBirth());
         student.setEmail(studentDto.getEmail());
-        student.setEnable(true);
         student.setFacebook(studentDto.getFacebook());
         student.setGender(studentDto.getGender());
-        student.setGroupStatus(0.5);
         student.setImage(studentDto.getImage());
         student.setPhone(studentDto.getPhone());
-        student.setStatus(true);
+
         student.setaClass(classRepository.findById(Long.valueOf(studentDto.getClassStudent())).orElse(null));
         student.setFaculty(facultyRepository.findById(Long.valueOf(studentDto.getFaculty())).orElse(null));
-        student.setTeam(teamRepository.findById(1L).orElse(null));
+
 
        return studentRepository.save(student);
 
@@ -112,6 +119,11 @@ public class StudentServiceImpl implements  StudentService {
     @Override
     public Student findByEmail(String email) {
         return studentRepository.findByEmail(email).orElse(null);
+    }
+
+    @Override
+    public void block(String code) {
+        studentRepository.block(code);
     }
 
 }
