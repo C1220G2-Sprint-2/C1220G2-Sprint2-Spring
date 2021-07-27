@@ -84,6 +84,12 @@ public class TeamController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/listTeam")
+    public ResponseEntity<List<Team>> listTeam() {
+        List<Team> list = teamService.findAll();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/findTeam")
     public ResponseEntity<Team> findTeam(@RequestParam(value = "teamId") Long id) {
         Team team = teamService.findById(id).orElse(null);
@@ -99,9 +105,10 @@ public class TeamController {
     public ResponseEntity<Student> notagree(@RequestParam(value = "codeStudent") String codeStudent,
                                             HttpServletResponse response) throws IOException, MessagingException {
         Student student = studentService.findByCode(codeStudent);
+        String mailTeamLeader = studentService.findByCode(student.getTeam().getTeamLeader()).getEmail();
         student.setTeam(teamService.findById(1L).orElse(null));
         studentService.save(student);
-        mailService.emailCcTeamLeader(student,"từ chối");
+        mailService.emailCcTeamLeader(student,"từ chối",mailTeamLeader);
         response.sendRedirect("http://localhost:4200/nhom/dang-ky/");
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -112,10 +119,12 @@ public class TeamController {
                                          @RequestParam(value = "teamId") Long teamId,
                                             HttpServletResponse response) throws IOException, MessagingException {
         Student student = studentService.findByCode(codeStudent);
+
+
         student.setTeam(teamService.findById(teamId).orElse(null));
         student.setGroupStatus(1.0);
         studentService.save(student);
-        mailService.emailCcTeamLeader(student, "đồng ý");
+        mailService.emailCcTeamLeader(student, "đồng ý", studentService.findByCode( teamService.findById(teamId).orElse(null).getTeamLeader()).getEmail());
         response.sendRedirect("http://localhost:4200/nhom/quan-ly-nhom/");
         return new ResponseEntity<>(HttpStatus.OK);
     }

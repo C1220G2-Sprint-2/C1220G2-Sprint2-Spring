@@ -60,7 +60,6 @@ public class StudentController {
         user.setRoles(roles);
         userRepository.save(user);
         mailService.sendEmailAccountStudent(student.getCode());
-
     }
     @GetMapping("/{code}")
     public StudentDto findById(@PathVariable String code){

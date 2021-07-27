@@ -7,6 +7,6 @@ import javax.mail.MessagingException;
 public interface IMailService {
 
     String  emailTeam(Student student, Team teamDto) throws MessagingException;
-    public String emailCcTeamLeader(Student student, String check) throws MessagingException;
+    public String emailCcTeamLeader(Student student, String check, String emailTeamLeader) throws MessagingException;
     public String emailToTeacher( Project project) throws MessagingException;
 }
