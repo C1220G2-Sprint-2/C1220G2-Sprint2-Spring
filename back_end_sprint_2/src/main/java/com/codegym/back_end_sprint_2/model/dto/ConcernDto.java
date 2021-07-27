@@ -7,16 +7,20 @@ public class ConcernDto {
     private String content;
     private String studentCode;
     private String attachFile;
+    private String avatar;
+    private String name;
 
     public ConcernDto() {
     }
 
-    public ConcernDto(Long id, String title, String content, String studentCode, String attachFile) {
+    public ConcernDto(Long id, String title, String content, String studentCode, String attachFile, String avatar, String name) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.studentCode = studentCode;
         this.attachFile = attachFile;
+        this.avatar = avatar;
+        this.name = name;
     }
 
     public Long getId() {
@@ -57,5 +61,21 @@ public class ConcernDto {
 
     public void setStudentCode(String studentCode) {
         this.studentCode = studentCode;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -12,6 +12,8 @@ public class Concern {
     private String content;
     private String attachFile;
     private boolean enable;
+    private String avatar;
+    private String name;
     @ManyToOne
     @JoinColumn(name = "student_code")
     private Student student;
@@ -87,5 +89,21 @@ public class Concern {
 
     public void setTeacher(Teacher teacher) {
         this.teacher = teacher;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

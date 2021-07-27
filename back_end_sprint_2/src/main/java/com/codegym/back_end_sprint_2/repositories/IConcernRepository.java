@@ -12,8 +12,8 @@ public interface IConcernRepository extends JpaRepository<Concern, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = " INSERT INTO concern (attach_file,content,title,student_code, enable) " +
+    @Query(value = " INSERT INTO concern (attach_file,content,title,student_code, avatar, `name`, enable) " +
             "VALUE " +
-            "(?1,?2,?3,?4,?5 ) ", nativeQuery = true)
-    void saveConcern(String attachFile, String content, String title, String studentCode,Byte enable);
+            "(?1,?2,?3,?4,?5,?6,?7 ) ", nativeQuery = true)
+    void saveConcern(String attachFile, String content, String title, String studentCode,String avatar, String name, Byte enable);
 }
