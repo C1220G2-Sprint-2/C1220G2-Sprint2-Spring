@@ -8,13 +8,15 @@ public class ReviewDto {
     private Integer progressReview;
     private String teacherCode;
     private LocalDateTime dateCreate;
+    private String teacherName;
 
-    public ReviewDto(String title, String content, Integer progressReview, String teacherCode, LocalDateTime dateCreate) {
+    public ReviewDto(String title, String content, Integer progressReview, String teacherCode, LocalDateTime dateCreate, String teacherName) {
         this.title = title;
         this.content = content;
         this.progressReview = progressReview;
         this.teacherCode = teacherCode;
         this.dateCreate = dateCreate;
+        this.teacherName = teacherName;
     }
 
     public String getTitle() {
@@ -55,5 +57,13 @@ public class ReviewDto {
 
     public void setDateCreate(LocalDateTime dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 }

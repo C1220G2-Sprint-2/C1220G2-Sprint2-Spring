@@ -8,7 +8,9 @@ import java.util.List;
 
 //code by sang
 @Repository
-public interface ProjectRepository extends JpaRepository<Project,Long> {
+public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findByNameContaining(String name);
+
+    Project findByName(String name);
 }
 //end code by sang
