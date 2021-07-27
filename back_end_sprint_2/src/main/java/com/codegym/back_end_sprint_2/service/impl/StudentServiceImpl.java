@@ -1,20 +1,23 @@
 package com.codegym.back_end_sprint_2.service.impl;
 
-import com.codegym.back_end_sprint_2.dto.StudentDto;
+
+
 import com.codegym.back_end_sprint_2.model.entities.Student;
-import com.codegym.back_end_sprint_2.repository.*;
+import com.codegym.back_end_sprint_2.repositories.IStudentRepository;
 import com.codegym.back_end_sprint_2.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import com.codegym.back_end_sprint_2.dto.StudentDto;
+import com.codegym.back_end_sprint_2.repository.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public class StudentServiceImpl implements  StudentService {
 
     @Autowired
-    StudentRepository studentRepository;
+    IStudentRepository studentRepository;
 
     @Autowired
     StudentDtoRepository studentDtoRepository;
@@ -27,6 +30,11 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     TeamRepository teamRepository;
+
+
+    @Override
+    public List<Student> findAllJpa() {
+        return studentRepository.findAll(); }
 
     @Override
     public List<StudentDto> findAll() {
@@ -49,6 +57,18 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
+    public Student findByCode(String code) {
+        return studentRepository.findByCode(code);
+    }
+
+    @Override
+    public Student save(Student student) {
+        return studentRepository.save(student);
+    }
+
+
+
+
     public List<StudentDto> listSearch(String keyword) {
         return studentDtoRepository.listSearch(keyword);
     }
@@ -87,7 +107,18 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void delete(String code) {
-        studentRepository.deleteByCodeS(code);
+//         studentDtoRepository.delete(code);
+    }
+
+
+    @Override
+    public Student findByStudentCode(String code) {
+        return studentRepository.findById(code).orElse(null);
+    }
+
+    @Override
+    public Student findByEmail(String email) {
+        return studentRepository.findByEmail(email).orElse(null);
     }
 
     @Override
