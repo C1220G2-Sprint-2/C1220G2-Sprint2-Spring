@@ -1,6 +1,9 @@
 package com.codegym.back_end_sprint_2.service.impl;
 
 import com.codegym.back_end_sprint_2.model.entities.*;
+import com.codegym.back_end_sprint_2.repositories.IStudentRepository;
+import com.codegym.back_end_sprint_2.repository.StudentRepository;
+import com.codegym.back_end_sprint_2.repository.TeamRepository;
 import com.codegym.back_end_sprint_2.service.IMailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,8 +18,9 @@ import javax.mail.internet.MimeMessage;
 public class MailServiceImpl implements IMailService {
 
     @Autowired
-    public JavaMailSender emailSender;
-
+    private JavaMailSender emailSender;
+    @Autowired
+    private IStudentRepository studentRepository;
 
     @Override
     public String emailTeam(Student student, Team teamDto) throws MessagingException {
@@ -60,10 +64,10 @@ public class MailServiceImpl implements IMailService {
 
 
     @Override
-    public String emailCcTeamLeader(Student student, String check) throws MessagingException {
+    public String emailCcTeamLeader(Student student, String check, String emailTeamLeader) throws MessagingException {
         MimeMessage message = emailSender.createMimeMessage();
         boolean multipart = true;
-
+//        Student teamLead =  studentRepository.findById(student.getTeam().getTeamLeader()).orElse(null);
         String url = "http://localhost:4200/nhom/quan-ly-nhom";
 
         String htmlMsg = "<div style=\"text-align: center\">\n" +
@@ -75,9 +79,7 @@ public class MailServiceImpl implements IMailService {
 
         MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "utf-8");
         message.setContent(htmlMsg, "text/html; charset=UTF-8");
-
-        helper.setTo(student.getEmail());
-
+        helper.setTo(emailTeamLeader);
         helper.setSubject("[Xác nhận] Của thành viên trong nhóm");
         this.emailSender.send(message);
         return "Email Sent http!";

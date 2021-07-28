@@ -45,10 +45,6 @@ public class TeamController {
     @Autowired
     private StudentService studentService;
     @Autowired
-    private ICategoryService categoryService;
-    @Autowired
-    private ITeacherService teacherService;
-    @Autowired
     private IProjectService projectService;
     @Autowired
     private ITeamService teamService;
@@ -57,6 +53,7 @@ public class TeamController {
     @Autowired
     private JavaMailSender mailSender;
 
+//Code Huy - ------------------------------------------------------------------
 
     @PostMapping("/postTeam")
     public ResponseEntity<Team> save(@RequestBody TeamDto teamDto) throws MessagingException {
@@ -84,6 +81,12 @@ public class TeamController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/listTeam")
+    public ResponseEntity<List<Team>> listTeam() {
+        List<Team> list = teamService.findAll();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/findTeam")
     public ResponseEntity<Team> findTeam(@RequestParam(value = "teamId") Long id) {
         Team team = teamService.findById(id).orElse(null);
@@ -99,9 +102,10 @@ public class TeamController {
     public ResponseEntity<Student> notagree(@RequestParam(value = "codeStudent") String codeStudent,
                                             HttpServletResponse response) throws IOException, MessagingException {
         Student student = studentService.findByCode(codeStudent);
+        String mailTeamLeader = studentService.findByCode(student.getTeam().getTeamLeader()).getEmail();
         student.setTeam(teamService.findById(1L).orElse(null));
         studentService.save(student);
-        mailService.emailCcTeamLeader(student,"từ chối");
+        mailService.emailCcTeamLeader(student,"từ chối",mailTeamLeader);
         response.sendRedirect("http://localhost:4200/nhom/dang-ky/");
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -112,14 +116,17 @@ public class TeamController {
                                          @RequestParam(value = "teamId") Long teamId,
                                             HttpServletResponse response) throws IOException, MessagingException {
         Student student = studentService.findByCode(codeStudent);
+
+
         student.setTeam(teamService.findById(teamId).orElse(null));
         student.setGroupStatus(1.0);
         studentService.save(student);
-        mailService.emailCcTeamLeader(student, "đồng ý");
+        mailService.emailCcTeamLeader(student, "đồng ý", studentService.findByCode( teamService.findById(teamId).orElse(null).getTeamLeader()).getEmail());
         response.sendRedirect("http://localhost:4200/nhom/quan-ly-nhom/");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+//    -----------------------------------------------------------------------------------------------
 
     @GetMapping("/project")
     public ResponseEntity<List<Project>> list() {
@@ -130,7 +137,6 @@ public class TeamController {
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
     }
-
     @GetMapping("/list")
     public ResponseEntity<Page<DtoTeam>> listTeam(Pageable pageable) {
         Page<DtoTeam> list = teamService.findAllTeam(pageable);
@@ -140,8 +146,6 @@ public class TeamController {
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
     }
-
-
     @GetMapping("/{id}")
     public ResponseEntity<Team> findById(@PathVariable Long id) {
         Team team = teamService.findById(id).orElse(null);
@@ -150,44 +154,38 @@ public class TeamController {
         }
         return new ResponseEntity<>(team, HttpStatus.OK);
     }
-
     @PostMapping("/{id}")
     public ResponseEntity<Void> update(@PathVariable Long id) throws MessagingException {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        teamService.saveTeam(id);
+        Team team =  teamService.findById(id).orElse(null);
+        team.setEnable(false);
+        teamService.save(team);
         String[] email = teamService.findStudentGroupById(id);
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         boolean multipart = true;
-
-        String htmlMsg = "Nhóm của bạn Đã bị xoá";
-
-
+        String url = "http://localhost:4200";
+//---------------------------------------------------
+//        Phần này là nội dung Email nha anh em
+        String htmlMsg = "<div style=\"text-align: center\">\n" +
+                "    <img src=\"https://milemir.com/wp-content/uploads/2020/11/team.jpg\" alt=\"lỗi hình ảnh\"><br><br>" +
+                "<h3>Nhóm Của bạn đã bị xoá</h3><br><br>" +
+                "    <br><br><a href='" + url + "' style='display:inline-block;text-decoration:none;background-color: black;color:#ffffff;padding:13px;border:0px solid #76b900;font-family: Roboto, sans-serif' >Về trang nhóm</a>\n" +
+                "    <div style='height: 30px'> </div>\n" +
+                "</div>";
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, multipart, "utf-8");
         mimeMessage.setContent(htmlMsg, "text/html; charset=UTF-8");
-
-
+        //        -------------------------------------------
+//        Phần này là nơi mình muốn gửi đến nha, có thể dùng mảng String nếu muốn gửi nhiều người.
         helper.setTo(email);
-
+        //        -------------------------------------
+//        Cái này là cc nha, cũng có thể cc mảng String
         helper.addCc(MailConfig.FRIEND_EMAIL);
         helper.setSubject("Nhóm Của bạn đã bị xoá");
         this.mailSender.send(mimeMessage);
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @GetMapping("/searchTeamRegistration")
-    public ResponseEntity<List<Student>> searchTeamRegistration(
-            @RequestParam(value = "search", defaultValue = "") String search
-    ) {
-
-        List<Student> list = teamService.searchTeamRegistration(search);
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-  
-
-
     @GetMapping("/dto/{id}")
     public ResponseEntity<DtoTeam> findByIdTeam(@PathVariable Long id) {
         DtoTeam team = teamService.findByIdTeam(id);
@@ -196,16 +194,24 @@ public class TeamController {
         }
         return new ResponseEntity<>(team, HttpStatus.OK);
     }
-
-    @GetMapping("/student/{id}")
-    public void findGroupById(@PathVariable Long id) throws MessagingException {
+    @GetMapping("/student")
+    public void findGroupById(@RequestParam(value = "id") Long id, @RequestParam(value = "date") String date) throws MessagingException {
         String[] students = teamService.findStudentGroupById(id);
+        String url = "http://localhost:4200/nhom/quan-ly-nhom";
+        System.out.println("mealalalalalal" + students);
         //---Tạo email đơn giản ---------//
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         boolean multipart = true;
 //----------------------------------------------------------------//
         //-----Nội dung thư--------
-        String htmlMsg = "Hạn chót nộp dự án là ....";
+        String htmlMsg =
+                "<div style=\"text-align: center\">\n" +
+                        "    <img src=\"https://milemir.com/wp-content/uploads/2020/11/team.jpg\" alt=\"lỗi hình ảnh\"><br><br>" +
+                        "<h3>Hạn Chót Nộp Dụ Án</h3><br><br>" +
+                        "Hạn chót nộp dự án là :" + date +
+                        "    <br><br><a href='" + url + "' style='display:inline-block;text-decoration:none;background-color: black;color:#ffffff;padding:13px;border:0px solid #76b900;font-family: Roboto, sans-serif' >Về trang nhóm</a>\n" +
+                        "    <div style='height: 30px'> </div>\n" +
+                        "</div>";
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, multipart, "utf-8");
         mimeMessage.setContent(htmlMsg, "text/html; charset=UTF-8");
         //-----Người nhận (Mảng string)----
@@ -214,8 +220,15 @@ public class TeamController {
         helper.addCc(MailConfig.FRIEND_EMAIL);
         helper.setSubject("Hạn chót nộp dự án");
         this.mailSender.send(mimeMessage);
-
-
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<DtoTeam>> searchAll(@RequestParam(value = "search", defaultValue = "") String search) {
+        List<DtoTeam> list = teamService.searchAll(search);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(list, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(list, HttpStatus.OK);
+        }
     }
 
 

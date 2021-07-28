@@ -85,4 +85,9 @@ public class ITeamServiceImpl implements ITeamService {
         return teamRepository.findStudentGroupById(id);
     }
 
+    @Override
+    public List<DtoTeam> searchAll(String search) {
+        return dtoTeamRepository.searchAll(search);
+    }
+
 }

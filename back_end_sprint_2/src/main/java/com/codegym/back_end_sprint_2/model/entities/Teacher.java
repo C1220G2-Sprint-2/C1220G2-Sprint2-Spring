@@ -11,7 +11,6 @@ import java.util.Optional;
 public class Teacher {
 
     @Id
-
     @GeneratedValue(generator = "teacher_generator")
     @GenericGenerator(name = "teacher_generator", strategy = "com.codegym.back_end_sprint_2.common.TeacherGenerator")
     @Column(name = "teacher_code")
@@ -46,9 +45,6 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Project> projects;
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<AnnounceComment> announceComments;
 
     public Teacher() {
         this.enable = true;
@@ -189,13 +185,5 @@ public class Teacher {
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
-    }
-
-    public List<AnnounceComment> getAnnounceComments() {
-        return announceComments;
-    }
-
-    public void setAnnounceComments(List<AnnounceComment> announceComments) {
-        this.announceComments = announceComments;
     }
 }

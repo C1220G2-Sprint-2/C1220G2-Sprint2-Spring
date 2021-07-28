@@ -95,7 +95,7 @@ public class TeacherController {
         roles.add(roleRepository.findByName(ROLE_TEACHER));
         user.setRoles(roles);
         userRepository.save(user);
-        mailService.sendEmailAccountStudent(user.getUsername());
+        mailService.sendEmailAccountStudent(user.getUsername(),teacher.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
