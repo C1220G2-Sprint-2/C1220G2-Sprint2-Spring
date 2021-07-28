@@ -9,4 +9,5 @@ public interface IEducationService {
     List<Education> findAll();
 
     Education findById(Long id);
+    Education findByName(String name);
 }
