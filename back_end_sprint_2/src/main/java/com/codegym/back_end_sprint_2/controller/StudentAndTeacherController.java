@@ -79,7 +79,8 @@ public class StudentAndTeacherController {
             roles.add(roleRepository.findByName(ROLE_STUDENT));
             user.setRoles(roles);
             userRepository.save(user);
-//            mailService.sendEmailAccountStudent(student.getCode());
+            mailService.sendEmailAccountStudent(user.getUsername(),student.getEmail());
+
         }
     }
 
