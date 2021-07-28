@@ -30,6 +30,17 @@ public class Announcement {
     public Announcement() {
     }
 
+    public Announcement(String title, String content, String attachFile, boolean enable, String avatar, String name, LocalDateTime dateCreate, Teacher teacher) {
+        this.title = title;
+        this.content = content;
+        this.attachFile = attachFile;
+        this.enable = enable;
+        this.avatar = avatar;
+        this.name = name;
+        this.dateCreate = dateCreate;
+        this.teacher = teacher;
+    }
+
     public Long getId() {
         return id;
     }

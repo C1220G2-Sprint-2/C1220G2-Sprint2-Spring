@@ -34,4 +34,9 @@ public class CommentConcernServiceImpl implements ICommentConcernService {
     public void saveCommentConcern(String content, Long concernId, String studentCode, String teacherCode, String attachFile, String avatar, String name) {
         commentConcernRepository.saveCommentConcern(content,concernId,studentCode,teacherCode,attachFile,avatar,name);
     }
+
+    @Override
+    public String getStudentEmail(Long concernId) {
+        return commentConcernRepository.getStudentEmail(concernId);
+    }
 }

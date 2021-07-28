@@ -18,27 +18,31 @@ public class AnnouncementController {
     @Autowired
     private IAnnouncementService announcementService;
 
-    @GetMapping("/announcement-list")
-    public ResponseEntity<List<AnnouncementDto>> getListAnnouncement() {
-        List<AnnouncementDto> concernList = announcementService.findAll();
-        if (concernList.isEmpty()) {
+    @GetMapping("/announcement-list/{noOfRecord}")
+    public ResponseEntity<List<AnnouncementDto>> getListAnnouncement(@PathVariable("noOfRecord") Long noOfRecord) {
+        List<AnnouncementDto> announcementDtoList = announcementService.findAll(noOfRecord);
+        if (announcementDtoList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(concernList, HttpStatus.OK);
+        return new ResponseEntity<>(announcementDtoList, HttpStatus.OK);
     }
 
     @PostMapping("/announcement-save")
     public ResponseEntity<MessageResponse> saveConcern(@RequestBody AnnouncementDto announcement) {
-        Byte announcementEnable = 1;
-        AnnouncementDto announcementDto = new AnnouncementDto();
-        announcementDto.setAttachFile(announcement.getAttachFile());
-        announcementDto.setContent(announcement.getContent());
-        announcementDto.setTitle(announcement.getTitle());
-        announcementDto.setTeacherCode(announcement.getTeacherCode());
-        announcementDto.setAvatar(announcement.getAvatar());
-        announcementDto.setName(announcement.getName());
-        announcementService.save(announcementDto.getAttachFile(),announcementDto.getContent(),announcementDto.getTitle(),
-                announcementDto.getTeacherCode(),announcementDto.getAvatar() ,announcementDto.getName() ,announcementEnable);
-        return ResponseEntity.ok(new MessageResponse("Thêm mới thành công !"));
+        try {
+            announcementService.save(announcement);
+            return ResponseEntity.ok(new MessageResponse("Thêm mới thành công !"));
+        } catch (Exception e) {
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/list-size")
+    public ResponseEntity<?> getMaxSizeReviewList() {
+        try {
+            return new ResponseEntity<>(announcementService.maxLengthListReview(), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

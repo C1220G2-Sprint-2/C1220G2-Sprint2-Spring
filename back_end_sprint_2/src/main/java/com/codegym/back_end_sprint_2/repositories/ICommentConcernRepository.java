@@ -16,4 +16,10 @@ public interface ICommentConcernRepository extends JpaRepository<ConcernComment,
             "VALUE " +
             "(?1,?2,?3,?4,?5,?6,?7 ) ", nativeQuery = true)
     void saveCommentConcern(String content, Long concernId, String studentCode, String teacherCode,String attachFile,String avatar, String name);
+
+    @Query(value = " SELECT email " +
+            "FROM student " +
+            "JOIN concern ON student.`code` = concern.student_code " +
+            "WHERE concern.id = ?1 ", nativeQuery = true)
+    String getStudentEmail(Long concernId);
 }

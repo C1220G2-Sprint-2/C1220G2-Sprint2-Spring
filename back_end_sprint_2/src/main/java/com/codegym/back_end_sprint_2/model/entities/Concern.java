@@ -29,6 +29,18 @@ public class Concern {
     public Concern() {
     }
 
+    public Concern(String title, String content, String attachFile, boolean enable, String avatar, String name,
+                   LocalDateTime dateCreate, Student student) {
+        this.title = title;
+        this.content = content;
+        this.attachFile = attachFile;
+        this.enable = enable;
+        this.avatar = avatar;
+        this.name = name;
+        this.dateCreate = dateCreate;
+        this.student = student;
+    }
+
     public Long getId() {
         return id;
     }
