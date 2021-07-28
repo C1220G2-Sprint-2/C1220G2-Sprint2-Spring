@@ -1,6 +1,7 @@
 package com.codegym.back_end_sprint_2.model.dto;
 import java.time.LocalDateTime;
 public class ReviewDto {
+    private Long id;
     private String title;
     private String content;
     private Integer progressReview;
@@ -8,7 +9,8 @@ public class ReviewDto {
     private LocalDateTime dateCreate;
     private String teacherName;
     private String avatar;
-    public ReviewDto(String title, String content, Integer progressReview, String teacherCode, LocalDateTime dateCreate, String teacherName, String avatar) {
+    public ReviewDto(Long id, String title, String content, Integer progressReview, String teacherCode, LocalDateTime dateCreate, String teacherName, String avatar) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.progressReview = progressReview;
@@ -17,6 +19,15 @@ public class ReviewDto {
         this.teacherName = teacherName;
         this.avatar = avatar;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }

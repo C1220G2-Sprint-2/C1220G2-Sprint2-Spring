@@ -1,16 +1,16 @@
 package com.codegym.back_end_sprint_2.controller;
 
-import com.codegym.back_end_sprint_2.model.dto.AnnouncementCommentDto;
-import com.codegym.back_end_sprint_2.model.dto.ConcernCommentDto;
-import com.codegym.back_end_sprint_2.model.dto.ConcernDto;
-import com.codegym.back_end_sprint_2.model.dto.MessageResponse;
+import com.codegym.back_end_sprint_2.model.dto.*;
+import com.codegym.back_end_sprint_2.model.entities.ReviewComment;
 import com.codegym.back_end_sprint_2.service.ICommentAnnouncementService;
 import com.codegym.back_end_sprint_2.service.ICommentConcernService;
+import com.codegym.back_end_sprint_2.service.ICommentReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -22,6 +22,8 @@ public class CommentController {
     private ICommentConcernService commentConcernService;
     @Autowired
     private ICommentAnnouncementService commentAnnouncementService;
+    @Autowired
+    private ICommentReviewService commentReviewService;
 
     @GetMapping("/concern/comment-list")
     public ResponseEntity<List<ConcernCommentDto>> getListConcern() {
@@ -70,6 +72,29 @@ public class CommentController {
         commentAnnouncementService.saveCommentConcern(announcementCommentDto.getContent(),announcementCommentDto.getAnnouncementId(),
                 announcementCommentDto.getTeacherCode(),announcementCommentDto.getStudentCode(),announcementCommentDto.getAttachFile()
                 ,announcementCommentDto.getAvatar(), announcementCommentDto.getName());
+        return ResponseEntity.ok(new MessageResponse("Thêm mới thành công !"));
+    }
+
+    @GetMapping("/review/comment-list")
+    public ResponseEntity<List<ReviewCommentDto>> getListReviewComment() {
+        List<ReviewCommentDto> reviewCommentDtoList = commentReviewService.findAll();
+        if (reviewCommentDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(reviewCommentDtoList, HttpStatus.OK);
+    }
+
+    @PostMapping("/review/comment-save")
+    public ResponseEntity<MessageResponse> saveReviewComment(@RequestBody ReviewCommentDto reviewComment) {
+        ReviewCommentDto reviewCommentDto = new ReviewCommentDto();
+        reviewCommentDto.setContent(reviewComment.getContent());
+        reviewCommentDto.setStudentCode(reviewComment.getStudentCode());
+        reviewCommentDto.setAvatar(reviewComment.getAvatar());
+        reviewCommentDto.setName(reviewComment.getName());
+        reviewCommentDto.setReviewId(reviewComment.getReviewId());
+        commentReviewService.saveCommentReview(reviewCommentDto.getContent(),reviewCommentDto.getStudentCode(),
+                reviewCommentDto.getAvatar(),reviewCommentDto.getName(),reviewCommentDto.getReviewId()
+                ,LocalDateTime.now());
         return ResponseEntity.ok(new MessageResponse("Thêm mới thành công !"));
     }
 }

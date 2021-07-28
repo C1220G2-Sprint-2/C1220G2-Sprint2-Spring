@@ -22,7 +22,9 @@ public class ConcernServiceImpl implements IConcernService {
         List<ConcernDto> concernDtoList = new ArrayList<>();
         List<Concern> concernList = concernRepository.findAll();
         for (Concern concern : concernList) {
-            concernDtoList.add(new ConcernDto(concern.getId(),concern.getTitle(),concern.getContent(),concern.getStudent().getCode(),concern.getAttachFile(),concern.getAvatar(),concern.getName(), LocalDateTime.now()));
+            concernDtoList.add(new ConcernDto(concern.getId(),concern.getTitle(),concern.getContent(),
+                    concern.getStudent().getCode(),concern.getAttachFile(),concern.getAvatar(),concern.getName(),
+                    LocalDateTime.now()));
         }
         return concernDtoList;
     }
