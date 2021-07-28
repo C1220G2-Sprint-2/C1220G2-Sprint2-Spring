@@ -7,6 +7,7 @@ import com.codegym.back_end_sprint_2.service.IConcernService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class ConcernServiceImpl implements IConcernService {
         List<ConcernDto> concernDtoList = new ArrayList<>();
         List<Concern> concernList = concernRepository.findAll();
         for (Concern concern : concernList) {
-            concernDtoList.add(new ConcernDto(concern.getId(),concern.getTitle(),concern.getContent(),concern.getStudent().getCode(),concern.getAttachFile(),concern.getAvatar(),concern.getName()));
+            concernDtoList.add(new ConcernDto(concern.getId(),concern.getTitle(),concern.getContent(),concern.getStudent().getCode(),concern.getAttachFile(),concern.getAvatar(),concern.getName(), LocalDateTime.now()));
         }
         return concernDtoList;
     }

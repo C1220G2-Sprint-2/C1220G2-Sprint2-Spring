@@ -3,6 +3,7 @@ package com.codegym.back_end_sprint_2.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -17,6 +18,7 @@ public class Announcement {
     private boolean enable;
     private String avatar;
     private String name;
+    private LocalDateTime dateCreate;
     @ManyToOne
     @JoinColumn(name = "teacher_code")
     private Teacher teacher;
@@ -98,5 +100,13 @@ public class Announcement {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDateTime getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(LocalDateTime dateCreate) {
+        this.dateCreate = dateCreate;
     }
 }
