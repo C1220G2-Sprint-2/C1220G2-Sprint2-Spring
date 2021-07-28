@@ -52,6 +52,15 @@ public class TeacherServiceImpl implements ITeacherService {
         return teacherRepository.findByEmail(email).orElse(null);
     }
 
+    @Override
+    public boolean isEmailExist(String email) {
+        return teacherRepository.existsByEmail(email);
+    }
+
+    @Override
+    public boolean isPhoneExist(String phone) {
+        return teacherRepository.existsByPhone(phone);
+    }
 
 
 }

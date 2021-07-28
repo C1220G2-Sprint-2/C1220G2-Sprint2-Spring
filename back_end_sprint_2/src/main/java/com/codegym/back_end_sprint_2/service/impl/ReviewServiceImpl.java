@@ -42,7 +42,7 @@ public class ReviewServiceImpl implements IReviewService {
         List<ReviewDto> reviewDtoList = new ArrayList<>();
         List<Review> reviewList = reviewRepository.findAll();
         for (Review review : reviewList) {
-            reviewDtoList.add(new ReviewDto(review.getTitle(), review.getContent(), review.getProgressReview(), review.getTeacher().getCode(), review.getDateCreate(), review.getTeacher().getName()));
+            reviewDtoList.add(new ReviewDto(review.getTitle(), review.getContent(), review.getProgressReview(), review.getTeacher().getCode(), review.getDateCreate(), review.getTeacher().getName(),review.getTeacher().getImage()));
         }
         return reviewDtoList;
     }
