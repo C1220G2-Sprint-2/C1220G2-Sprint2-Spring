@@ -1,20 +1,24 @@
 package com.codegym.back_end_sprint_2.controller;
 
+import com.codegym.back_end_sprint_2.model.dto.ProjectTeacherDto;
 import com.codegym.back_end_sprint_2.model.dto.TeacherDto;
 import com.codegym.back_end_sprint_2.model.entities.*;
+import com.codegym.back_end_sprint_2.repositories.ProjectRepository;
 import com.codegym.back_end_sprint_2.repository.IRoleRepository;
 import com.codegym.back_end_sprint_2.repository.IUserRepository;
 import com.codegym.back_end_sprint_2.service.*;
+import com.codegym.back_end_sprint_2.ulti.MailService;
 import com.codegym.back_end_sprint_2.until.EncryptPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.*;
 
 
-@CrossOrigin(origins = "http://localhost:4200/")
+@CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/teacher")
 public class TeacherController {
@@ -25,15 +29,23 @@ public class TeacherController {
     private ITeacherService teacherService;
 
     @Autowired
-    IUserRepository userRepository;
+    private IUserRepository userRepository;
+
     @Autowired
-    IRoleRepository roleRepository;
+    private IRoleRepository roleRepository;
+
+
+    @Autowired
+    private ProjectRepository projectRepository;
 
     @Autowired
     private IFacultyService facultyService;
 
     @Autowired
     private IEducationService educationService;
+
+    @Autowired
+    private MailService mailService;
 
     @GetMapping("/list-faculty")
     public ResponseEntity<List<Faculty>> getAllListFaculty(){
@@ -70,7 +82,7 @@ public class TeacherController {
     }
 
     @PostMapping("/create-teacher")
-    public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDto teacherDto){
+    public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDto teacherDto) throws MessagingException {
         Teacher teacher = new Teacher();
         transformFromDtoToTeacher(teacher,teacherDto);
         teacher = teacherService.save(teacher);
@@ -84,6 +96,7 @@ public class TeacherController {
         roles.add(roleRepository.findByName(ROLE_TEACHER));
         user.setRoles(roles);
         userRepository.save(user);
+        mailService.sendEmailAccountStudent(user.getUsername(),teacher.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -122,6 +135,42 @@ public class TeacherController {
             teacherDtoList.add(teacherDto);
         }
         return new ResponseEntity<>(teacherDtoList,HttpStatus.OK);
+    }
+
+    @GetMapping("/checkDelete")
+    public ResponseEntity<?> checkDelete(@RequestParam String code){
+        Optional<Teacher> deleteTeacherOptional = teacherService.findTeacherByCode(code);
+        if (!deleteTeacherOptional.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }else {
+            Teacher teacher = deleteTeacherOptional.get();
+            List<Project> projectList = teacher.getProjects();
+            if (projectList.isEmpty()){
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            List<ProjectTeacherDto> projectTeacherDtoList = new ArrayList<>();
+            for (Project project: projectList) {
+                ProjectTeacherDto projectTeacherDto = new ProjectTeacherDto();
+                transformProjectToProjectTeacherDto(project,projectTeacherDto);
+                projectTeacherDtoList.add(projectTeacherDto);
+            }
+            return new ResponseEntity<>(projectTeacherDtoList,HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("delete/{code}")
+    public  ResponseEntity<?> delete(@PathVariable("code") String code){
+        Teacher teacher = teacherService.findTeacherByCode(code).get();
+        teacher.setEnable(false);
+        teacherService.save(teacher);
+        userRepository.deleteByTeacher_Code(code);
+        return new  ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private void transformProjectToProjectTeacherDto(Project project, ProjectTeacherDto projectTeacherDto){
+        projectTeacherDto.setId(project.getId());
+        projectTeacherDto.setName(project.getName());
+        projectTeacherDto.setTeacherCode(project.getTeacher().getCode());
     }
 
     private void transformFromTeacherToDto(Teacher teacher, TeacherDto teacherDto) {
