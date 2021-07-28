@@ -29,10 +29,15 @@ public class TeacherController {
     private ITeacherService teacherService;
 
     @Autowired
+
     private IUserRepository userRepository;
 
     @Autowired
     private IRoleRepository roleRepository;
+
+    @Autowired
+    IUserRepository userRepository;
+
 
     @Autowired
     private ProjectRepository projectRepository;
