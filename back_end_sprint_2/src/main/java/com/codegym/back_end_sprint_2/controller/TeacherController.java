@@ -1,5 +1,6 @@
 package com.codegym.back_end_sprint_2.controller;
 
+import com.codegym.back_end_sprint_2.model.dto.MessageResponse;
 import com.codegym.back_end_sprint_2.model.dto.ProjectTeacherDto;
 import com.codegym.back_end_sprint_2.model.dto.TeacherDto;
 import com.codegym.back_end_sprint_2.model.entities.*;
@@ -81,7 +82,13 @@ public class TeacherController {
     }
 
     @PostMapping("/create-teacher")
-    public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDto teacherDto) throws MessagingException {
+    public ResponseEntity<?> createTeacher(@RequestBody TeacherDto teacherDto) throws MessagingException {
+        List<Teacher> teacherList = teacherService.findAll();
+        for (Teacher teacher: teacherList){
+            if (!teacher.getCode().equals(teacherDto.getCode()) && (teacher.getEmail().equals(teacherDto.getEmail()) || teacher.getPhone().equals(teacherDto.getPhone()))) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Email hoặc số điện thoại đã tồn tại. Vui lòng sử dụng email và số điện thoại khác."));
+            }
+        }
         Teacher teacher = new Teacher();
         transformFromDtoToTeacher(teacher,teacherDto);
         teacher = teacherService.save(teacher);
@@ -95,7 +102,7 @@ public class TeacherController {
         roles.add(roleRepository.findByName(ROLE_TEACHER));
         user.setRoles(roles);
         userRepository.save(user);
-        mailService.sendEmailAccountStudent(user.getUsername(),teacher.getEmail());
+        mailService.sendEmailAccountTeacher(user.getUsername(),teacher.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -113,7 +120,13 @@ public class TeacherController {
     }
 
     @PutMapping("/edit-teacher")
-    public ResponseEntity<Teacher> editTeacher(@RequestBody TeacherDto teacherDto){
+    public ResponseEntity<?> editTeacher(@RequestBody TeacherDto teacherDto){
+        List<Teacher> teacherList = teacherService.findAll();
+        for (Teacher teacher: teacherList){
+            if (!teacher.getCode().equals(teacherDto.getCode()) && (teacher.getEmail().equals(teacherDto.getEmail()) || teacher.getPhone().equals(teacherDto.getPhone()))) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Email hoặc số điện thoại đã tồn tại. Vui lòng sử dụng email và số điện thoại khác."));
+            }
+        }
         Teacher teacher = new Teacher();
         transformFromDtoToTeacher(teacher,teacherDto);
         teacherService.save(teacher);
@@ -157,13 +170,17 @@ public class TeacherController {
         }
     }
 
-    @DeleteMapping("delete/{code}")
-    public  ResponseEntity<?> delete(@PathVariable("code") String code){
-        Teacher teacher = teacherService.findTeacherByCode(code).get();
-        teacher.setEnable(false);
-        teacherService.save(teacher);
-        userRepository.deleteByTeacher_Code(code);
-        return new  ResponseEntity<>(HttpStatus.OK);
+    @DeleteMapping("/delete/{code}")
+    public ResponseEntity<?> delete(@PathVariable("code") String code){
+        try{
+            Teacher teacher = teacherService.findTeacherByCode(code).get();
+            teacher.setEnable(false);
+            teacherService.save(teacher);
+            userRepository.deleteByCodeTeacher(code);
+            return new  ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     private void transformProjectToProjectTeacherDto(Project project, ProjectTeacherDto projectTeacherDto){
