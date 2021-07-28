@@ -20,7 +20,11 @@ public interface StudentService {
 
     Student save(StudentDto studentDto);
     void delete(String code);
+
+    void block(String code);
+
     Student findByStudentCode(String code);
     Student findByEmail(String email);
+
 
 }

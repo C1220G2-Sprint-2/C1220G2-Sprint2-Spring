@@ -36,9 +36,11 @@ public class ConcernController {
         concernDto.setContent(concern.getContent());
         concernDto.setTitle(concern.getTitle());
         concernDto.setStudentCode(concern.getStudentCode());
+        concernDto.setAvatar(concern.getAvatar());
+        concernDto.setName(concern.getName());
         concernService.save(concernDto.getAttachFile(), concernDto.getContent(),
                 concernDto.getTitle(),
-                concernDto.getStudentCode(),concernEnable);
+                concernDto.getStudentCode(),concernDto.getAvatar(),concernDto.getName(), concernEnable);
         return ResponseEntity.ok(new MessageResponse("Thêm mới thành công !"));
     }
 }

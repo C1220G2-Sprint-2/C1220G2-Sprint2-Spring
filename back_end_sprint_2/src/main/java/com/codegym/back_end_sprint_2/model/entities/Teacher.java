@@ -46,9 +46,6 @@ public class Teacher {
     @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Project> projects;
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<AnnounceComment> announceComments;
 
     public Teacher() {
         this.enable = true;
@@ -189,13 +186,5 @@ public class Teacher {
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
-    }
-
-    public List<AnnounceComment> getAnnounceComments() {
-        return announceComments;
-    }
-
-    public void setAnnounceComments(List<AnnounceComment> announceComments) {
-        this.announceComments = announceComments;
     }
 }

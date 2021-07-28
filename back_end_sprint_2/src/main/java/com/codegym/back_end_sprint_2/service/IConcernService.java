@@ -8,5 +8,5 @@ public interface IConcernService {
 
     List<ConcernDto> findAll();
 
-    void save(String attachFile, String content, String title, String studentCode,Byte enable);
+    void save(String attachFile, String content, String title, String studentCode, String avatar, String name,Byte enable);
 }
