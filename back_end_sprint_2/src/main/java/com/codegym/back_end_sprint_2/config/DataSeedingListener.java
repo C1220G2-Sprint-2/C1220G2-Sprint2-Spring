@@ -2,9 +2,6 @@ package com.codegym.back_end_sprint_2.config;
 
 import com.codegym.back_end_sprint_2.model.entities.*;
 import com.codegym.back_end_sprint_2.repositories.CategoryRepository;
-import com.codegym.back_end_sprint_2.repositories.IEducationRepository;
-import com.codegym.back_end_sprint_2.repositories.IFacultyRepository;
-import com.codegym.back_end_sprint_2.repositories.ITeacherRepository;
 import com.codegym.back_end_sprint_2.repository.IRoleRepository;
 import com.codegym.back_end_sprint_2.repository.IUserRepository;
 import com.codegym.back_end_sprint_2.repository.TeamRepository;
