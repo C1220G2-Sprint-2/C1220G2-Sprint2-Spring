@@ -2,7 +2,6 @@ package com.codegym.back_end_sprint_2.controller;
 
 import com.codegym.back_end_sprint_2.model.dto.ConcernDto;
 import com.codegym.back_end_sprint_2.model.dto.MessageResponse;
-import com.codegym.back_end_sprint_2.model.entities.Concern;
 import com.codegym.back_end_sprint_2.service.IConcernService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

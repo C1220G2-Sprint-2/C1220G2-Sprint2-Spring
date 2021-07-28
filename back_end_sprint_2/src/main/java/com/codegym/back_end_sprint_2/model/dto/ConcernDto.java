@@ -1,5 +1,7 @@
 package com.codegym.back_end_sprint_2.model.dto;
 
+import java.time.LocalDateTime;
+
 public class ConcernDto {
 
     private Long id;
@@ -9,11 +11,12 @@ public class ConcernDto {
     private String attachFile;
     private String avatar;
     private String name;
+    private LocalDateTime dateCreate;
 
     public ConcernDto() {
     }
 
-    public ConcernDto(Long id, String title, String content, String studentCode, String attachFile, String avatar, String name) {
+    public ConcernDto(Long id, String title, String content, String studentCode, String attachFile, String avatar, String name, LocalDateTime dateCreate) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -21,6 +24,7 @@ public class ConcernDto {
         this.attachFile = attachFile;
         this.avatar = avatar;
         this.name = name;
+        this.dateCreate = dateCreate;
     }
 
     public Long getId() {
@@ -77,5 +81,13 @@ public class ConcernDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDateTime getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(LocalDateTime dateCreate) {
+        this.dateCreate = dateCreate;
     }
 }

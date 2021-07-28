@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class AnnouncementServiceImpl implements IAnnouncementService {
         for (Announcement announcement : announcementList) {
             announcementDtoList.add(new AnnouncementDto(announcement.getId(),announcement.getTitle(),
                     announcement.getContent(),announcement.getTeacher().getCode(),announcement.getAvatar(),
-                    announcement.getName(),announcement.getAttachFile()));
+                    announcement.getName(),announcement.getAttachFile(), LocalDateTime.now()));
         }
         return announcementDtoList;
     }
