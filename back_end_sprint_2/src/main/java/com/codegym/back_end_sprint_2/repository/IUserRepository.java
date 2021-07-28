@@ -15,6 +15,7 @@ public interface IUserRepository extends JpaRepository<User,Long> {
     Boolean existsByUsername(String username);
     Optional<User> findByStudent_Email(String email);
     Optional<User> findByTeacher_Email(String email);
+    void deleteByTeacher_Code(String code);
 
     @Modifying
     @Transactional
