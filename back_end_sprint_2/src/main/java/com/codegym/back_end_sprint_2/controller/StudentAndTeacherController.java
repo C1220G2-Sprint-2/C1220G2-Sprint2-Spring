@@ -80,6 +80,7 @@ public class StudentAndTeacherController {
             user.setRoles(roles);
             userRepository.save(user);
             mailService.sendEmailAccountStudent(user.getUsername(),student.getEmail());
+
         }
     }
 

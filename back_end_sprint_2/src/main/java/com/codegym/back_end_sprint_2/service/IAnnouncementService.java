@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface IAnnouncementService {
 
-    List<AnnouncementDto> findAll();
+    List<AnnouncementDto> findAll(Long noOfPage);
 
-    void save(String attachFile, String content, String title, String teacherCode, String avatar, String name, Byte enable);
+    void save(AnnouncementDto announcementDto);
+
+    int maxLengthListReview();
 }

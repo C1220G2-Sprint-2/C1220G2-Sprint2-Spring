@@ -3,10 +3,12 @@ package com.codegym.back_end_sprint_2.model.dto;
 public class ProjectDto {
     private Long id;
     private String name;
+    private String teamName;
 
-    public ProjectDto(Long id, String name) {
+    public ProjectDto(Long id, String name,String teamName) {
         this.id = id;
         this.name = name;
+        this.teamName = teamName;
     }
 
     public Long getId() {
@@ -23,5 +25,13 @@ public class ProjectDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
     }
 }

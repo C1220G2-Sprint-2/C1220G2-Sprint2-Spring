@@ -12,4 +12,8 @@ public interface IReviewService {
     Notification findNotificationById(Long id);
 
     List<ReviewDto> findAllReviewDto();
+
+    List<ReviewDto> findAllReviewDto(Long noOfRecord);
+
+    int maxLengthListReview();
 }
