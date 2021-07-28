@@ -9,7 +9,7 @@ public class ReportProgress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private Integer stages;
+    private Integer stage;
     private String fileReport;
     private String content;
     private boolean enable;
@@ -39,12 +39,12 @@ public class ReportProgress {
         this.id = id;
     }
 
-    public Integer getStages() {
-        return stages;
+    public Integer getStage() {
+        return stage;
     }
 
-    public void setStages(Integer stages) {
-        this.stages = stages;
+    public void setStage(Integer stage) {
+        this.stage = stage;
     }
 
     public String getFileReport() {
