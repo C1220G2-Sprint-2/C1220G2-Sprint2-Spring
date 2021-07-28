@@ -2,21 +2,21 @@ package com.codegym.back_end_sprint_2.controller;
 
 import com.codegym.back_end_sprint_2.model.dto.ProgressDto;
 import com.codegym.back_end_sprint_2.model.dto.ProgressStudentDto;
+import com.codegym.back_end_sprint_2.model.dto.ProjectDto;
+import com.codegym.back_end_sprint_2.model.dto.TeacherDto;
 import com.codegym.back_end_sprint_2.model.entities.Student;
+import com.codegym.back_end_sprint_2.model.entities.Teacher;
 import com.codegym.back_end_sprint_2.service.IProgressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/progress")
+@RequestMapping("/api/progress")
 public class ProgressController {
     @Autowired
     private IProgressService progressService;
@@ -30,13 +30,41 @@ public class ProgressController {
         }
     }
 
-    @GetMapping("/student-list")
-    public ResponseEntity<List<ProgressStudentDto>> findAllStudent() {
+    @GetMapping("/student-list-of-group/{projectId}")
+    public ResponseEntity<List<ProgressStudentDto>> findAllStudentOfGroup(@PathVariable("projectId") Long projectId) {
         try {
-            return new ResponseEntity<>(progressService.findAllStudent(), HttpStatus.OK);
+            return new ResponseEntity<>(progressService.findStudentByIdGroup(projectId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @GetMapping("/project/{projectId}")
+    public ResponseEntity<ProjectDto> findProjectById(@PathVariable("projectId") Long projectId) {
+        try {
+            System.out.println(projectId);
+            return new ResponseEntity<>(progressService.findProjectDtoByID(projectId), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/find-teacher/{code}")
+    public ResponseEntity<Teacher> findTeacherByCode(@PathVariable("code") String code) {
+        try {
+            System.out.println(code);
+            return new ResponseEntity<>(progressService.findTeacherByCode(code), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProgressDto>> searchProgress(@RequestParam("projectName") String name) {
+        try {
+            return new ResponseEntity<>(progressService.searchByName(name), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

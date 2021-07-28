@@ -28,10 +28,29 @@ public class ReviewController {
     }
 
     @GetMapping("/review-list")
-    public ResponseEntity<List<Review>> findAllReview() {
+    public ResponseEntity<List<ReviewDto>> findAllReview() {
         try {
-            return new ResponseEntity<>(reviewService.findAllReview(), HttpStatus.OK);
+            return new ResponseEntity<>(reviewService.findAllReviewDto(), HttpStatus.OK);
 
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/review-list/{noOfRecord}")
+    public ResponseEntity<List<ReviewDto>> findAllReview(@PathVariable("noOfRecord") Long noOfRecord) {
+        try {
+            System.out.println("da vao day" + reviewService.findAllReviewDto(noOfRecord).toString());
+            return new ResponseEntity<>(reviewService.findAllReviewDto(noOfRecord), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/review-list-size")
+    public ResponseEntity<?> getMaxSizeReviewList() {
+        try {
+            return new ResponseEntity<>(reviewService.maxLengthListReview(), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

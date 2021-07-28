@@ -1,5 +1,4 @@
 package com.codegym.back_end_sprint_2.service.impl;
-
 import com.codegym.back_end_sprint_2.model.entities.User;
 import com.codegym.back_end_sprint_2.repository.IUserRepository;
 import com.codegym.back_end_sprint_2.service.IUserService;

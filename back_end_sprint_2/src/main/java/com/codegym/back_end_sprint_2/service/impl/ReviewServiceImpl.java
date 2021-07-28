@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +35,31 @@ public class ReviewServiceImpl implements IReviewService {
     }
 
     @Override
-    public List<Review> findAllReview() {
-        return reviewRepository.findAll();
+    public List<ReviewDto> findAllReviewDto() {
+        List<ReviewDto> reviewDtoList = new ArrayList<>();
+        List<Review> reviewList = reviewRepository.findAll();
+        for (Review review : reviewList) {
+            reviewDtoList.add(new ReviewDto(review.getId(),review.getTitle(), review.getContent(), review.getProgressReview(), review.getTeacher().getCode(), review.getDateCreate(), review.getTeacher().getName(),review.getTeacher().getImage()));
+        }
+        return reviewDtoList;
+    }
+
+    @Override
+    public List<ReviewDto> findAllReviewDto(Long noOfPage) {
+        List<ReviewDto> reviewDtoList = new ArrayList<>();
+        List<Review> reviewList = reviewRepository.findAll();
+        int length = 0;
+        for (Review review : reviewList) {
+            if (length == noOfPage) {
+                break;
+            }
+            reviewDtoList.add(new ReviewDto(review.getId(), review.getTitle(), review.getContent(), review.getProgressReview(), review.getTeacher().getCode(), review.getDateCreate(), review.getTeacher().getName(), review.getTeacher().getImage()));
+            length++;
+        }
+        return reviewDtoList;
+    }
+    @Override
+    public int maxLengthListReview() {
+        return reviewRepository.findAll().size();
     }
 }

@@ -1,6 +1,7 @@
 package com.codegym.back_end_sprint_2.model.dto;
 
 public class ProgressDto {
+    private Long idProject;
     private String team;
     private String projectName;
     private int member;
@@ -12,6 +13,21 @@ public class ProgressDto {
         this.team = team;
         this.projectName = projectName;
         this.member = member;
+    }
+
+    public ProgressDto(Long idProject, String team, String projectName, int member) {
+        this.idProject = idProject;
+        this.team = team;
+        this.projectName = projectName;
+        this.member = member;
+    }
+
+    public Long getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(Long idProject) {
+        this.idProject = idProject;
     }
 
     public String getTeam() {
