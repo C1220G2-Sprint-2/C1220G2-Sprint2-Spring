@@ -12,7 +12,7 @@ import java.util.List;
 public interface ITeacherStatisticRepository extends JpaRepository<Teacher, String> {
     @Query(value="select p.teacher_code as teacher_code, t.teacher_name as teacher_name, count(p.teacher_code) as number_of_registers\n" +
             "from project p\n" +
-            "inner join teacher t on (p.teacher_code = t.code)\n" +
+            "inner join teacher t on (p.teacher_code = t.teacher_code)\n" +
             "group by (p.teacher_code)\n" +
             "order by (p.teacher_code);",
             nativeQuery = true)

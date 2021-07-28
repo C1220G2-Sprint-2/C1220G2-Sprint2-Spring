@@ -13,6 +13,7 @@ import java.util.List;
 
 public interface DtoTeamRepository extends JpaRepository<DtoTeam,Long> {
 
+
     @Query(value = "select team.id,team.`name`,team.team_leader,team.enable,project.deadline,project.`status` " +
             "from team " +
             "left join project " +
@@ -25,10 +26,11 @@ public interface DtoTeamRepository extends JpaRepository<DtoTeam,Long> {
     Team saveTeam(Long id);
 
 
-    @Query(value = "select team.id,team.`name`,team.team_leader,team.enable,project.deadline,project.`status` " +
-            "from team " +
-            "left join project " +
-            "on team.id = project.team_id" +
-            " where team.`name` like %?1% or project.deadline like %?1% or team.team_leader like %?1%",nativeQuery = true)
+    @Query(value = "select t.id,t.`name`,t.team_leader,t.`enable`,project.deadline,project.`status` \n" +
+            "            from team t\n " +
+            "            left join project \n " +
+            "            on t.id = project.team_id\n " +
+            " where  t.enable = 1 and (t.`name` like %?1% or project.deadline like %?1% or t.team_leader like %?1%)" +
+            " group by id ",nativeQuery = true)
     List<DtoTeam> searchAll( String search);
 }

@@ -4,7 +4,6 @@ import com.codegym.back_end_sprint_2.model.dto.MessageResponse;
 import com.codegym.back_end_sprint_2.model.dto.ProjectTeacherDto;
 import com.codegym.back_end_sprint_2.model.dto.TeacherDto;
 import com.codegym.back_end_sprint_2.model.entities.*;
-import com.codegym.back_end_sprint_2.repositories.ProjectRepository;
 import com.codegym.back_end_sprint_2.repository.IRoleRepository;
 import com.codegym.back_end_sprint_2.repository.IUserRepository;
 import com.codegym.back_end_sprint_2.service.*;
@@ -34,9 +33,6 @@ public class TeacherController {
 
     @Autowired
     private IRoleRepository roleRepository;
-
-    @Autowired
-    private ProjectRepository projectRepository;
 
     @Autowired
     private IFacultyService facultyService;
