@@ -9,4 +9,9 @@ public interface IReportService {
     ReportProgress save(ReportProgress reportProgress);
 
     List<ReportDto> findAll();
+
+    ReportProgress findById(Long id);
+
+    void updateReport(ReportProgress reportProgress);
+
 }

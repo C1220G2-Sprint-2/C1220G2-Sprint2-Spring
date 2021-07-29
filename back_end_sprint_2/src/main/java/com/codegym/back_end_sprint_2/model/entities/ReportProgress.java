@@ -21,6 +21,9 @@ public class ReportProgress {
     @ManyToOne
     @JoinColumn(name = "notification_id")
     private Notification notification;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public ReportProgress() {
     }
@@ -39,6 +42,14 @@ public class ReportProgress {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -96,4 +107,5 @@ public class ReportProgress {
     public void setNotification(Notification notification) {
         this.notification = notification;
     }
+
 }
