@@ -16,6 +16,6 @@ public interface ICommentReviewRepository extends JpaRepository<ReviewComment, L
     @Transactional
     @Query(value = " INSERT INTO review_comment (content, student_code, avatar, `name`, review_id, date_create) " +
             "VALUE " +
-            "(?1,?2,?3,?4,?5,?6,?7 ) ", nativeQuery = true)
+            "(?1,?2,?3,?4,?5,?6 ) ", nativeQuery = true)
     void saveReviewComment(String content, String studentCode, String avatar, String name, Long reviewId, LocalDateTime dateCreate);
 }

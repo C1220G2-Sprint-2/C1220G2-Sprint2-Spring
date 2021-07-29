@@ -16,6 +16,7 @@ public class ConcernDto {
     private String avatar;
     private String name;
     private LocalDateTime dateCreate;
+    private Long projectId;
 
     public ConcernDto() {
     }
@@ -94,5 +95,13 @@ public class ConcernDto {
 
     public void setDateCreate(LocalDateTime dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }
