@@ -1,34 +1,27 @@
 package com.codegym.back_end_sprint_2.model.dto;
 
-import com.codegym.back_end_sprint_2.model.entities.Concern;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ConcernDto {
+public class ReviewCommentDto {
 
     private Long id;
-    private String title;
     private String content;
     private String studentCode;
-    private String attachFile;
     private String avatar;
     private String name;
+    private Long reviewId;
     private LocalDateTime dateCreate;
 
-    public ConcernDto() {
+    public ReviewCommentDto() {
     }
 
-    public ConcernDto(Long id, String title, String content,
-                      String studentCode, String attachFile, String avatar, String name, LocalDateTime dateCreate) {
+    public ReviewCommentDto(Long id, String content, String studentCode, String avatar, String name, Long reviewId, LocalDateTime dateCreate) {
         this.id = id;
-        this.title = title;
         this.content = content;
         this.studentCode = studentCode;
-        this.attachFile = attachFile;
         this.avatar = avatar;
         this.name = name;
+        this.reviewId = reviewId;
         this.dateCreate = dateCreate;
     }
 
@@ -40,28 +33,12 @@ public class ConcernDto {
         this.id = id;
     }
 
-    public String getAttachFile() {
-        return attachFile;
-    }
-
-    public void setAttachFile(String attachFile) {
-        this.attachFile = attachFile;
-    }
-
     public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getStudentCode() {
@@ -86,6 +63,14 @@ public class ConcernDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Long getReviewId() {
+        return reviewId;
+    }
+
+    public void setReviewId(Long reviewId) {
+        this.reviewId = reviewId;
     }
 
     public LocalDateTime getDateCreate() {

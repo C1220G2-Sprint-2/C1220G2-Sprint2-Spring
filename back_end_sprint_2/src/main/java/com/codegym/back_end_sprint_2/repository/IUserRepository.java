@@ -34,4 +34,9 @@ public interface IUserRepository extends JpaRepository<User,Long> {
     @Transactional
     @Query(value="update users set status = 0 where student_code = ?1 ;", nativeQuery = true)
     void deleteByCodeStudent(String code);
+
+    @Modifying
+    @Transactional
+    @Query(value="update users set status = 0 where teacher_code = ?1 ;", nativeQuery = true)
+    void deleteByCodeTeacher(String code);
 }
