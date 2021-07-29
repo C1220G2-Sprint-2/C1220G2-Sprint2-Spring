@@ -35,6 +35,7 @@ public class ConcernController {
     private String email;
     private String title;
     private String content;
+    private Long projectId;
 
     @GetMapping("/student-concern-list/{noOfRecord}")
     public ResponseEntity<List<ConcernDto>> getListConcernByNo(@PathVariable("noOfRecord") Long noOfRecord) {
@@ -47,6 +48,7 @@ public class ConcernController {
 
     @PostMapping("/student-concern-save")
     public ResponseEntity<MessageResponse> saveConcern(@RequestBody ConcernDto concern) {
+        this.projectId = concern.getProjectId();
         this.title = concern.getTitle();
         this.content = concern.getContent();
         try {
@@ -78,6 +80,7 @@ public class ConcernController {
                 "<h3>Bạn có một thắc mắc đang chờ trả lời từ "+name+":</h3>" +
                 "<h4>"+this.title+"</h4>" +
                 "<h4>"+this.content+"</h4>" +
+                "<a href=\"http://localhost:4200/quan-ly-tien-do/chi-tiet-tien-do/"+this.projectId+"\">Nhấn vào đây để xem</a>" +
                 "    <div style='height: 30px'> </div>\n" +
                 "</div>";
         MimeMessageHelper helper = new MimeMessageHelper(message, multipart, "utf-8");

@@ -10,6 +10,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(columnDefinition = "Mediumtext")
     private String content;
     private String attachFile;
     private boolean enable;
