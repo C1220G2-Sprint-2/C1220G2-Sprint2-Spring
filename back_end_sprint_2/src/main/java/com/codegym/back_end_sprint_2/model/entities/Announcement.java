@@ -3,6 +3,7 @@ package com.codegym.back_end_sprint_2.model.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,17 +16,29 @@ public class Announcement {
     private String content;
     private String attachFile;
     private boolean enable;
+    private String avatar;
+    private String name;
+    private LocalDateTime dateCreate;
     @ManyToOne
     @JoinColumn(name = "teacher_code")
     private Teacher teacher;
     @ManyToOne
     @JoinColumn(name = "notification_id")
     private Notification notification;
-    @OneToMany(mappedBy = "announcement", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<AnnounceComment> announceComments;
+
 
     public Announcement() {
+    }
+
+    public Announcement(String title, String content, String attachFile, boolean enable, String avatar, String name, LocalDateTime dateCreate, Teacher teacher) {
+        this.title = title;
+        this.content = content;
+        this.attachFile = attachFile;
+        this.enable = enable;
+        this.avatar = avatar;
+        this.name = name;
+        this.dateCreate = dateCreate;
+        this.teacher = teacher;
     }
 
     public Long getId() {
@@ -84,11 +97,27 @@ public class Announcement {
         this.notification = notification;
     }
 
-    public List<AnnounceComment> getAnnounceComments() {
-        return announceComments;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setAnnounceComments(List<AnnounceComment> announceComments) {
-        this.announceComments = announceComments;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(LocalDateTime dateCreate) {
+        this.dateCreate = dateCreate;
     }
 }

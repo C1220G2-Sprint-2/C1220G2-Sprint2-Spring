@@ -8,15 +8,12 @@ public class ConcernComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    @ManyToOne
-    @JoinColumn(name = "teacher_code")
-    private Teacher teacher;
-    @ManyToOne
-    @JoinColumn(name = "student_code")
-    private Student student;
-    @ManyToOne
-    @JoinColumn(name = "concern_id")
-    private Concern concern;
+    private String attachFile;
+    private String avatar;
+    private String name;
+    private String teacherCode;
+    private String studentCode;
+    private Long concernId;
 
     public ConcernComment() {
     }
@@ -37,27 +34,51 @@ public class ConcernComment {
         this.content = content;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public String getAttachFile() {
+        return attachFile;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setAttachFile(String attachFile) {
+        this.attachFile = attachFile;
     }
 
-    public Student getStudent() {
-        return student;
+    public String getAvatar() {
+        return avatar;
     }
 
-    public void setStudent(Student student) {
-        this.student = student;
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
-    public Concern getConcern() {
-        return concern;
+    public String getName() {
+        return name;
     }
 
-    public void setConcern(Concern concern) {
-        this.concern = concern;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTeacherCode() {
+        return teacherCode;
+    }
+
+    public void setTeacherCode(String teacherCode) {
+        this.teacherCode = teacherCode;
+    }
+
+    public String getStudentCode() {
+        return studentCode;
+    }
+
+    public void setStudentCode(String studentCode) {
+        this.studentCode = studentCode;
+    }
+
+    public Long getConcernId() {
+        return concernId;
+    }
+
+    public void setConcernId(Long concernId) {
+        this.concernId = concernId;
     }
 }

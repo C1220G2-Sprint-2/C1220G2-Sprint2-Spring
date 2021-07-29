@@ -20,8 +20,18 @@ public class TeacherServiceImpl implements ITeacherService {
     }
 
     @Override
+    public Teacher findByCode(String code) {
+        return teacherRepository.findByCode(code);
+    }
+
+    @Override
     public Teacher save(Teacher teacher) {
         return teacherRepository.save(teacher);
+    }
+
+
+    public Teacher findByName(String name) {
+        return teacherRepository.findByName(name);
     }
 
 
@@ -43,8 +53,14 @@ public class TeacherServiceImpl implements ITeacherService {
     }
 
     @Override
-    public Teacher findByCode(String code) {
-        return teacherRepository.findById(code).orElse(null);
+    public boolean isEmailExist(String email) {
+        return teacherRepository.existsByEmail(email);
     }
+
+    @Override
+    public boolean isPhoneExist(String phone) {
+        return teacherRepository.existsByPhone(phone);
+    }
+
 
 }

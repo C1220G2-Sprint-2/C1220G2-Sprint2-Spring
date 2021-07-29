@@ -8,4 +8,5 @@ public interface IFacultyService {
     List<Faculty> findAll();
 
     Faculty findById(Long id);
+    Faculty findByName(String name);
 }

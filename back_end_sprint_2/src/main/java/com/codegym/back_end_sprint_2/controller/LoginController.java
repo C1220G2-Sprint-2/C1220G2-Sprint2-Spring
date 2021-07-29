@@ -99,7 +99,6 @@ public class LoginController {
         }
     }
 
-
     @GetMapping("/user-reset-password/{email}")
     public ResponseEntity<?> resetPassword(@PathVariable String email) {
         if (email.equals(EMAIL)) {
@@ -130,4 +129,5 @@ public class LoginController {
             e.printStackTrace();
         }
     }
+
 }

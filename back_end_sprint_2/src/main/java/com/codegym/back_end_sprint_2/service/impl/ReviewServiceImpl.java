@@ -1,9 +1,7 @@
 package com.codegym.back_end_sprint_2.service.impl;
 
-import com.codegym.back_end_sprint_2.model.dto.ProgressDto;
 import com.codegym.back_end_sprint_2.model.dto.ReviewDto;
 import com.codegym.back_end_sprint_2.model.entities.Notification;
-import com.codegym.back_end_sprint_2.model.entities.Project;
 import com.codegym.back_end_sprint_2.model.entities.Review;
 import com.codegym.back_end_sprint_2.repositories.INotificationRepository;
 import com.codegym.back_end_sprint_2.repositories.IReviewRepository;
@@ -41,8 +39,27 @@ public class ReviewServiceImpl implements IReviewService {
         List<ReviewDto> reviewDtoList = new ArrayList<>();
         List<Review> reviewList = reviewRepository.findAll();
         for (Review review : reviewList) {
-            reviewDtoList.add(new ReviewDto(review.getTitle(), review.getContent(), review.getProgressReview(), review.getTeacher().getCode(), review.getDateCreate()));
+            reviewDtoList.add(new ReviewDto(review.getId(),review.getTitle(), review.getContent(), review.getProgressReview(), review.getTeacher().getCode(), review.getDateCreate(), review.getTeacher().getName(),review.getTeacher().getImage()));
         }
         return reviewDtoList;
+    }
+
+    @Override
+    public List<ReviewDto> findAllReviewDto(Long noOfPage) {
+        List<ReviewDto> reviewDtoList = new ArrayList<>();
+        List<Review> reviewList = reviewRepository.findAllByOrderByDateCreateDesc();
+        int length = 0;
+        for (Review review : reviewList) {
+            if (length == noOfPage) {
+                break;
+            }
+            reviewDtoList.add(new ReviewDto(review.getId(), review.getTitle(), review.getContent(), review.getProgressReview(), review.getTeacher().getCode(), review.getDateCreate(), review.getTeacher().getName(), review.getTeacher().getImage()));
+            length++;
+        }
+        return reviewDtoList;
+    }
+    @Override
+    public int maxLengthListReview() {
+        return reviewRepository.findAll().size();
     }
 }

@@ -1,5 +1,6 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -19,7 +20,9 @@ public class Student {
     private String address;
     private String image;
     private String facebook;
-    private double groupStatus;
+    @JsonProperty("groupStatus")
+
+    private Double groupStatus;
     private boolean enable;
     private boolean status;
     @ManyToOne
@@ -36,6 +39,26 @@ public class Student {
 
     public Student() {
     }
+
+
+    public Student(String code, String name, String phone, String gender, String dateOfBirth, String email, String address, String image, String facebook, Double groupStatus, boolean enable, boolean status, Team team, Faculty faculty, Class aClass) {
+        this.code = code;
+        this.name = name;
+        this.phone = phone;
+        this.gender = gender;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.address = address;
+        this.image = image;
+        this.facebook = facebook;
+        this.groupStatus = groupStatus;
+        this.enable = enable;
+        this.status = status;
+        this.team = team;
+        this.faculty = faculty;
+        this.aClass = aClass;
+    }
+
 
     public Class getaClass() {
         return aClass;
@@ -124,11 +147,11 @@ public class Student {
         this.facebook = facebook;
     }
 
-    public double getGroupStatus() {
+    public Double getGroupStatus() {
         return groupStatus;
     }
 
-    public void setGroupStatus(double groupStatus) {
+    public void setGroupStatus(Double groupStatus) {
         this.groupStatus = groupStatus;
     }
 
