@@ -1,13 +1,18 @@
 package com.codegym.back_end_sprint_2.controller;
 
+import com.codegym.back_end_sprint_2.config.MailConfig;
 import com.codegym.back_end_sprint_2.model.entities.*;
+import com.codegym.back_end_sprint_2.repositories.IProjectRepository;
 import com.codegym.back_end_sprint_2.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,6 +31,15 @@ public class ProjectController {
     private IProjectService projectService;
     @Autowired
     private IMailService mailService;
+    @Autowired
+    private ProjectService iProjectService;
+    @Autowired
+    private IProjectRepository projectRepository;
+    @Autowired
+    private ITeamService teamService;
+    @Autowired
+    private JavaMailSender mailSender;
+//    @Autowired ProjectService
 
     @GetMapping("/listStudent")
     public ResponseEntity<List<Student>> listMeetingRoom() {
@@ -79,12 +93,63 @@ public class ProjectController {
         mailService.emailToTeacher(newProject);
         return new ResponseEntity<>(newProject, HttpStatus.CREATED);
     }
-
     @GetMapping("/findByTeam")
     public ResponseEntity<Project> findByTeam(@RequestParam(value = "teamId") Long id) {
         Project project = projectService.findByTeam(id);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 
+// Code a Phuc ------------------------------------------------------------
 
+    @GetMapping()
+    public List<Project> getListProject() {
+        return iProjectService.findAll();
+    }
+    @GetMapping("/detail/{id}")
+    public Project findById(@PathVariable Long id){
+        return iProjectService.findById(id);
+    }
+    @PutMapping("/{id}")
+    public void delete(@PathVariable Long id, @RequestBody Project project) {
+        iProjectService.delete(false, id);
+    }
+    @GetMapping("/approve")
+    public List<Project> getListProjectApprove() {
+        return projectRepository.findAllApprove();
+    }
+    @PutMapping("approve/{id}")
+    public void approveProject(@PathVariable Long id, @RequestBody Project project) throws MessagingException {
+        iProjectService.approveProject(true, id);
+        System.out.println(project.getTeam().getId());
+        String[] email = teamService.findStudentGroupById(project.getTeam().getId());
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        boolean multipart = true;
+        String htmlMsg = "Đề tài của bạn được phê duyệt";
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, multipart, "utf-8");
+        mimeMessage.setContent(htmlMsg, "text/html; charset=UTF-8");
+        helper.setTo(email);
+        helper.addCc(MailConfig.FRIEND_EMAIL);
+        helper.setSubject("Đề tài của bạn đã được phê duyệt");
+        this.mailSender.send(mimeMessage);
+    }
+    @PutMapping("notApprove/{id}")
+    public void notApproveProject(@PathVariable Long id, @RequestBody Project project) throws MessagingException {
+        iProjectService.notApproveProject(false, id);
+        System.out.println(project.getTeam().getId());
+        String[] email = teamService.findStudentGroupById(project.getTeam().getId());
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        boolean multipart = true;
+        String htmlMsg = "Đề tài của bạn không được phê duyệt";
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, multipart, "utf-8");
+        mimeMessage.setContent(htmlMsg, "text/html; charset=UTF-8");
+        helper.setTo(email);
+        helper.addCc(MailConfig.FRIEND_EMAIL);
+        helper.setSubject("Đề tài của bạn không được phê duyệt");
+        this.mailSender.send(mimeMessage);
+    }
+    @GetMapping("/search/{keyword}")
+    public List<Project> listSearch(@PathVariable String keyword){
+        return iProjectService.searchProject(keyword);
+    }
+// Code a Phuc ------------------------------------------------------------
 }

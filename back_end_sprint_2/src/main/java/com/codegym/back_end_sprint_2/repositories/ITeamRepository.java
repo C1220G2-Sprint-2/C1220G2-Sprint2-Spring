@@ -25,6 +25,7 @@ public interface ITeamRepository extends JpaRepository<Team, Long> {
     void deleteTeamById(Long id);
 
 
+
     @Query(value = "select student.email from team right join student on team.id = student.group_id where team.id =?1",nativeQuery = true)
     String[] findStudentGroupById(Long id);
 }
