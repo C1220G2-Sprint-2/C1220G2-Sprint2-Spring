@@ -6,6 +6,7 @@ import com.codegym.back_end_sprint_2.model.dto.PasswordDto;
 import com.codegym.back_end_sprint_2.model.entities.User;
 import com.codegym.back_end_sprint_2.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*", maxAge = 3600)
 @RequestMapping(value = "/api")
-@PreAuthorize("hasRole('ROLE_STUDENT') or hasRole('ROLE_ADMIN') or hasRole('ROLE_TEACHER')")
+
 public class UserController {
     @Autowired
     IUserService userService;
@@ -25,15 +26,20 @@ public class UserController {
 //    change password
     @PatchMapping("/user-change-password/{userCode}")
     @ResponseBody
-    public ResponseEntity<MessageResponse> changeUserPassword(@PathVariable("userCode") String userCode, @RequestBody PasswordDto passwordDto) {
-        String oldPassword = passwordDto.getOldPassword();
-        String newPassword = passwordDto.getNewPassword();
-        User user = userService.findByUsername(userCode);
-        if (!userPasswordCheck(oldPassword, user)) {
-            return ResponseEntity.badRequest().body(new MessageResponse("Mật khẩu cũ không đúng. Vui lòng nhập lại."));
-        } else {
-            userService.updateUserPassword(encoder.encode(newPassword), userCode);
-            return ResponseEntity.ok(new MessageResponse("Đổi mật khẩu thành công"));
+    @PreAuthorize("hasRole('ROLE_STUDENT') or hasRole('ROLE_ADMIN') or hasRole('ROLE_TEACHER')")
+    public ResponseEntity<?> changeUserPassword(@PathVariable("userCode") String userCode, @RequestBody PasswordDto passwordDto) {
+        try{
+            String oldPassword = passwordDto.getOldPassword();
+            String newPassword = passwordDto.getNewPassword();
+            User user = userService.findByUsername(userCode);
+            if (!userPasswordCheck(oldPassword, user)) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Mật khẩu cũ không đúng. Vui lòng nhập lại."));
+            } else {
+                userService.updateUserPassword(encoder.encode(newPassword), userCode);
+                return ResponseEntity.ok(new MessageResponse("Đổi mật khẩu thành công"));
+            }
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(HttpStatus.ACCEPTED);
         }
     }
     public boolean userPasswordCheck(String password, User user) {
@@ -41,10 +47,5 @@ public class UserController {
         String encodedPassword = user.getPassword();
         return passEncoder.matches(password, encodedPassword);
     }
-    @GetMapping("/hello")
-    public  String hello (){
-        return "hello";
-    }
-
 
 }
