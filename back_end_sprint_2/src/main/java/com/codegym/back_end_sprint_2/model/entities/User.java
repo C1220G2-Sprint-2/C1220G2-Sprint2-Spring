@@ -1,6 +1,9 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,7 +32,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
-
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<ReportProgress> reportProgress;
     public User() {
     }
 
