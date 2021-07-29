@@ -134,7 +134,7 @@ public class ProjectController {
     }
     @PutMapping("notApprove/{id}")
     public void notApproveProject(@PathVariable Long id, @RequestBody Project project) throws MessagingException {
-        iProjectService.notApproveProject(false, id);
+        projectService.deleteById( id);
         System.out.println(project.getTeam().getId());
         String[] email = teamService.findStudentGroupById(project.getTeam().getId());
         MimeMessage mimeMessage = mailSender.createMimeMessage();
