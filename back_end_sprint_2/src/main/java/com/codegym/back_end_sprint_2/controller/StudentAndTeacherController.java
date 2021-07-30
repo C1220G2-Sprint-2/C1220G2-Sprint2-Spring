@@ -1,11 +1,8 @@
 package com.codegym.back_end_sprint_2.controller;
 
-import com.codegym.back_end_sprint_2.dto.StudentDto;
 import com.codegym.back_end_sprint_2.model.dto.StudentCreateDto;
 import com.codegym.back_end_sprint_2.model.dto.TeacherCreateDto;
-import com.codegym.back_end_sprint_2.model.dto.TeacherDto;
 import com.codegym.back_end_sprint_2.model.entities.*;
-import com.codegym.back_end_sprint_2.repositories.IEducationRepository;
 import com.codegym.back_end_sprint_2.repository.*;
 import com.codegym.back_end_sprint_2.service.*;
 import com.codegym.back_end_sprint_2.ulti.MailService;
@@ -63,8 +60,6 @@ public class StudentAndTeacherController {
             student.setImage("");
             student.setPhone(students.getPhone());
             student.setStatus(true);
-            System.out.println(students.getaClass());
-            System.out.println(students.getFaculty());
             student.setaClass(classRepository.findByName(students.getaClass()));
             student.setFaculty(facultyRepository.findByName(students.getFaculty()));
             student.setTeam(teamRepository.findById(1L).orElse(null));

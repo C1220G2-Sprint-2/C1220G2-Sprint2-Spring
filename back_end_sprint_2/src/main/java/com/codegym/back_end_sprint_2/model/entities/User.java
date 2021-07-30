@@ -32,6 +32,7 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     @JsonBackReference
     private List<ReportProgress> reportProgress;
