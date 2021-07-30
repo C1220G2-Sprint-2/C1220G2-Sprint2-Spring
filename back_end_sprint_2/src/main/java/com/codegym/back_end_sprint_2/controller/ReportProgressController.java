@@ -54,7 +54,6 @@ public class ReportProgressController {
         if (reportProgress == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        System.out.println(reportDto);
         reportProgress.setId(id);
         reportProgress.setName(reportDto.getName());
         reportProgress.setStage(reportDto.getStage());
@@ -64,7 +63,6 @@ public class ReportProgressController {
         reportProgress.setDateCreate(LocalDateTime.now());
         reportProgress.setProject(projectService.findById(reportDto.getProjectId()));
         reportProgress.setUser(userService.findUserById(reportDto.getUserId()));
-        System.out.println(reportProgress + "hello");
         reportService.save(reportProgress);
         return new ResponseEntity<>(HttpStatus.OK);
     }
