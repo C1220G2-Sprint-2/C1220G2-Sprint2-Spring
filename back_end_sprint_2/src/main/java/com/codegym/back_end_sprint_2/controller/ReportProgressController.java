@@ -1,6 +1,8 @@
 package com.codegym.back_end_sprint_2.controller;
 
+import com.codegym.back_end_sprint_2.model.dto.HistoryDto;
 import com.codegym.back_end_sprint_2.model.dto.ReportDto;
+import com.codegym.back_end_sprint_2.model.entities.ReportHistory;
 import com.codegym.back_end_sprint_2.model.entities.ReportProgress;
 import com.codegym.back_end_sprint_2.repositories.IReportHistoryRepository;
 import com.codegym.back_end_sprint_2.service.IReportService;
@@ -36,13 +38,23 @@ public class ReportProgressController {
         }
     }
 
+    @GetMapping("/list-history")
+    public ResponseEntity<List<HistoryDto>> getAllReportHistory() {
+        return new ResponseEntity<>(reportService.findAllReportHistory(), HttpStatus.OK);
+    }
+
+    @GetMapping("/list-history/{id}")
+    public ResponseEntity<List<ReportHistory>> getAllHistoryByReportId(@PathVariable Long id) {
+        return new ResponseEntity<>(reportService.findAllReportHistoryByReportId(id), HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<ReportProgress> updateReport(@PathVariable Long id, @RequestBody ReportDto reportDto) {
         ReportProgress reportProgress = reportService.findById(id);
-        System.out.println(reportDto + "hello");
         if (reportProgress == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+        System.out.println(reportDto);
         reportProgress.setId(id);
         reportProgress.setName(reportDto.getName());
         reportProgress.setStage(reportDto.getStage());
@@ -52,6 +64,7 @@ public class ReportProgressController {
         reportProgress.setDateCreate(LocalDateTime.now());
         reportProgress.setProject(projectService.findById(reportDto.getProjectId()));
         reportProgress.setUser(userService.findUserById(reportDto.getUserId()));
+        System.out.println(reportProgress + "hello");
         reportService.save(reportProgress);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -60,4 +73,6 @@ public class ReportProgressController {
     public ReportProgress findById(@PathVariable Long id) {
         return reportService.findById(id);
     }
+
+
 }
