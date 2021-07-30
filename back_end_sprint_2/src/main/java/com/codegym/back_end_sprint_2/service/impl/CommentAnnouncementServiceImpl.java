@@ -9,6 +9,7 @@ import com.codegym.back_end_sprint_2.service.ICommentAnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +25,15 @@ public class CommentAnnouncementServiceImpl implements ICommentAnnouncementServi
         List<AnnounceComment> announceCommentList = commentAnnouncementRepository.findAll();
         for (AnnounceComment announceComment : announceCommentList) {
             announcementCommentDtoList.add(new AnnouncementCommentDto(announceComment.getContent(),announceComment.getAttachFile(),announceComment.getTeacherCode(),
-                    announceComment.getStudentCode(),announceComment.getAvatar(),announceComment.getName(),announceComment.getAnnouncementId()));
+                    announceComment.getStudentCode(),announceComment.getAvatar(),announceComment.getName(),announceComment.getAnnouncementId(),announceComment.getDateCreate()));
         }
         return announcementCommentDtoList;
     }
 
     @Override
-    public void saveCommentConcern(String content, Long announcementId, String studentCode, String teacherCode, String attachFile, String avatar, String name) {
-        commentAnnouncementRepository.saveCommentConcern(content, announcementId,studentCode,teacherCode,attachFile,avatar,name);
+    public void saveCommentConcern(AnnouncementCommentDto announcementCommentDto) {
+        commentAnnouncementRepository.save(new AnnounceComment(announcementCommentDto.getContent(),announcementCommentDto.getAttachFile(),
+                announcementCommentDto.getAvatar(),announcementCommentDto.getName(),announcementCommentDto.getTeacherCode(),
+                announcementCommentDto.getStudentCode(),announcementCommentDto.getAnnouncementId(),LocalDateTime.now()));
     }
 }

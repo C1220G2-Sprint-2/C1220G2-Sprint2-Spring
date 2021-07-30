@@ -15,6 +15,7 @@ public interface IUserRepository extends JpaRepository<User,Long> {
     Boolean existsByUsername(String username);
     Optional<User> findByStudent_Email(String email);
     Optional<User> findByTeacher_Email(String email);
+    void deleteByTeacher_Code(String code);
 
     @Modifying
     @Transactional
@@ -33,4 +34,9 @@ public interface IUserRepository extends JpaRepository<User,Long> {
     @Transactional
     @Query(value="update users set status = 0 where student_code = ?1 ;", nativeQuery = true)
     void deleteByCodeStudent(String code);
+
+    @Modifying
+    @Transactional
+    @Query(value="update users set status = 0 where teacher_code = ?1 ;", nativeQuery = true)
+    void deleteByCodeTeacher(String code);
 }

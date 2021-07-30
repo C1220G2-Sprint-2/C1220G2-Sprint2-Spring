@@ -33,4 +33,9 @@ public class UserServiceImpl implements IUserService {
     public User findByUsername(String name) {
         return iUserRepository.findByUsername(name).orElse(null);
     }
+
+    @Override
+    public User findUserById(Long id) {
+        return iUserRepository.findById(id).orElse(null);
+    }
 }

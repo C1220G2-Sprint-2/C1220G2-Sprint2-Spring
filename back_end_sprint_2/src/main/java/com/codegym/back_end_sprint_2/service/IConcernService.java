@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface IConcernService {
 
-    List<ConcernDto> findAll();
+    List<ConcernDto> findAll(Long noOfPage);
 
-    void save(String attachFile, String content, String title, String studentCode, String avatar, String name,Byte enable);
+    void save(ConcernDto concernDto);
+
+    int maxLengthListReview();
+
+    String getTeacherCode(String studentCode);
 }

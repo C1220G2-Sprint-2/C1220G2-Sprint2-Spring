@@ -1,6 +1,10 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class ReportProgress {
@@ -13,14 +17,38 @@ public class ReportProgress {
     private String fileReport;
     private String content;
     private boolean enable;
+    private LocalDateTime dateCreate;
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
     @ManyToOne
     @JoinColumn(name = "notification_id")
     private Notification notification;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(mappedBy = "reportProgress", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<ReportHistory> reportHistories;
 
     public ReportProgress() {
+    }
+
+    public List<ReportHistory> getReportHistories() {
+        return reportHistories;
+    }
+
+    public void setReportHistories(List<ReportHistory> reportHistories) {
+        this.reportHistories = reportHistories;
+    }
+
+    public LocalDateTime getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(LocalDateTime dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
     public String getName() {
@@ -29,6 +57,14 @@ public class ReportProgress {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -85,5 +121,22 @@ public class ReportProgress {
 
     public void setNotification(Notification notification) {
         this.notification = notification;
+    }
+
+    @Override
+    public String toString() {
+        return "ReportProgress{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", stage=" + stage +
+                ", fileReport='" + fileReport + '\'' +
+                ", content='" + content + '\'' +
+                ", enable=" + enable +
+                ", dateCreate=" + dateCreate +
+                ", project=" + project +
+                ", notification=" + notification +
+                ", user=" + user +
+                ", reportHistories=" + reportHistories +
+                '}';
     }
 }

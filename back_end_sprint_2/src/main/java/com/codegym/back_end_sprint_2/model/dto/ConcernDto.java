@@ -1,6 +1,10 @@
 package com.codegym.back_end_sprint_2.model.dto;
 
+import com.codegym.back_end_sprint_2.model.entities.Concern;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConcernDto {
 
@@ -12,11 +16,13 @@ public class ConcernDto {
     private String avatar;
     private String name;
     private LocalDateTime dateCreate;
+    private Long projectId;
 
     public ConcernDto() {
     }
 
-    public ConcernDto(Long id, String title, String content, String studentCode, String attachFile, String avatar, String name, LocalDateTime dateCreate) {
+    public ConcernDto(Long id, String title, String content,
+                      String studentCode, String attachFile, String avatar, String name, LocalDateTime dateCreate) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -89,5 +95,13 @@ public class ConcernDto {
 
     public void setDateCreate(LocalDateTime dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 }

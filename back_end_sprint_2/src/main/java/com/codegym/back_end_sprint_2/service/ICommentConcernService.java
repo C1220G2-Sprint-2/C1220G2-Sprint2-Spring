@@ -8,5 +8,7 @@ public interface ICommentConcernService {
 
     List<ConcernCommentDto> findAll();
 
-    void saveCommentConcern(String content, Long concernId, String studentCode, String teacherCode,String attachFile, String avatar, String name);
+    void saveCommentConcern(ConcernCommentDto concernCommentDto);
+
+    String getStudentEmail(Long concernId);
 }

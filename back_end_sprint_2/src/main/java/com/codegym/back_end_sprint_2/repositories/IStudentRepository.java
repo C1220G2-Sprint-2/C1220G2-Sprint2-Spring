@@ -12,7 +12,8 @@ import java.util.Optional;
 
 @Repository
 public interface IStudentRepository extends JpaRepository<Student,String> {
-    public Student findByCode(String code);
+
+    Student findByCode(String code);
 
     @Query(value = " select *\n" +
             "from student\n" +

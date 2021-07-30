@@ -1,6 +1,7 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class AnnounceComment {
@@ -15,8 +16,21 @@ public class AnnounceComment {
     private String teacherCode;
     private String studentCode;
     private Long announcementId;
+    private LocalDateTime dateCreate;
 
     public AnnounceComment() {
+    }
+
+    public AnnounceComment(String content, String attachFile, String avatar, String name,
+                           String teacherCode, String studentCode, Long announcementId, LocalDateTime dateCreate) {
+        this.content = content;
+        this.attachFile = attachFile;
+        this.avatar = avatar;
+        this.name = name;
+        this.teacherCode = teacherCode;
+        this.studentCode = studentCode;
+        this.announcementId = announcementId;
+        this.dateCreate = dateCreate;
     }
 
     public Long getId() {
@@ -81,5 +95,13 @@ public class AnnounceComment {
 
     public void setAnnouncementId(Long announcementId) {
         this.announcementId = announcementId;
+    }
+
+    public LocalDateTime getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(LocalDateTime dateCreate) {
+        this.dateCreate = dateCreate;
     }
 }

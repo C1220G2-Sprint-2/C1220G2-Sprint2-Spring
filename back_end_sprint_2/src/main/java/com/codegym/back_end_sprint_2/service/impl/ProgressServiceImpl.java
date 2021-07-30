@@ -75,7 +75,7 @@ public class ProgressServiceImpl implements IProgressService {
     public ProjectDto findProjectDtoByID(Long id) {
         Project project = projectRepository.findById(id).orElse(null);
         assert project != null;
-        return new ProjectDto(project.getId(), project.getName());
+        return new ProjectDto(project.getId(), project.getName(),project.getTeam().getName());
     }
 
     @Override

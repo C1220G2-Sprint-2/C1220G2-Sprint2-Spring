@@ -22,4 +22,9 @@ public class EducationServiceImpl implements IEducationService {
     public Education findById(Long id) {
         return educationRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Education findByName(String name) {
+        return educationRepository.findByName(name);
+    }
 }

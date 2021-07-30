@@ -25,6 +25,8 @@ public interface ITeacherService {
 //     CongNT code
     Teacher findByEmail(String email);
 
+    boolean isEmailExist(String email);
 
+    boolean isPhoneExist(String phone);
 
 }

@@ -22,4 +22,9 @@ public class FacultyServiceImpl implements IFacultyService {
     public Faculty findById(Long id) {
         return facultyRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Faculty findByName(String name) {
+        return facultyRepository.findByName(name);
+    }
 }

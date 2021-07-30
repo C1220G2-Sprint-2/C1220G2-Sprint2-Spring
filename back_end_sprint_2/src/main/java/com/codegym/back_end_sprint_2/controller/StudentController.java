@@ -56,6 +56,11 @@ public class StudentController {
     return studentService.listSearch(keyword);
     }
 
+    @GetMapping("/student")
+    public List<Student> findAllStudent(){
+        return studentService.findAllJpa();
+    }
+
     @PostMapping()
     public void create(@RequestBody StudentDto studentDto) throws MessagingException {
 

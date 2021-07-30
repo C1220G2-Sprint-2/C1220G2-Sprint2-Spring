@@ -47,7 +47,7 @@ public class ReviewServiceImpl implements IReviewService {
     @Override
     public List<ReviewDto> findAllReviewDto(Long noOfPage) {
         List<ReviewDto> reviewDtoList = new ArrayList<>();
-        List<Review> reviewList = reviewRepository.findAll();
+        List<Review> reviewList = reviewRepository.findAllByOrderByDateCreateDesc();
         int length = 0;
         for (Review review : reviewList) {
             if (length == noOfPage) {

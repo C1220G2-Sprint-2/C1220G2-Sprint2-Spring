@@ -39,6 +39,7 @@ public interface ITeacherRepository extends JpaRepository<Teacher,String> {
             "OR faculties.faculty_name like %?1%) ", nativeQuery = true)
     List<Teacher> searchTeacher(String keyWord);
 
-
+    Boolean existsByEmail(String email);
+    Boolean existsByPhone(String phone);
 }
 

@@ -13,7 +13,7 @@ public interface StudentService {
     List<StudentDto> listSearch(String keyword);
 
 
-    public Student findByCode(String code);
+     Student findByCode(String code);
 
     Student save(Student student);
 

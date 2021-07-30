@@ -10,6 +10,7 @@ public class Concern {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(columnDefinition = "Mediumtext")
     private String content;
     private String attachFile;
     private boolean enable;
@@ -27,6 +28,18 @@ public class Concern {
     private Teacher teacher;
 
     public Concern() {
+    }
+
+    public Concern(String title, String content, String attachFile, boolean enable, String avatar, String name,
+                   LocalDateTime dateCreate, Student student) {
+        this.title = title;
+        this.content = content;
+        this.attachFile = attachFile;
+        this.enable = enable;
+        this.avatar = avatar;
+        this.name = name;
+        this.dateCreate = dateCreate;
+        this.student = student;
     }
 
     public Long getId() {
