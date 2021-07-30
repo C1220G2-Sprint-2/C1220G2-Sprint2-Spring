@@ -10,17 +10,19 @@ public class HistoryDto {
     private String content;
     private LocalDateTime dateCreate;
     private String avatar;
+    private String fileReport;
 
     public HistoryDto() {
     }
 
-    public HistoryDto(Long id, String nameUser, String name, String content, LocalDateTime dateCreate, String avatar) {
+    public HistoryDto(Long id, String nameUser, String name, String content, LocalDateTime dateCreate, String avatar, String fileReport) {
         this.id = id;
         this.nameUser = nameUser;
         this.name = name;
         this.content = content;
         this.dateCreate = dateCreate;
         this.avatar = avatar;
+        this.fileReport = fileReport;
     }
 
     public String getName() {
