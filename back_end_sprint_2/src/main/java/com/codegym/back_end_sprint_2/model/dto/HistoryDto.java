@@ -1,46 +1,34 @@
-package com.codegym.back_end_sprint_2.model.entities;
+package com.codegym.back_end_sprint_2.model.dto;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-public class ReportHistory {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class HistoryDto {
     private Long id;
 
     private String nameUser;
     private String name;
     private String content;
     private LocalDateTime dateCreate;
+    private String avatar;
 
-
-    @ManyToOne
-    @JoinColumn(name = "report_progress_id")
-    private ReportProgress reportProgress;
-
-    public ReportHistory() {
+    public HistoryDto() {
     }
 
-    public ReportHistory( String nameUser, String name, String content, LocalDateTime dateCreate, ReportProgress reportProgress) {
+    public HistoryDto(Long id, String nameUser, String name, String content, LocalDateTime dateCreate, String avatar) {
+        this.id = id;
         this.nameUser = nameUser;
         this.name = name;
         this.content = content;
         this.dateCreate = dateCreate;
-        this.reportProgress = reportProgress;
+        this.avatar = avatar;
     }
 
     public String getName() {
         return name;
     }
 
-    public ReportProgress getReportProgress() {
-        return reportProgress;
-    }
-
-
-    public void setReportProgress(ReportProgress reportProgress) {
-        this.reportProgress = reportProgress;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -73,5 +61,13 @@ public class ReportHistory {
 
     public void setDateCreate(LocalDateTime dateCreate) {
         this.dateCreate = dateCreate;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }
