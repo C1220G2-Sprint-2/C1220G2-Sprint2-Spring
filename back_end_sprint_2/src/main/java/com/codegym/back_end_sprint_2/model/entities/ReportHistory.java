@@ -13,6 +13,7 @@ public class ReportHistory {
     private String name;
     private String content;
     private LocalDateTime dateCreate;
+    private String fileReport;
 
 
     @ManyToOne
@@ -22,12 +23,25 @@ public class ReportHistory {
     public ReportHistory() {
     }
 
-    public ReportHistory( String nameUser, String name, String content, LocalDateTime dateCreate, ReportProgress reportProgress) {
+    public ReportHistory( String nameUser, String name, String content, LocalDateTime dateCreate, ReportProgress reportProgress, String fileReport) {
         this.nameUser = nameUser;
         this.name = name;
         this.content = content;
         this.dateCreate = dateCreate;
         this.reportProgress = reportProgress;
+        this.fileReport = fileReport;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getFileReport() {
+        return fileReport;
+    }
+
+    public void setFileReport(String fileReport) {
+        this.fileReport = fileReport;
     }
 
     public String getName() {

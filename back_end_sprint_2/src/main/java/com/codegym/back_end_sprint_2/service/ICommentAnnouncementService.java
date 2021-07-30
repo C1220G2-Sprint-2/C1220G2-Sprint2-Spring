@@ -8,5 +8,5 @@ public interface ICommentAnnouncementService {
 
     List<AnnouncementCommentDto> findAll();
 
-    void saveCommentConcern(String content, Long announcementId, String studentCode, String teacherCode,String attachFile,String avatar, String name);
+    void saveCommentConcern(AnnouncementCommentDto announcementCommentDto);
 }

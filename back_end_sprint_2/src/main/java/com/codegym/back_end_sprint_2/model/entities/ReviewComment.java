@@ -22,6 +22,15 @@ public class ReviewComment {
     public ReviewComment() {
     }
 
+    public ReviewComment(String content, String studentCode, String avatar, String name, Long reviewId, LocalDateTime dateCreate) {
+        this.content = content;
+        this.studentCode = studentCode;
+        this.avatar = avatar;
+        this.name = name;
+        this.reviewId = reviewId;
+        this.dateCreate = dateCreate;
+    }
+
     public Long getId() {
         return id;
     }

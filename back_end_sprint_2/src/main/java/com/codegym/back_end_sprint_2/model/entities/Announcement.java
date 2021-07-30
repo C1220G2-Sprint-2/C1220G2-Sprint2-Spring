@@ -1,10 +1,7 @@
 package com.codegym.back_end_sprint_2.model.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 public class Announcement {
@@ -13,6 +10,7 @@ public class Announcement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
+    @Column(columnDefinition = "Mediumtext")
     private String content;
     private String attachFile;
     private boolean enable;
