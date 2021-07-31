@@ -11,17 +11,35 @@ public class HistoryDto {
     private LocalDateTime dateCreate;
     private String avatar;
     private String fileReport;
+    private Integer stage;
 
     public HistoryDto() {
     }
 
-    public HistoryDto(Long id, String nameUser, String name, String content, LocalDateTime dateCreate, String avatar, String fileReport) {
+    public HistoryDto(Long id, String nameUser, String name, String content, LocalDateTime dateCreate, String avatar, String fileReport, Integer stage) {
         this.id = id;
         this.nameUser = nameUser;
         this.name = name;
         this.content = content;
         this.dateCreate = dateCreate;
         this.avatar = avatar;
+        this.fileReport = fileReport;
+        this.stage = stage;
+    }
+
+    public Integer getStage() {
+        return stage;
+    }
+
+    public void setStage(Integer stage) {
+        this.stage = stage;
+    }
+
+    public String getFileReport() {
+        return fileReport;
+    }
+
+    public void setFileReport(String fileReport) {
         this.fileReport = fileReport;
     }
 
