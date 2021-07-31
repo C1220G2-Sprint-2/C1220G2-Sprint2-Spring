@@ -14,6 +14,7 @@ public class ReportHistory {
     private String content;
     private LocalDateTime dateCreate;
     private String fileReport;
+    private Integer stage;
 
 
     @ManyToOne
@@ -23,13 +24,22 @@ public class ReportHistory {
     public ReportHistory() {
     }
 
-    public ReportHistory( String nameUser, String name, String content, LocalDateTime dateCreate, ReportProgress reportProgress, String fileReport) {
+    public ReportHistory(String nameUser, String name, String content, LocalDateTime dateCreate, ReportProgress reportProgress, String fileReport, Integer stage) {
         this.nameUser = nameUser;
         this.name = name;
         this.content = content;
         this.dateCreate = dateCreate;
         this.reportProgress = reportProgress;
         this.fileReport = fileReport;
+        this.stage = stage;
+    }
+
+    public Integer getStage() {
+        return stage;
+    }
+
+    public void setStage(Integer stage) {
+        this.stage = stage;
     }
 
     public void setName(String name) {
