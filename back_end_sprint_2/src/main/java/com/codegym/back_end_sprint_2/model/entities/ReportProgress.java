@@ -35,6 +35,19 @@ public class ReportProgress {
     public ReportProgress() {
     }
 
+    public ReportProgress(String name, Integer stage, String fileReport, String content, boolean enable,
+                          LocalDateTime dateCreate, Project project, User user, List<ReportHistory> reportHistories) {
+        this.name = name;
+        this.stage = stage;
+        this.fileReport = fileReport;
+        this.content = content;
+        this.enable = enable;
+        this.dateCreate = dateCreate;
+        this.project = project;
+        this.user = user;
+        this.reportHistories = reportHistories;
+    }
+
     public List<ReportHistory> getReportHistories() {
         return reportHistories;
     }

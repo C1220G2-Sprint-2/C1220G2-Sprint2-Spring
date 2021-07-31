@@ -1,7 +1,6 @@
 package com.codegym.back_end_sprint_2.service.impl;
 
 
-
 import com.codegym.back_end_sprint_2.model.entities.Student;
 import com.codegym.back_end_sprint_2.model.entities.Team;
 import com.codegym.back_end_sprint_2.model.entities.TeamDto;
@@ -46,7 +45,7 @@ public class ITeamServiceImpl implements ITeamService {
 
     @Override
     public Team saveTeam(Long id) {
-         return dtoTeamRepository.saveTeam(id);
+        return dtoTeamRepository.saveTeam(id);
     }
 
     @Override
@@ -65,12 +64,12 @@ public class ITeamServiceImpl implements ITeamService {
     }
 
 
-
     public Team teamMapping(TeamDto teamDto) {
-        Team team= new Team();
+        Team team = new Team();
         team.setEnable(true);
         team.setName(teamDto.getName());
         team.setTeamLeader(teamDto.getTeamLeader());
+        team.setNoOfMember(teamDto.getListTeam().size());
         return team;
     }
 
@@ -78,7 +77,6 @@ public class ITeamServiceImpl implements ITeamService {
     public List<Student> searchTeamRegistration(String search) {
         return studentRepository.searchTeamRegistration(search);
     }
-
 
 
     public String[] findStudentGroupById(Long id) {

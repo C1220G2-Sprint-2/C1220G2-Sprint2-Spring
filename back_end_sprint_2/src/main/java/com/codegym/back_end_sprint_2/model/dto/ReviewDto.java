@@ -1,5 +1,7 @@
 package com.codegym.back_end_sprint_2.model.dto;
+
 import java.time.LocalDateTime;
+
 public class ReviewDto {
     private Long id;
     private String title;
@@ -9,6 +11,8 @@ public class ReviewDto {
     private LocalDateTime dateCreate;
     private String teacherName;
     private String avatar;
+    private String backgroundColor;
+
     public ReviewDto(Long id, String title, String content, Integer progressReview, String teacherCode, LocalDateTime dateCreate, String teacherName, String avatar) {
         this.id = id;
         this.title = title;
@@ -18,6 +22,13 @@ public class ReviewDto {
         this.dateCreate = dateCreate;
         this.teacherName = teacherName;
         this.avatar = avatar;
+        if (this.progressReview <= 25) {
+            this.backgroundColor = "red";
+        } else if (this.progressReview <= 80) {
+            this.backgroundColor = "blue";
+        } else {
+            this.backgroundColor = "green";
+        }
     }
 
     public Long getId() {
@@ -28,45 +39,66 @@ public class ReviewDto {
         this.id = id;
     }
 
+    public String getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(String backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public String getContent() {
         return content;
     }
+
     public void setContent(String content) {
         this.content = content;
     }
+
     public Integer getProgressReview() {
         return progressReview;
     }
+
     public void setProgressReview(Integer progressReview) {
         this.progressReview = progressReview;
     }
+
     public String getTeacherCode() {
         return teacherCode;
     }
+
     public void setTeacherCode(String teacherCode) {
         this.teacherCode = teacherCode;
     }
+
     public LocalDateTime getDateCreate() {
         return dateCreate;
     }
+
     public void setDateCreate(LocalDateTime dateCreate) {
         this.dateCreate = dateCreate;
     }
+
     public String getTeacherName() {
         return teacherName;
     }
+
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
     }
+
     public String getAvatar() {
         return avatar;
     }
+
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }

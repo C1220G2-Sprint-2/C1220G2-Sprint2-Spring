@@ -67,7 +67,6 @@ public class TeamController {
          } else {
              student.setGroupStatus(0.5);
          }
-
             studentService.save(student);
             mailService.emailTeam(student, teamResponse);
         }

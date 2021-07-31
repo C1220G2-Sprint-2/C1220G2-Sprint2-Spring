@@ -23,17 +23,17 @@ public class Team {
     private List<Project> projects;
     private Integer noOfMember;
 
-
     public Team() {
     }
 
-    public Team(Long id, String name, String teamLeader, boolean enable, List<Student> students, List<Project> projects) {
+    public Team(Long id, String name, String teamLeader, boolean enable, List<Student> students, List<Project> projects, Integer noOfMember) {
         this.id = id;
         this.name = name;
         this.teamLeader = teamLeader;
         this.enable = enable;
         this.students = students;
         this.projects = projects;
+        this.noOfMember = students.size();
     }
 
     public Team(Long id, String name, String teamLeader, boolean enable) {
