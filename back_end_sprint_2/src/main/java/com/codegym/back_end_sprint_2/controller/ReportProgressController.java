@@ -55,15 +55,9 @@ public class ReportProgressController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         System.out.println(reportDto);
-        reportProgress.setId(id);
-        reportProgress.setName(reportDto.getName());
         reportProgress.setStage(reportDto.getStage());
-        reportProgress.setFileReport(reportDto.getFileReport());
         reportProgress.setContent(reportDto.getContent());
-        reportProgress.setEnable(true);
-        reportProgress.setDateCreate(LocalDateTime.now());
-        reportProgress.setProject(projectService.findById(reportDto.getProjectId()));
-        reportProgress.setUser(userService.findUserById(reportDto.getUserId()));
+        reportProgress.setFileReport(reportDto.getFileReport());
         System.out.println(reportProgress + "hello");
         reportService.save(reportProgress);
         return new ResponseEntity<>(HttpStatus.OK);

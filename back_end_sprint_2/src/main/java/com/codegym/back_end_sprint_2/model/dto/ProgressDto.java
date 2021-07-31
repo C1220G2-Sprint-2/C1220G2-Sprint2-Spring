@@ -4,6 +4,7 @@ public class ProgressDto {
     private Long idProject;
     private String team;
     private String projectName;
+    private String teacherName;
     private int member;
 
     public ProgressDto() {
@@ -19,6 +20,14 @@ public class ProgressDto {
         this.idProject = idProject;
         this.team = team;
         this.projectName = projectName;
+        this.member = member;
+    }
+
+    public ProgressDto(Long idProject, String team, String projectName, String teacherName, int member) {
+        this.idProject = idProject;
+        this.team = team;
+        this.projectName = projectName;
+        this.teacherName = teacherName;
         this.member = member;
     }
 
@@ -52,6 +61,14 @@ public class ProgressDto {
 
     public void setMember(int member) {
         this.member = member;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     @Override

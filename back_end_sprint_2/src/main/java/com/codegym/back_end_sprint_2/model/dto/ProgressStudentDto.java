@@ -5,12 +5,21 @@ public class ProgressStudentDto {
     private String phone;
     private String email;
     private String avatar;
+    private String teacherName;
 
     public ProgressStudentDto(String name, String phone, String email, String avatar) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.avatar = avatar;
+    }
+
+    public ProgressStudentDto(String name, String phone, String email, String avatar, String teacherName) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.avatar = avatar;
+        this.teacherName = teacherName;
     }
 
     public String getName() {
@@ -43,6 +52,14 @@ public class ProgressStudentDto {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     @Override
