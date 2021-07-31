@@ -4,11 +4,13 @@ public class ProjectDto {
     private Long id;
     private String name;
     private String teamName;
+    private String teacherName;
 
-    public ProjectDto(Long id, String name,String teamName) {
+    public ProjectDto(Long id, String name, String teamName, String teacherName) {
         this.id = id;
         this.name = name;
         this.teamName = teamName;
+        this.teacherName = teacherName;
     }
 
     public Long getId() {
@@ -29,6 +31,14 @@ public class ProjectDto {
 
     public String getTeamName() {
         return teamName;
+    }
+
+    public String getTeacherName() {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName) {
+        this.teacherName = teacherName;
     }
 
     public void setTeamName(String teamName) {

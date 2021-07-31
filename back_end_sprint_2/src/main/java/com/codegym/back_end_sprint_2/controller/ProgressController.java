@@ -1,9 +1,7 @@
 package com.codegym.back_end_sprint_2.controller;
 
-import com.codegym.back_end_sprint_2.model.dto.ProgressDto;
-import com.codegym.back_end_sprint_2.model.dto.ProgressStudentDto;
-import com.codegym.back_end_sprint_2.model.dto.ProjectDto;
-import com.codegym.back_end_sprint_2.model.dto.TeacherDto;
+import com.codegym.back_end_sprint_2.model.dto.*;
+import com.codegym.back_end_sprint_2.model.entities.Progress;
 import com.codegym.back_end_sprint_2.model.entities.Student;
 import com.codegym.back_end_sprint_2.model.entities.Teacher;
 import com.codegym.back_end_sprint_2.service.IProgressService;
@@ -63,6 +61,15 @@ public class ProgressController {
     public ResponseEntity<List<ProgressDto>> searchProgress(@RequestParam("projectName") String name) {
         try {
             return new ResponseEntity<>(progressService.searchByName(name), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/list-progress/{projectId}")
+    public ResponseEntity<List<PhaseDto>> getProgressOfProject(@PathVariable("projectId") int projectId) {
+        try {
+            return new ResponseEntity<>(progressService.findProgressByProject(projectId), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

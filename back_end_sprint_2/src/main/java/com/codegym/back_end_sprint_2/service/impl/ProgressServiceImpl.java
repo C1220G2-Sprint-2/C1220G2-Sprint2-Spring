@@ -1,14 +1,13 @@
 package com.codegym.back_end_sprint_2.service.impl;
 
 import com.codegym.back_end_sprint_2.dto.StudentDto;
+import com.codegym.back_end_sprint_2.model.dto.PhaseDto;
 import com.codegym.back_end_sprint_2.model.dto.ProgressDto;
 import com.codegym.back_end_sprint_2.model.dto.ProgressStudentDto;
 import com.codegym.back_end_sprint_2.model.dto.ProjectDto;
-import com.codegym.back_end_sprint_2.model.entities.Project;
-import com.codegym.back_end_sprint_2.model.entities.Student;
-import com.codegym.back_end_sprint_2.model.entities.Teacher;
-import com.codegym.back_end_sprint_2.model.entities.Team;
+import com.codegym.back_end_sprint_2.model.entities.*;
 import com.codegym.back_end_sprint_2.repositories.ITeacherRepository;
+import com.codegym.back_end_sprint_2.repositories.ProgressRepository;
 import com.codegym.back_end_sprint_2.repositories.ProjectRepository;
 import com.codegym.back_end_sprint_2.repository.StudentRepository;
 import com.codegym.back_end_sprint_2.service.IProgressService;
@@ -26,13 +25,15 @@ public class ProgressServiceImpl implements IProgressService {
     private StudentRepository studentRepository;
     @Autowired
     private ITeacherRepository teacherRepository;
+    @Autowired
+    private ProgressRepository progressRepository;
 
     @Override
     public List<ProgressDto> findAll() {
         List<ProgressDto> progressDtoList = new ArrayList<>();
         List<Project> projectList = projectRepository.findAll();
         for (Project project : projectList) {
-            progressDtoList.add(new ProgressDto(project.getId(), project.getTeam().getName(), project.getName(), project.getTeam().getNoOfMember()));
+            progressDtoList.add(new ProgressDto(project.getId(), project.getTeam().getName(), project.getName(), project.getTeacher().getName(), project.getTeam().getNoOfMember()));
         }
         return progressDtoList;
     }
@@ -75,7 +76,7 @@ public class ProgressServiceImpl implements IProgressService {
     public ProjectDto findProjectDtoByID(Long id) {
         Project project = projectRepository.findById(id).orElse(null);
         assert project != null;
-        return new ProjectDto(project.getId(), project.getName(),project.getTeam().getName());
+        return new ProjectDto(project.getId(), project.getName(), project.getTeam().getName(), project.getTeacher().getName());
     }
 
     @Override
@@ -83,4 +84,24 @@ public class ProgressServiceImpl implements IProgressService {
         return teacherRepository.findByCode(code);
     }
 
+    @Override
+    public List<PhaseDto> findProgressByProject(int projectId) {
+        List<Progress> progressList = progressRepository.getByProjectId(projectId);
+        List<PhaseDto> phaseDtos = new ArrayList<>();
+        for (Progress progress :
+                progressList) {
+            phaseDtos.add(new PhaseDto(progress.getId(), progress.getName(), progress.getDateStart(), progress.getDateEnd(), progress.getStatus(), progress.getStage(), progress.isEnable(), progress.getProjectId()));
+        }
+        return phaseDtos;
+    }
+
+    @Override
+    public Progress findByStatus(int projectId) {
+        return progressRepository.findByStatusAndProjectId("Đang tiến hành", projectId);
+    }
+
+    @Override
+    public Progress findById(Long id) {
+        return progressRepository.findById(id).orElse(null);
+    }
 }
