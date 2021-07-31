@@ -27,7 +27,7 @@ public class ReportServiceImpl implements IReportService {
     public ReportProgress save(ReportProgress reportProgress) {
         historyRepository.save(new ReportHistory(studentRepository.findByCode(reportProgress.getUser().getUsername()).getCode(),
                 studentRepository.findByCode(reportProgress.getUser().getUsername()).getName(),
-                reportProgress.getContent(), reportProgress.getDateCreate(), iReportRepository.findById(reportProgress.getId()).orElse(null), reportProgress.getFileReport()));
+                reportProgress.getContent(), reportProgress.getDateCreate(), iReportRepository.findById(reportProgress.getId()).orElse(null), reportProgress.getFileReport(), reportProgress.getStage()));
 
         return iReportRepository.save(reportProgress);
     }
@@ -57,9 +57,11 @@ public class ReportServiceImpl implements IReportService {
     public List<HistoryDto> findAllReportHistory() {
         List<HistoryDto> historyDtos = new ArrayList<>();
         List<ReportHistory> reportHistories = historyRepository.findAll();
+
         for (ReportHistory reportHistory : reportHistories) {
             historyDtos.add(new HistoryDto(reportHistory.getId(), reportHistory.getNameUser(), reportHistory.getName(), reportHistory.getContent(), reportHistory.getDateCreate(),
-                    studentRepository.findByCode(reportHistory.getNameUser()).getImage(), reportHistory.getFileReport()));
+                    studentRepository.findByCode(reportHistory.getNameUser()).getImage(), reportHistory.getFileReport(), reportHistory.getStage()));
+
         }
         return historyDtos;
     }
