@@ -24,6 +24,7 @@ public class Project {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
     @ManyToOne
     @JoinColumn(name = "teacher_code")
     private Teacher teacher;
