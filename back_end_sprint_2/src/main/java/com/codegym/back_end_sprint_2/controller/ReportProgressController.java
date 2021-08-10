@@ -54,7 +54,7 @@ public class ReportProgressController {
         if (reportProgress == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
+        reportProgress.setContent(reportDto.getContent());
         reportProgress.setEnable(true);
         reportProgress.setDateCreate(LocalDateTime.now());
         reportProgress.setProject(projectService.findById(reportDto.getProjectId()));
